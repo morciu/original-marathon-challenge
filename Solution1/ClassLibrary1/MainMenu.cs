@@ -24,15 +24,7 @@ namespace ClassLibrary1
             while (true)
             {
                 string? input = Console.ReadLine();
-                if (input == "1")
-                {
-                    return input;
-                }
-                if (input == "2")
-                {
-                    return input;
-                }
-                if (input == "0")
+                if (input == "1" || input == "2" || input == "0")
                 {
                     return input;
                 }
