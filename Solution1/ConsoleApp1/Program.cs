@@ -1,7 +1,10 @@
 ﻿using ClassLibrary1;
 
+// Set up menus
+MainMenu mainMenu = new MainMenu();
+
 // Show Main Menu
-MainMenu.DisplayIntroMenu();
+mainMenu.DisplayMenu();
 
 // Check user input
-Console.WriteLine(MainMenu.GetInput());
+Console.WriteLine(mainMenu.GetInput());
