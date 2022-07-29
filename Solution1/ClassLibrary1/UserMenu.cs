@@ -18,7 +18,7 @@ namespace ClassLibrary1
             }
             else
             {
-                Console.WriteLine("1.Register activity\n2.Check Marathon progress\n0.Exit");
+                Console.WriteLine("1.Register run activity\n2.Check Marathon progress\n0.Exit");
             }
         }
 
@@ -41,7 +41,17 @@ namespace ClassLibrary1
 
         public void SwitchMenu(string input, ref IMenu menu)
         {
-            throw new NotImplementedException();
+            if (UserManager.currentUser.activity == null)
+            {
+                if (input == "1") { UserManager.currentUser.activity = new Marathon(); }
+                else if (input == "2") { UserManager.currentUser.activity = new SharedPrivateMarathon(); }
+            }
+            else
+            {
+                if (input == "1") { menu = new RegisterRunActivity(); }
+
+                else if (input == "2") { menu = new MarathonProgressMenu(); }
+            }
         }
     }
 }
