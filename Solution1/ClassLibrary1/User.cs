@@ -6,24 +6,28 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    internal class User
+    public class User
     {
-        private int _id;
-        private string _firstName;
-        private string _lastName;
-        private string _userName;
+        public int ID { get; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
         private string _password;
-        private string _totalDistance;
+        public string TotalDistance { get; }
 
         public User(int id, string firstName, string lastName, string userName, string password)
         {
-            _id = id;
-            _firstName = firstName;
-            _lastName = lastName;
-            _userName = userName;
+            ID = id;
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
             _password = password;
         }
 
+        // Properties
+      /*  public int Id { get { return _id; } }
+        public string FirstName { get { return _firstName; } }
+*/
         public void RunActivity()
         {
             throw new NotImplementedException();

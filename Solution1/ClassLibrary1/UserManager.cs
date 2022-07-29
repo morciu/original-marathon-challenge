@@ -4,9 +4,11 @@
     {
         public static int NrOfUsers;
 
-        public static void CreateUser(string firstName, string lastName, string userName, string password)
+        public static User CreateUser(string firstName, string lastName, string userName, string password)
         {
-
+            // Increment nr. of users
+            NrOfUsers++;
+            return new User(NrOfUsers, firstName, lastName, userName, password);
         }
     }
 }
