@@ -10,22 +10,32 @@ namespace ClassLibrary1
     {
         public void DisplayMenu()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please enter User Name and Password");
         }
 
         public string GetInput()
         {
-            throw new NotImplementedException();
+            Console.Write("User Name: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+
+            return $"{username},{password}";
         }
 
         public string GetState()
         {
-            throw new NotImplementedException();
+            return "userLogInMenu";
         }
 
         public void SwitchMenu(string input, ref IMenu menu)
         {
-            throw new NotImplementedException();
+            string[] inputFields = input.Split(',');
+            if (UserManager.ValidateUser(inputFields[0], inputFields[1]))
+            {
+                menu = new UserMenu();
+            }
         }
     }
 }

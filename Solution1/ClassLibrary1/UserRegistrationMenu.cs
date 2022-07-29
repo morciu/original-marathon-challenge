@@ -32,7 +32,9 @@ namespace ClassLibrary1
 
         public void SwitchMenu(string input, ref IMenu menu)
         {
-            throw new NotImplementedException();
+            string[] inputFields = input.Split(',');
+            UserManager.currentUser = UserManager.CreateUser(inputFields[0], inputFields[1], inputFields[2], inputFields[3]);
+            menu = new UserMenu();
         }
 
         public string GetState()

@@ -6,6 +6,9 @@ IMenu currentMenu = new MainMenu();
 // Set up User Input
 string userInput;
 
+// Add default user
+UserManager.CreateUser("Marian", "Pralea", "marian", "1234");
+
 // Main Flow
 while (true)
 {

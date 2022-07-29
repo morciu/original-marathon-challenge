@@ -23,6 +23,11 @@ namespace ClassLibrary1
             UserName = userName;
             _password = password;
         }
+
+        public bool ValidatePassword(string passwordInput)
+        {
+            return _password == passwordInput ? true : false;
+        }
         public void RunActivity()
         {
             throw new NotImplementedException();
