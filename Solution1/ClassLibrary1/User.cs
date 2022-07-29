@@ -23,11 +23,6 @@ namespace ClassLibrary1
             UserName = userName;
             _password = password;
         }
-
-        // Properties
-      /*  public int Id { get { return _id; } }
-        public string FirstName { get { return _firstName; } }
-*/
         public void RunActivity()
         {
             throw new NotImplementedException();

@@ -30,5 +30,17 @@ namespace ClassLibrary1
                 }
             }
         }
+
+        public string GetState()
+        {
+            return "mainMenu";
+        }
+
+        public void SwitchMenu(string input, ref IMenu menu)
+        {
+            if (input == "1") { menu = new UserRegistrationMenu(); }
+            else if (input == "2") { menu = new UserLogInMenu(); }
+            else if (input == "0") { Environment.Exit(0); }
+        }
     }
 }

@@ -2,13 +2,15 @@
 {
     public static class UserManager
     {
-        public static int NrOfUsers;
+        private static int _nrOfUsers ;
 
         public static User CreateUser(string firstName, string lastName, string userName, string password)
         {
             // Increment nr. of users
-            NrOfUsers++;
-            return new User(NrOfUsers, firstName, lastName, userName, password);
+            _nrOfUsers++;
+            return new User(_nrOfUsers, firstName, lastName, userName, password);
         }
+
+        public static int NrOfUsers { get; }
     }
 }

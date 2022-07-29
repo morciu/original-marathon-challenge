@@ -1,13 +1,16 @@
 ﻿using ClassLibrary1;
 
 // Set up menus
-MainMenu mainMenu = new MainMenu();
+IMenu currentMenu = new MainMenu();
 
-// Show Main Menu
-mainMenu.DisplayMenu();
+// Set up User Input
+string userInput;
 
-// Check user input
-Console.WriteLine(mainMenu.GetInput());
-
-User user = UserManager.CreateUser("Marian", "Pralea", "marian", "1234");
-Console.WriteLine($"User {user.UserName}\nid: {user.ID}\nfull name: {user.FirstName} {user.LastName}");
+// Main Flow
+while (true)
+{
+    currentMenu.DisplayMenu();
+    userInput = currentMenu.GetInput();
+    currentMenu.SwitchMenu(userInput, ref currentMenu);
+    Console.WriteLine(currentMenu.GetState());
+}
