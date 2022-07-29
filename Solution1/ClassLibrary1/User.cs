@@ -14,6 +14,7 @@ namespace ClassLibrary1
         public string UserName { get; set; }
         private string _password;
         public string TotalDistance { get; }
+        public Marathon activity;
 
         public User(int id, string firstName, string lastName, string userName, string password)
         {
@@ -33,9 +34,14 @@ namespace ClassLibrary1
             throw new NotImplementedException();
         }
 
+        public void StartMarathon()
+        {
+            activity = new Marathon();
+        }
+
         public void StartSharedMarathon()
         {
-            throw new NotImplementedException();
+            activity = new SharedPrivateMarathon();
         }
     }
 }

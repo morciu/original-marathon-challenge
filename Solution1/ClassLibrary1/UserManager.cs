@@ -19,16 +19,15 @@
 
         public static bool ValidateUser(string username, string password)
         {
-            for (int i = 0; i < users.Count; i++)
+            foreach (var user in users)
             {
-                if (username == users[i].UserName && users[i].ValidatePassword(password))
+                if (username == user.UserName && user.ValidatePassword(password))
                 {
+                    currentUser = user;
                     return true;
                 }
             }
             return false;
         }
-
-        public static int NrOfUsers { get; }
     }
 }

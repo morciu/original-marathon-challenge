@@ -10,12 +10,28 @@ namespace ClassLibrary1
     {
         public void DisplayMenu()
         {
-            Console.WriteLine("User Menu");
+            Console.WriteLine("\nUser Menu\n");
+            Console.WriteLine($"Current User: {UserManager.currentUser.UserName}");
+            if (UserManager.currentUser.activity == null)
+            {
+                Console.WriteLine("1.Start Marathon\n2.Start Shared Marathon with another user\n0.Exit");
+            }
+            else
+            {
+                Console.WriteLine("1.Register activity\n2.Check Marathon progress\n0.Exit");
+            }
         }
 
         public string GetInput()
         {
-            throw new NotImplementedException();
+            while (true)
+            {
+                string? input = Console.ReadLine();
+                if (input == "1" || input == "2" || input == "0")
+                {
+                    return input;
+                }
+            }
         }
 
         public string GetState()
