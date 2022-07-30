@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary1
+﻿using ClassLibrary1.Menu;
+
+namespace ClassLibrary1
 {
     internal class RegisterRunActivity : IMenu
     {
@@ -10,12 +12,12 @@
         public string GetInput()
         {
             Console.Write("Distance(km): ");
-            string username = Console.ReadLine();
+            string distance = Console.ReadLine();
 
             Console.Write("Time(H:m:s): ");
-            string password = Console.ReadLine();
+            string time = Console.ReadLine();
 
-            return $"{username},{password}";
+            return $"{distance},{time}";
         }
 
         public string GetState()

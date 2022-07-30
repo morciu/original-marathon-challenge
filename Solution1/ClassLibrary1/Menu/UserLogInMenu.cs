@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ClassLibrary1.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace ClassLibrary1.Menu
 {
     internal class UserLogInMenu : IMenu
     {
@@ -15,11 +16,30 @@ namespace ClassLibrary1
 
         public string GetInput()
         {
-            Console.Write("User Name: ");
-            string username = Console.ReadLine();
+            string? username;
+            string? password;
+            try
+            {
+                Console.Write("User Name: ");
+                username = Console.ReadLine();
+                InputValidator.ValidateInput(username);
+                InputValidator.ValidateInputLength(username);
+            }
+            catch (InvalidInputException)
+            {
+                throw;
+            }
+            catch (InvalidInputLengthException ex)
+            {
+                throw new Exception("Input Length exception occured", ex);
+            }
+            finally
+            {
+                Console.WriteLine("validation ended");
+            }
 
             Console.Write("Password: ");
-            string password = Console.ReadLine();
+            password = Console.ReadLine();
 
             return $"{username},{password}";
         }
