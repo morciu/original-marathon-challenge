@@ -1,6 +1,7 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Menu;
 using System.Diagnostics;
+using System.IO;
 
 // Set up menus
 IMenu currentMenu = new MainMenu();
@@ -8,11 +9,12 @@ IMenu currentMenu = new MainMenu();
 // Set up User Input
 string userInput;
 
-// Add default users
-UserManager.CreateUser("Marian", "Pralea", "marian", "1234");
-UserManager.CreateUser("Someone", "McSomeone", "someone", "1234");
 
-// Main Flow
+
+// Load registered users
+UserManager.LoadRegisteredUsers();
+
+// Testing Input
 while (true)
 {
     currentMenu.DisplayMenu();
