@@ -26,13 +26,9 @@
             {
                 Directory.CreateDirectory(registeredUserPath);
             }
-            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.txt");
-            if (!File.Exists(registeredUsers))
-            {
-                fileStream = File.Create(registeredUsers);
-            }
-
-            using(var sw = new StreamWriter(registeredUsers, true))
+            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
+            
+            using (var sw = new StreamWriter(registeredUsers, true))
             {
                 sw.WriteLine($"{users.Count + 1},{firstName},{lastName},{userName},{password}");
             }
@@ -40,7 +36,7 @@
         public static void LoadRegisteredUsers()
         {
             var registeredUserPath = Path.Combine(Directory.GetCurrentDirectory(), "Registered Users");
-            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.txt");
+            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
             if (File.Exists(registeredUsers))
             {
                 using(var sr = new StreamReader(registeredUsers))
