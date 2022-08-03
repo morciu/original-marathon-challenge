@@ -1,6 +1,6 @@
-﻿using ClassLibrary1.Menu;
+﻿using Domain.Menu;
 
-namespace ClassLibrary1
+namespace Domain
 {
     internal class RegisterRunActivity : IMenu
     {

@@ -1,11 +1,11 @@
-﻿using ClassLibrary1.Exceptions;
+﻿using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Menu
+namespace Domain.Menu
 {
     internal class UserLogInMenu : IMenu
     {

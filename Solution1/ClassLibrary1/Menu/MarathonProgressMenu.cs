@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary1.Menu
+﻿using Domain;
+
+namespace Domain.Menu
 {
     internal class MarathonProgressMenu : IMenu
     {

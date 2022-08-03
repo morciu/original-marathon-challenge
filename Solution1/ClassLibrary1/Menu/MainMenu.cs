@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Menu
+namespace Domain.Menu
 {
     public class MainMenu : IMenu
     {

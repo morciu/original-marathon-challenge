@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Activities\" />
+    <Folder Include="Users\Commands\DeleteUser\" />
+    <Folder Include="Users\Queries\GetUsersList\" />
+    <Folder Include="Users\Queries\GetUserById\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,33 @@
-﻿using ClassLibrary1;
-using ClassLibrary1.Menu;
+﻿using Domain;
+using Domain.Menu;
+using Infrastructure;
 using System.Diagnostics;
-using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using Application;
+using Application.Users.Commands.CreateUser;
+using MediatR;
+
+// Building Container
+var diContainer = new ServiceCollection()
+    .AddScoped<IUserRepository, InMemoryUserRepository>()
+    .AddScoped<IActivityRepository, InMemoryActivityRepository>()
+    .AddMediatR(typeof(IUserRepository))
+    .BuildServiceProvider();
+
+// Get mediator
+var mediator = diContainer.GetRequiredService<IMediator>();
+
+// Create a new user through the mediator
+var userId = await mediator.Send(new CreateUserCommand
+{
+    Id = 5,
+    FirstName = "SomeFirstName",
+    LastName = "SomeLastName",
+    UserName = "SomeUserName",
+    Password = "SomePassWord"
+});
+
+Console.WriteLine(userId);
 
 // Set up menus
 IMenu currentMenu = new MainMenu();

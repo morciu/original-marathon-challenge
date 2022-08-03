@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary1
+﻿namespace Domain
 {
     public static class UserManager
     {
@@ -27,7 +27,7 @@
                 Directory.CreateDirectory(registeredUserPath);
             }
             var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
-            
+
             using (var sw = new StreamWriter(registeredUsers, true))
             {
                 sw.WriteLine($"{users.Count + 1},{firstName},{lastName},{userName},{password}");
@@ -39,13 +39,14 @@
             var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
             if (File.Exists(registeredUsers))
             {
-                using(var sr = new StreamReader(registeredUsers))
+                using (var sr = new StreamReader(registeredUsers))
                 {
                     while (true)
                     {
                         var userInfo = sr.ReadLine();
-                        if(userInfo == null) {
-                            break; 
+                        if (userInfo == null)
+                        {
+                            break;
                         }
                         string[] infoArray = userInfo.Split(",");
 
