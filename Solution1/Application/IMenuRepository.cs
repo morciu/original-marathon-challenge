@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Domain.Menu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain;
 
 namespace Application
 {
-    public interface IUserRepository
+    public interface IMenuRepository
     {
-        void CreateUser(User user);
-        User GetUser(int userId);
+        public IMenu? GetMenu(int menuId);
     }
 }

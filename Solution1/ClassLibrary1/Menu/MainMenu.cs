@@ -43,4 +43,9 @@ namespace Domain.Menu
             else if (input == "0") { Environment.Exit(0); }
         }
     }
+   /* public enum Menu
+    {
+        UserRegistration,
+        UserLogInMenu,
+    }*/
 }

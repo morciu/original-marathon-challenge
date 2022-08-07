@@ -5,20 +5,25 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Application;
 using Application.Users.Commands.CreateUser;
+using Application.Users.Queries.GetUser;
+using Application.Menus.Queries.GetMenu;
 using MediatR;
 
 // Building Container
 var diContainer = new ServiceCollection()
     .AddScoped<IUserRepository, InMemoryUserRepository>()
     .AddScoped<IActivityRepository, InMemoryActivityRepository>()
+    .AddScoped<IMenuRepository, InMemoryMenuRepository>()
     .AddMediatR(typeof(IUserRepository))
+    .AddMediatR(typeof(IActivityRepository))
+    .AddMediatR(typeof(IMenuRepository))
     .BuildServiceProvider();
 
 // Get mediator
 var mediator = diContainer.GetRequiredService<IMediator>();
 
 // Create a new user through the mediator
-var userId = await mediator.Send(new CreateUserCommand
+var user = await mediator.Send(new CreateUserCommand
 {
     Id = 5,
     FirstName = "SomeFirstName",
@@ -27,15 +32,26 @@ var userId = await mediator.Send(new CreateUserCommand
     Password = "SomePassWord"
 });
 
-Console.WriteLine(userId);
+Console.WriteLine(user.Id);
+Console.WriteLine(user.FirstName);
+Console.WriteLine(user.UserName);
+Console.WriteLine(user.LastName);
+
+var firstUser = await mediator.Send(new GetUserQueryCommand
+{
+    Id = 1
+});
+
+Console.WriteLine($"\nFirst User: {firstUser.UserName}\n");
 
 // Set up menus
-IMenu currentMenu = new MainMenu();
+IMenu currentMenu = await mediator.Send(new GetMenuCommand
+{
+    Id = 1
+});
 
 // Set up User Input
 string userInput;
-
-
 
 // Load registered users
 UserManager.LoadRegisteredUsers();

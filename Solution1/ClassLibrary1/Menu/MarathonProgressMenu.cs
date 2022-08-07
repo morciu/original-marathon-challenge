@@ -2,7 +2,7 @@
 
 namespace Domain.Menu
 {
-    internal class MarathonProgressMenu : IMenu
+    public class MarathonProgressMenu : IMenu
     {
         public void DisplayMenu()
         {

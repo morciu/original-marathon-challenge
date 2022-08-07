@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Menu
 {
-    internal class UserLogInMenu : IMenu
+    public class UserLogInMenu : IMenu
     {
         public void DisplayMenu()
         {

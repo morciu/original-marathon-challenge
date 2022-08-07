@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -18,7 +18,6 @@
     <Folder Include="Activities\" />
     <Folder Include="Users\Commands\DeleteUser\" />
     <Folder Include="Users\Queries\GetUsersList\" />
-    <Folder Include="Users\Queries\GetUserById\" />
   </ItemGroup>
 
 </Project>
