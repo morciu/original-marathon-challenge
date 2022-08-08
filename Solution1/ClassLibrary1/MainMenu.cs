@@ -8,15 +8,15 @@ namespace ClassLibrary1
 {
     public class MainMenu : IMenu
     {
-        private const string title = "Run The Original Marathon!";
-        private const string introMsg = "\nDuring the Battle of Marathon, according to Herodotus, an Athenian runner named Pheidippides was sent to run from Athens to Sparta to ask for assistance before the battle. \nHe ran a distance of over 225 kilometers (140 miles), arriving in Sparta the day after he left.\nRecreate this distance in real life, at your own pace and in as many runs as you can.";
-        private const string mainMenuOptions = "\nOptions:\n1. Create New User\n2. Log in with existing User\n0. Exit\n";
+        private const string _title = "Run The Original Marathon!";
+        private const string _introMsg = "\nDuring the Battle of Marathon, according to Herodotus, an Athenian runner named Pheidippides was sent to run from Athens to Sparta to ask for assistance before the battle. \nHe ran a distance of over 225 kilometers (140 miles), arriving in Sparta the day after he left.\nRecreate this distance in real life, at your own pace and in as many runs as you can.";
+        private const string _mainMenuOptions = "\nOptions:\n1. Create New User\n2. Log in with existing User\n0. Exit\n";
 
         public void DisplayMenu()
         {
-            Console.WriteLine(title);
-            Console.WriteLine(introMsg);
-            Console.WriteLine(mainMenuOptions);
+            Console.WriteLine(_title);
+            Console.WriteLine(_introMsg);
+            Console.WriteLine(_mainMenuOptions);
         }
 
         public string GetInput()

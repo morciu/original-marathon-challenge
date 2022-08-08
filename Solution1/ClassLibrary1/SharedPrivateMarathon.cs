@@ -12,12 +12,12 @@ namespace ClassLibrary1
 
         public override string ShowProgress()
         {
-            return "Showing member's progress";
+            return "Private Marathon Progress: Showing member's progress";
         }
 
         public override string ShowFinishers()
         {
-            return "Showing finishers from members list";
+            return "Private Marathon Finishers: Showing finishers from members list";
         }
     }
 }

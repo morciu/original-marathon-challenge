@@ -13,7 +13,7 @@ namespace ClassLibrary1
 
         public virtual string ShowProgress()
         {
-            return $"Everyone's marathon progress";
+            return $"Marathon Progress: Everyone's marathon progress";
         }
 
         public string ShowProgress(User user)
@@ -23,7 +23,7 @@ namespace ClassLibrary1
 
         public virtual string ShowFinishers()
         {
-            return "No finishers";
+            return "Marathon Finishers: no finishers yet.";
         }
     }
 }
