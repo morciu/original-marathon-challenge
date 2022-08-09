@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Menu
+namespace ConsolePresentation.Menu
 {
     public class MainMenu : IMenu
     {
@@ -36,6 +36,11 @@ namespace Domain.Menu
             return "mainMenu";
         }
 
+        public void ProcessInput(string input)
+        {
+            
+        }
+
         public void SwitchMenu(string input, ref IMenu menu)
         {
             if (input == "1") { menu = new UserRegistrationMenu(); }
@@ -43,9 +48,4 @@ namespace Domain.Menu
             else if (input == "0") { Environment.Exit(0); }
         }
     }
-   /* public enum Menu
-    {
-        UserRegistration,
-        UserLogInMenu,
-    }*/
 }

@@ -1,11 +1,12 @@
-﻿using Domain.Exceptions;
+﻿using Domain;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Menu
+namespace ConsolePresentation.Menu
 {
     public class UserLogInMenu : IMenu
     {
@@ -18,25 +19,10 @@ namespace Domain.Menu
         {
             string? username;
             string? password;
-            try
-            {
-                Console.Write("User Name: ");
-                username = Console.ReadLine();
-                InputValidator.ValidateInput(username);
-                InputValidator.ValidateInputLength(username);
-            }
-            catch (InvalidInputException)
-            {
-                throw;
-            }
-            catch (InvalidInputLengthException ex)
-            {
-                throw new Exception("Input Length exception occured", ex);
-            }
-            finally
-            {
-                Console.WriteLine("validation ended");
-            }
+            Console.Write("User Name: ");
+            username = Console.ReadLine();
+            InputValidator.ValidateInput(username);
+            InputValidator.ValidateInputLength(username);
 
             Console.Write("Password: ");
             password = Console.ReadLine();
@@ -49,13 +35,17 @@ namespace Domain.Menu
             return "userLogInMenu";
         }
 
+        public void ProcessInput(string input)
+        {
+        }
+
         public void SwitchMenu(string input, ref IMenu menu)
         {
             string[] inputFields = input.Split(',');
-            if (UserManager.ValidateUser(inputFields[0], inputFields[1]))
+          /*  if (CurrentUser.ValidateUser(inputFields[0], inputFields[1]))
             {
                 menu = new UserMenu();
-            }
+            }*/
         }
     }
 }

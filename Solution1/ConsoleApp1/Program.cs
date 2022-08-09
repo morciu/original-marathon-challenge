@@ -1,28 +1,27 @@
-﻿using Domain;
-using Domain.Menu;
-using Infrastructure;
+﻿using Infrastructure;
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Application;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Queries.GetUser;
-using Application.Menus.Queries.GetMenu;
 using MediatR;
+using ConsolePresentation.Menu;
+
+
 
 // Building Container
 var diContainer = new ServiceCollection()
     .AddScoped<IUserRepository, InMemoryUserRepository>()
     .AddScoped<IActivityRepository, InMemoryActivityRepository>()
-    .AddScoped<IMenuRepository, InMemoryMenuRepository>()
     .AddMediatR(typeof(IUserRepository))
     .AddMediatR(typeof(IActivityRepository))
-    .AddMediatR(typeof(IMenuRepository))
     .BuildServiceProvider();
 
 // Get mediator
 var mediator = diContainer.GetRequiredService<IMediator>();
 
-// Create a new user through the mediator
+
+/*// Create a new user through the mediator
 var user = await mediator.Send(new CreateUserCommand
 {
     Id = 5,
@@ -37,44 +36,37 @@ Console.WriteLine(user.FirstName);
 Console.WriteLine(user.UserName);
 Console.WriteLine(user.LastName);
 
+// Get first user through mediator
 var firstUser = await mediator.Send(new GetUserQueryCommand
 {
     Id = 1
 });
 
-Console.WriteLine($"\nFirst User: {firstUser.UserName}\n");
+Console.WriteLine($"\nFirst User: {firstUser.UserName}\n");*/
 
-// Set up menus
-IMenu currentMenu = await mediator.Send(new GetMenuCommand
-{
-    Id = 1
-});
+
+// Set up main menu
+IMenu currentMenu = new MainMenu();
+
+// Current user Id
+int currentUserId;
 
 // Set up User Input
 string userInput;
 
 // Load registered users
-UserManager.LoadRegisteredUsers();
 
 // Testing Input
 while (true)
 {
+    // Display current menu
     currentMenu.DisplayMenu();
-    try
-    {
-        userInput = currentMenu.GetInput();
-    }
-    catch(Exception ex)
-    {
-        Console.WriteLine("Invalid Input");
-        continue;
-    }
-#if DEBUG
-    finally
-    {
-        Debug.WriteLine("Finalized Input Evaluation");
-    }
-#endif
+    // Get user input
+    userInput = currentMenu.GetInput();
+    // Process user input
+    currentMenu.ProcessInput(userInput);
+    // Switch menu
     currentMenu.SwitchMenu(userInput, ref currentMenu);
-    Console.WriteLine(currentMenu.GetState());
+    // Update/Change current menu
+
 }

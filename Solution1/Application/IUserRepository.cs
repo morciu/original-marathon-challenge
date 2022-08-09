@@ -11,5 +11,6 @@ namespace Application
     {
         void CreateUser(User user);
         User GetUser(int userId);
+        int GetNextUserId();
     }
 }

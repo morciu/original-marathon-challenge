@@ -9,7 +9,7 @@ namespace Domain
     public class Marathon
     {
         public const float DistanceGoal = 240;
-        public List<User> members = UserManager.users;
+        public List<User> members;
 
         public virtual string ShowProgress()
         {

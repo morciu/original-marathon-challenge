@@ -1,11 +1,15 @@
-﻿using Domain;
+﻿using Application;
+using Application.Users.Commands.CreateUser;
+using Infrastructure;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Menu
+namespace ConsolePresentation.Menu
 {
     public class UserRegistrationMenu : IMenu
     {
@@ -33,14 +37,34 @@ namespace Domain.Menu
 
         public void SwitchMenu(string input, ref IMenu menu)
         {
-            string[] inputFields = input.Split(',');
-            UserManager.currentUser = UserManager.CreateUser(inputFields[0], inputFields[1], inputFields[2], inputFields[3]);
             menu = new UserMenu();
         }
 
         public string GetState()
         {
             return "userRegistration";
+        }
+
+        public void ProcessInput(string input)
+        {
+            string[] inputFields = input.Split(',');
+            // Building Container
+            var diContainer = new ServiceCollection()
+                .AddScoped<IUserRepository, InMemoryUserRepository>()
+                .AddMediatR(typeof(IUserRepository))
+                .BuildServiceProvider();
+
+            // Get mediator
+            var mediator = diContainer.GetRequiredService<IMediator>();
+
+            var newUser = mediator.Send(new CreateUserCommand
+            {
+                FirstName = inputFields[0],
+                LastName = inputFields[1],
+                UserName = inputFields[2],
+                Password = inputFields[3]
+            });
+            CurrentUser.currentUserName = inputFields[2];
         }
     }
 }

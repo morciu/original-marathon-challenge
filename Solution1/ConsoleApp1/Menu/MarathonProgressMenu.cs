@@ -1,12 +1,10 @@
-﻿using Domain;
-
-namespace Domain.Menu
+﻿namespace ConsolePresentation.Menu
 {
     public class MarathonProgressMenu : IMenu
     {
         public void DisplayMenu()
         {
-            Console.WriteLine(UserManager.currentUser.activity.ShowProgress());
+            //Console.WriteLine(CurrentUser.currentUser.activity.ShowProgress());
             Console.WriteLine("1.Go Back\n0.Exit");
         }
 
@@ -25,6 +23,10 @@ namespace Domain.Menu
         public string GetState()
         {
             return "marathonProgressMenu";
+        }
+
+        public void ProcessInput(string input)
+        {
         }
 
         public void SwitchMenu(string input, ref IMenu menu)

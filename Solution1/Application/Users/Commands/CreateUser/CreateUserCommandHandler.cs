@@ -13,7 +13,7 @@ namespace Application.Users.Commands.CreateUser
 
         public Task<User> Handle(CreateUserCommand message, CancellationToken cancellationToken)
         {
-            var user = new User(message.Id, message.FirstName, message.LastName, message.UserName, message.Password);
+            var user = new User(_userRepository.GetNextUserId(), message.FirstName, message.LastName, message.UserName, message.Password);
             _userRepository.CreateUser(user);
 
 

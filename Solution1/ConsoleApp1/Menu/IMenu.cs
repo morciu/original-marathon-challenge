@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Menu
+namespace ConsolePresentation.Menu
 {
     public interface IMenu
     {
@@ -12,5 +12,6 @@ namespace Domain.Menu
         public string GetInput();
         public string GetState();
         public void SwitchMenu(string input, ref IMenu menu);
+        public void ProcessInput(string input);
     }
 }

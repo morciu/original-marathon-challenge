@@ -1,6 +1,5 @@
-﻿using Domain.Menu;
-
-namespace Domain
+﻿
+namespace ConsolePresentation.Menu
 {
     internal class RegisterRunActivity : IMenu
     {
@@ -23,6 +22,10 @@ namespace Domain
         public string GetState()
         {
             return "registerRunActivity";
+        }
+
+        public void ProcessInput(string input)
+        {
         }
 
         public void SwitchMenu(string input, ref IMenu menu)

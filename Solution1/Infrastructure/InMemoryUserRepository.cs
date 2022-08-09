@@ -10,30 +10,22 @@ namespace Infrastructure
 {
     public class InMemoryUserRepository : IUserRepository
     {
+        private string _registeredUsers = SetUpFilePath();
         public void CreateUser(User user)
         {
-            FileStream fileStream = null;
-            // Set up Registered users directory and txt file if one doesn't already exist
-            var registeredUserPath = Path.Combine(Directory.GetCurrentDirectory(), "Registered Users");
-            if (!Directory.Exists(registeredUserPath))
-            {
-                Directory.CreateDirectory(registeredUserPath);
-            }
-            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
+            int nextUserId = GetNextUserId();
 
-            using (var sw = new StreamWriter(registeredUsers, true))
+            using (var sw = new StreamWriter(_registeredUsers, true))
             {
-                sw.WriteLine($"{user.Id},{user.FirstName},{user.LastName},{user.UserName},{user._password}");
+                sw.WriteLine($"{nextUserId},{user.FirstName},{user.LastName},{user.UserName},{user._password}");
             }
         }
 
         public User? GetUser(int userId)
         {
-            var registeredUserPath = Path.Combine(Directory.GetCurrentDirectory(), "Registered Users");
-            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
-            if (File.Exists(registeredUsers))
+            if (File.Exists(_registeredUsers))
             {
-                using (var sr = new StreamReader(registeredUsers))
+                using (var sr = new StreamReader(_registeredUsers))
                 {
                     while (true)
                     {
@@ -52,6 +44,28 @@ namespace Infrastructure
                 }
             }
             return null;
+        }
+        public int GetNextUserId()
+        {
+            int idCount = 1;
+            using(var sr = new StreamReader(_registeredUsers))
+            {
+                while(sr.ReadLine() != null)
+                {
+                    idCount++;
+                }
+            }
+            return idCount;
+        }
+        private static string SetUpFilePath()
+        {
+            string registeredUserPath = Path.Combine(Directory.GetCurrentDirectory(), "Registered Users");
+            if (!Directory.Exists(registeredUserPath))
+            {
+                Directory.CreateDirectory(registeredUserPath);
+            }
+            var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
+            return registeredUsers;
         }
     }
 }

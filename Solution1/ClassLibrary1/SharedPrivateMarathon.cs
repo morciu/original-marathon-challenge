@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    internal class SharedPrivateMarathon : Marathon
+    public class SharedPrivateMarathon : Marathon
     {
         public List<User> members;
 
