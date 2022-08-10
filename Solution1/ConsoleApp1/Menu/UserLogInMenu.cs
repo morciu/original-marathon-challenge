@@ -1,6 +1,4 @@
-﻿using Domain;
-using Domain.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +8,14 @@ namespace ConsolePresentation.Menu
 {
     public class UserLogInMenu : IMenu
     {
-        public void DisplayMenu()
+        public string DisplayMenu()
         {
             Console.WriteLine("Please enter User Name and Password");
-        }
-
-        public string GetInput()
-        {
             string? username;
             string? password;
+
             Console.Write("User Name: ");
             username = Console.ReadLine();
-            InputValidator.ValidateInput(username);
-            InputValidator.ValidateInputLength(username);
 
             Console.Write("Password: ");
             password = Console.ReadLine();
@@ -35,17 +28,14 @@ namespace ConsolePresentation.Menu
             return "userLogInMenu";
         }
 
-        public void ProcessInput(string input)
+        public string ProcessFlag()
         {
+            return "userMenu";
         }
 
-        public void SwitchMenu(string input, ref IMenu menu)
+        public IMenu SwitchMenu()
         {
-            string[] inputFields = input.Split(',');
-          /*  if (CurrentUser.ValidateUser(inputFields[0], inputFields[1]))
-            {
-                menu = new UserMenu();
-            }*/
+            return null;
         }
     }
 }

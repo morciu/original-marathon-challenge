@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Users.Queries.GetUser;
 using Domain;
 using Infrastructure;
 using MediatR;
@@ -13,17 +14,38 @@ namespace ConsolePresentation.Menu
 {
     public class UserMenu : IMenu
     {
-        public void DisplayMenu()
+        private IMenu? nextMenu;
+        private int _userId;
+        public UserMenu(int userId)
         {
+            _userId = userId;
+        }
+        public string DisplayMenu()
+        {
+            var diContainer = new ServiceCollection()
+                .AddScoped<IUserRepository, InMemoryUserRepository>()
+                .AddMediatR(typeof(IUserRepository))
+                .BuildServiceProvider();
+
+            // Get mediator
+            var mediator = diContainer.GetRequiredService<IMediator>();
+
+            var user = mediator.Send(new GetUserQueryCommand
+            {
+                Id = _userId
+            });
+            Console.WriteLine(user);
+
             Console.WriteLine("\nUser Menu\n");
-           /* if (CurrentUser.currentUser.activity == null)
+            if (true)
             {
                 Console.WriteLine("1.Start Marathon\n2.Start Shared Marathon with another user\n0.Exit");
             }
             else
             {
                 Console.WriteLine("1.Register run activity\n2.Check Marathon progress\n0.Exit");
-            }*/
+            }
+            return "";
         }
 
         public string GetInput()
@@ -43,23 +65,14 @@ namespace ConsolePresentation.Menu
             return "userMenu";
         }
 
-        public void ProcessInput(string input)
+        public string ProcessFlag()
         {
+            throw new NotImplementedException();
         }
 
-        public void SwitchMenu(string input, ref IMenu menu)
+        public IMenu SwitchMenu()
         {
-           /* if (CurrentUser.currentUser.activity == null)
-            {
-                if (input == "1") { CurrentUser.currentUser.activity = new Marathon(); }
-                else if (input == "2") { CurrentUser.currentUser.activity = new SharedPrivateMarathon(); }
-            }
-            else
-            {
-                if (input == "1") { menu = new RegisterRunActivity(); }
-
-                else if (input == "2") { menu = new MarathonProgressMenu(); }
-            }*/
+            return nextMenu;
         }
     }
 }

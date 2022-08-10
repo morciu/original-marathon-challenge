@@ -6,6 +6,7 @@ using Application.Users.Commands.CreateUser;
 using Application.Users.Queries.GetUser;
 using MediatR;
 using ConsolePresentation.Menu;
+using ConsolePresentation;
 
 
 
@@ -19,6 +20,16 @@ var diContainer = new ServiceCollection()
 
 // Get mediator
 var mediator = diContainer.GetRequiredService<IMediator>();
+
+CurrentAppState app = new CurrentAppState();
+
+while (true)
+{
+    app.RunApp();
+    app.UpdateApp();
+    app.UpdateMenu();
+}
+
 
 
 /*// Create a new user through the mediator
@@ -45,7 +56,7 @@ var firstUser = await mediator.Send(new GetUserQueryCommand
 Console.WriteLine($"\nFirst User: {firstUser.UserName}\n");*/
 
 
-// Set up main menu
+/*// Set up main menu
 IMenu currentMenu = new MainMenu();
 
 // Current user Id
@@ -69,4 +80,4 @@ while (true)
     currentMenu.SwitchMenu(userInput, ref currentMenu);
     // Update/Change current menu
 
-}
+}*/

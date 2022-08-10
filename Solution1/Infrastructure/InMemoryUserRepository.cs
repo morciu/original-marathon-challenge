@@ -45,6 +45,26 @@ namespace Infrastructure
             }
             return null;
         }
+        public User GetUserByLogin(string userName, string password)
+        {
+            using (var sr = new StreamReader(_registeredUsers))
+            {
+                while (true)
+                {
+                    var userInfo = sr.ReadLine();
+                    if (userInfo == null)
+                    {
+                        break;
+                    }
+                    string[] infoArray = userInfo.Split(",");
+                    if (infoArray[2] == userName && infoArray[3] == password)
+                    {
+                        return new User(int.Parse(infoArray[0]), infoArray[1], infoArray[2], infoArray[3], infoArray[4]);
+                    }
+                }
+            }
+            return null;
+        }
         public int GetNextUserId()
         {
             int idCount = 1;

@@ -2,6 +2,7 @@
 {
     public class MarathonProgressMenu : IMenu
     {
+        private IMenu nextMenu;
         public void DisplayMenu()
         {
             //Console.WriteLine(CurrentUser.currentUser.activity.ShowProgress());
@@ -25,14 +26,23 @@
             return "marathonProgressMenu";
         }
 
+        public string ProcessFlag()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ProcessInput(string input)
         {
         }
 
-        public void SwitchMenu(string input, ref IMenu menu)
+        public IMenu SwitchMenu()
         {
-            if (input == "1") { menu = new UserMenu(); }
-            else if (input == "0") { Environment.Exit(0); }
+            return nextMenu;
+        }
+
+        string IMenu.DisplayMenu()
+        {
+            throw new NotImplementedException();
         }
     }
 }

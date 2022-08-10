@@ -3,6 +3,7 @@ namespace ConsolePresentation.Menu
 {
     internal class RegisterRunActivity : IMenu
     {
+        private IMenu nextMenu;
         public void DisplayMenu()
         {
             Console.WriteLine("Enter your most recent running activity");
@@ -24,14 +25,23 @@ namespace ConsolePresentation.Menu
             return "registerRunActivity";
         }
 
+        public string ProcessFlag()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ProcessInput(string input)
         {
         }
 
-        public void SwitchMenu(string input, ref IMenu menu)
+        public IMenu SwitchMenu()
         {
+            return nextMenu;
+        }
 
-            menu = new UserMenu();
+        string IMenu.DisplayMenu()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -13,13 +13,12 @@ namespace ConsolePresentation.Menu
 {
     public class UserRegistrationMenu : IMenu
     {
-        public void DisplayMenu()
+        private const string title = "Please fill in your user information.";
+        private IMenu nextMenu;
+        public string DisplayMenu()
         {
-            Console.WriteLine("Please fill in your user information.");
-        }
-
-        public string GetInput()
-        {
+            Console.Clear();
+            Console.WriteLine("User registration\n");
             Console.Write("First Name: ");
             string firstName = Console.ReadLine();
 
@@ -34,18 +33,12 @@ namespace ConsolePresentation.Menu
 
             return $"{firstName},{lastName},{userName},{password}";
         }
-
-        public void SwitchMenu(string input, ref IMenu menu)
+        public IMenu SwitchMenu()
         {
-            menu = new UserMenu();
+            return null;
         }
 
-        public string GetState()
-        {
-            return "userRegistration";
-        }
-
-        public void ProcessInput(string input)
+        public void ProcessInput(string input, CurrentAppState app)
         {
             string[] inputFields = input.Split(',');
             // Building Container
@@ -64,7 +57,12 @@ namespace ConsolePresentation.Menu
                 UserName = inputFields[2],
                 Password = inputFields[3]
             });
-            CurrentUser.currentUserName = inputFields[2];
+            app.CurrentUserId = newUser.Id;
+        }
+
+        public string ProcessFlag()
+        {
+            return "registerUser";
         }
     }
 }

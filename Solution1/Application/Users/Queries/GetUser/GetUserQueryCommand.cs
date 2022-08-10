@@ -10,6 +10,6 @@ namespace Application.Users.Queries.GetUser
 {
     public class GetUserQueryCommand : IRequest<User>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
     }
 }
