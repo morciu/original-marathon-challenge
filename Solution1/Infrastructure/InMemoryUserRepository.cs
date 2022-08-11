@@ -78,6 +78,24 @@ namespace Infrastructure
             }
             return null;
         }
+
+        public void UpdateUserActivity(int id, string field, string value)
+        {
+            string filePath = Path.Combine(_registeredUsersFolder, id.ToString()+".csv");
+            // Store all lines in an array
+            string[] fileLines = File.ReadAllLines(filePath);
+            // Find line that needs to be edited and modify fileLines
+            for (int i = 0; i < fileLines.Length; i++)
+            {
+                string[] lineArray = fileLines[i].Split(",");
+                if (lineArray[0] == field)
+                {
+                    fileLines[i] = $"{field},{value}";
+                }
+            }
+            // Overwrite file with updated text
+            File.WriteAllLines(filePath, fileLines);
+        }
         public int GetNextUserId()
         {
             int idCount = 1;

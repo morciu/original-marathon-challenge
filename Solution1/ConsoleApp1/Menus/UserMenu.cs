@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries.GetUser;
 using Infrastructure;
 using MediatR;
@@ -35,17 +36,27 @@ namespace ConsolePresentation.Menus
                 Id = App.CurrentUserId,
             });
 
-            // Check if user is signed up for a marathon
+            // Check if user is signed up for a marathon, if not display menu to sign up
             if (user.activity == null)
             {
                 menu = new BlankSelectionMenu("You haven't started your Marathon yet.", Options);
                 input = menu.RunMenu();
                 switch (input)
                 {
-                    case 0: App.currentMenu = new UserMenu(App); user.StartMarathon(); break;
+                    case 0: 
+                        App.currentMenu = new UserMenu(App);
+                        user.StartMarathon();
+                        var updatedUser = await mediator.Send(new UpdateUserActivityCommand
+                        {
+                            Id = App.CurrentUserId,
+                            Field = "activity",
+                            Value = "marathon",
+                        });
+                        break;
                     case 1: Environment.Exit(0); break;
                 }
             }
+            // If signed up display regular user menu
             else
             {
                 user.StartMarathon();

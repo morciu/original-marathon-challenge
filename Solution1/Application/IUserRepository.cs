@@ -13,5 +13,6 @@ namespace Application
         User GetUser(int userId);
         User GetUserByLogin(string userName, string password);
         int GetNextUserId();
+        void UpdateUserActivity(int id, string field, string value);
     }
 }
