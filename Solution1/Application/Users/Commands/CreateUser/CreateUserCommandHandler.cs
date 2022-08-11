@@ -13,7 +13,10 @@ namespace Application.Users.Commands.CreateUser
 
         public Task<User> Handle(CreateUserCommand message, CancellationToken cancellationToken)
         {
-            var user = new User(_userRepository.GetNextUserId(), message.FirstName, message.LastName, message.UserName, message.Password);
+            int nextId;
+            try { nextId = _userRepository.GetNextUserId(); }
+            catch (FileNotFoundException) { nextId = 0; }
+            var user = new User(nextId, message.FirstName, message.LastName, message.UserName, message.Password);
             _userRepository.CreateUser(user);
 
 

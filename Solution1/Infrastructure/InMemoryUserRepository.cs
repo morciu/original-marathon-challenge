@@ -10,14 +10,27 @@ namespace Infrastructure
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        private string _registeredUsers = SetUpFilePath();
+        private string _registeredUsers = SetUpFilePath().Item1;
+        private string _registeredUsersFolder = SetUpFilePath().Item2;
         public void CreateUser(User user)
         {
-            int nextUserId = GetNextUserId();
+            int nextUserId;
+            try { nextUserId = GetNextUserId(); }
+            catch(FileNotFoundException) { nextUserId = 0; }
+            
 
+            // Store registered user in registeredUsers.csv
             using (var sw = new StreamWriter(_registeredUsers, true))
             {
                 sw.WriteLine($"{nextUserId},{user.FirstName},{user.LastName},{user.UserName},{user._password}");
+            }
+
+            // Create individual csv file for each user storing their data
+            using (var sw = new StreamWriter(Path.Combine(_registeredUsersFolder, $"{nextUserId}.csv")))
+            {
+                sw.WriteLine("activity,none");
+                sw.WriteLine("totalDistance,0");
+                sw.WriteLine("activityIds,");
             }
         }
 
@@ -77,7 +90,7 @@ namespace Infrastructure
             }
             return idCount;
         }
-        private static string SetUpFilePath()
+        private static (string, string) SetUpFilePath()
         {
             string registeredUserPath = Path.Combine(Directory.GetCurrentDirectory(), "Registered Users");
             if (!Directory.Exists(registeredUserPath))
@@ -85,7 +98,7 @@ namespace Infrastructure
                 Directory.CreateDirectory(registeredUserPath);
             }
             var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
-            return registeredUsers;
+            return (registeredUsers,registeredUserPath);
         }
     }
 }
