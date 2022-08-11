@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsolePresentation.Menu
+namespace ConsolePresentation.Menus
 {
     internal class BlankSelectionMenu
     {
@@ -24,12 +24,14 @@ namespace ConsolePresentation.Menu
             Console.WriteLine(_message);
             for (int i = 0; i < _options.Length; i++)
             {
-                if(_currentSelection == i) { 
+                if (_currentSelection == i)
+                {
                     symbol = "->";
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
                 }
-                else { 
+                else
+                {
                     symbol = "  ";
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
@@ -54,8 +56,8 @@ namespace ConsolePresentation.Menu
                 keyInput = keyInfo.Key;
 
                 // Update _currentSelection according to arrow keys
-                if(keyInput == ConsoleKey.DownArrow && _currentSelection < _options.Length-1) { _currentSelection++; }
-                else if(keyInput == ConsoleKey.UpArrow && _currentSelection > 0) { _currentSelection--; }
+                if (keyInput == ConsoleKey.DownArrow && _currentSelection < _options.Length - 1) { _currentSelection++; }
+                else if (keyInput == ConsoleKey.UpArrow && _currentSelection > 0) { _currentSelection--; }
 
             } while (keyInput != ConsoleKey.Enter);
 

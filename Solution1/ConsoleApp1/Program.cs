@@ -5,8 +5,8 @@ using Application;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Queries.GetUser;
 using MediatR;
-using ConsolePresentation.Menu;
 using ConsolePresentation;
+using ConsolePresentation.Menus;
 
 
 
@@ -21,13 +21,11 @@ var diContainer = new ServiceCollection()
 // Get mediator
 var mediator = diContainer.GetRequiredService<IMediator>();
 
-CurrentAppState app = new CurrentAppState();
+AppState app = new AppState();
 
 while (true)
 {
     app.RunApp();
-    app.UpdateApp();
-    app.UpdateMenu();
 }
 
 

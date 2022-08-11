@@ -1,54 +1,32 @@
 ﻿using Application;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Queries.GetUser;
-using ConsolePresentation.Menu;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ConsolePresentation.Menus;
 
 namespace ConsolePresentation
 {
-    public class CurrentAppState
+    public class AppState
     {
-        public IMenu currentMenu;
-
         // Current User
         public int CurrentUserId { get; set; }
         public string CurrentUserName { get; set; }
 
-        // Latest user input
-        string UserInput { get; set; }
+        // Current Menu
+        public Menu currentMenu;
 
-        public CurrentAppState()
+        public AppState()
         {
-            currentMenu = new MainMenu();
+            currentMenu = new TitleMenu(this);
         }
 
         public void RunApp()
         {
-            UserInput = currentMenu.DisplayMenu();
+            currentMenu.InteractWithUser();
         }
-
-        public void UpdateApp()
-        {
-            switch (currentMenu.ProcessFlag())
-            {
-                case "login":
-                    LogInUser(UserInput);
-                    break;
-                case "registerUser":
-                    CreateUser(UserInput);
-                    break;
-                default:
-                    break;
-            }
-        }
-
+/*
         public void UpdateMenu()
         {
             if ((currentMenu is UserRegistrationMenu) || (currentMenu is UserLogInMenu))
@@ -98,6 +76,6 @@ namespace ConsolePresentation
             });
             CurrentUserId = loggedInUser.Id;
             CurrentUserName = loggedInUser.UserName;
-        }
+        }*/
     }
 }

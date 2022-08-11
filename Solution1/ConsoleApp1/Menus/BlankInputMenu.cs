@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsolePresentation.Menu
+namespace ConsolePresentation.Menus
 {
     public class BlankInputMenu
     {

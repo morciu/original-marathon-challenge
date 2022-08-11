@@ -57,7 +57,7 @@ namespace Infrastructure
                         break;
                     }
                     string[] infoArray = userInfo.Split(",");
-                    if (infoArray[2] == userName && infoArray[3] == password)
+                    if (infoArray[3] == userName && infoArray[4] == password)
                     {
                         return new User(int.Parse(infoArray[0]), infoArray[1], infoArray[2], infoArray[3], infoArray[4]);
                     }
