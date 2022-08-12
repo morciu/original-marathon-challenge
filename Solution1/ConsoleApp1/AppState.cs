@@ -14,12 +14,22 @@ namespace ConsolePresentation
         public int CurrentUserId { get; set; }
         public string CurrentUserName { get; set; }
 
+        // Current User activity info
+        public Dictionary<string, string> activityInfo;
+
         // Current Menu
         public Menu currentMenu;
 
         public AppState()
         {
             currentMenu = new TitleMenu(this);
+            activityInfo = new Dictionary<string, string>()
+            {
+                {"activity", "none" },
+                {"totalDistance", "0" },
+                {"activityIds", "" }
+            };
+
         }
 
         public void RunApp()

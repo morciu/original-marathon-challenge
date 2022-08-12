@@ -31,13 +31,13 @@ namespace ConsolePresentation.Menus
         {
             BlankSelectionMenu menu;
             int input;
-            var user = await mediator.Send(new GetUserQueryCommand
+            var user = await mediator.Send(new GetUserByIdQueryCommand
             {
                 Id = App.CurrentUserId,
             });
 
             // Check if user is signed up for a marathon, if not display menu to sign up
-            if (user.activity == null)
+            if (App.activityInfo["activity"] == "none")
             {
                 menu = new BlankSelectionMenu("You haven't started your Marathon yet.", Options);
                 input = menu.RunMenu();
@@ -52,6 +52,7 @@ namespace ConsolePresentation.Menus
                             Field = "activity",
                             Value = "marathon",
                         });
+                        App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = 1 });
                         break;
                     case 1: Environment.Exit(0); break;
                 }

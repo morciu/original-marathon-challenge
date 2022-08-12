@@ -79,6 +79,28 @@ namespace Infrastructure
             return null;
         }
 
+        public Dictionary<string, string> GetUserActivityInfo(int Id)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            string filePath = Path.Combine(_registeredUsersFolder, Id.ToString() + ".csv");
+            // store file content in dictionary
+            using(var sr = new StreamReader(filePath))
+            {
+                while (true)
+                {
+                    string line = sr.ReadLine();
+                    if (line == null)
+                    {
+                        break;
+                    }
+                    string[] lineArray = line.Split(",");
+                    result.Add(lineArray[0], lineArray[1]);
+                }
+            }
+
+            return result;
+        }
+
         public void UpdateUserActivity(int id, string field, string value)
         {
             string filePath = Path.Combine(_registeredUsersFolder, id.ToString()+".csv");

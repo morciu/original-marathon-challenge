@@ -53,6 +53,7 @@ namespace ConsolePresentation.Menus
                 Console.WriteLine("Press any key to try again");
                 Console.ReadLine();
                 App.currentMenu = new LogInMenu(App);
+                App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = loggedInUser.Id });
             }
 
             

@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries.GetUser
 {
-    internal class GetUserQueryCommandHandler : IRequestHandler<GetUserQueryCommand, User>
+    internal class GetUserByIdQueryCommandHandler : IRequestHandler<GetUserByIdQueryCommand, User>
     {
         private readonly IUserRepository _userRepository;
 
-        public GetUserQueryCommandHandler(IUserRepository userRepository)
+        public GetUserByIdQueryCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public Task<User> Handle(GetUserQueryCommand request, CancellationToken cancellationToken)
+        public Task<User> Handle(GetUserByIdQueryCommand request, CancellationToken cancellationToken)
         {
 
             User result = _userRepository.GetUser(request.Id);
