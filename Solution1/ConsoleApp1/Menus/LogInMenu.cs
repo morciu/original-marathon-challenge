@@ -46,6 +46,7 @@ namespace ConsolePresentation.Menus
                 App.CurrentUserId = loggedInUser.Id;
                 // Set up next menu
                 App.currentMenu = new UserMenu(App);
+                App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = loggedInUser.Id });
             }
             else
             {
@@ -53,7 +54,6 @@ namespace ConsolePresentation.Menus
                 Console.WriteLine("Press any key to try again");
                 Console.ReadLine();
                 App.currentMenu = new LogInMenu(App);
-                App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = loggedInUser.Id });
             }
 
             
