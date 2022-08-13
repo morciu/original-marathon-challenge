@@ -36,56 +36,5 @@ namespace ConsolePresentation
         {
             currentMenu.InteractWithUser();
         }
-/*
-        public void UpdateMenu()
-        {
-            if ((currentMenu is UserRegistrationMenu) || (currentMenu is UserLogInMenu))
-                currentMenu = new UserMenu(CurrentUserId);
-            else
-                currentMenu = currentMenu.SwitchMenu();
-        }
-
-        private async void CreateUser(string input)
-        {
-            string[] inputFields = input.Split(',');
-            // Building Container
-            var diContainer = new ServiceCollection()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddMediatR(typeof(IUserRepository))
-                .BuildServiceProvider();
-
-            // Get mediator
-            var mediator = diContainer.GetRequiredService<IMediator>();
-
-            var newUser = mediator.Send(new CreateUserCommand
-            {
-                FirstName = inputFields[0],
-                LastName = inputFields[1],
-                UserName = inputFields[2],
-                Password = inputFields[3]
-            });
-            CurrentUserId = newUser.Id;
-        }
-
-        private async void LogInUser(string input)
-        {
-            string[] inputFields = input.Split(',');
-
-            var diContainer = new ServiceCollection()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddMediatR(typeof(IUserRepository))
-                .BuildServiceProvider();
-
-            // Get mediator
-            var mediator = diContainer.GetRequiredService<IMediator>();
-
-            var loggedInUser = await mediator.Send(new GetUserQueryLoginCommand
-            {
-                UserName = inputFields[0],
-                Password = inputFields[1],
-            });
-            CurrentUserId = loggedInUser.Id;
-            CurrentUserName = loggedInUser.UserName;
-        }*/
     }
 }

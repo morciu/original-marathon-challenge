@@ -10,9 +10,14 @@ namespace Infrastructure
 {
     public class InMemoryActivityRepository : IActivityRepository
     {
-        public void CreateActivity()
+        public void CreateActivity(string id, string distance, string date, string duration)
         {
-            throw new NotImplementedException();
+            // Store each activity in activities.csv - runnerId,distance,date,duration
+            string activitiesFile = Path.Combine(Directory.GetCurrentDirectory(), "activities.csv");
+            using(var sr = new StreamWriter(activitiesFile, true))
+            {
+                sr.WriteLine($"{id},{distance},{date},{duration}");
+            }
         }
     }
 }

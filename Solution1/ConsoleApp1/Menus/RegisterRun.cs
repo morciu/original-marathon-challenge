@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application;
+using Infrastructure;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsolePresentation.Menus
 {
@@ -11,13 +10,21 @@ namespace ConsolePresentation.Menus
         public RegisterRun(AppState app) : base(app)
         {
             Message = "Enter your last run";
-            Options = new string[2] { "Distance: ", "Time: " };
+            Options = new string[2] { "Distance (km): ", "Time (h:m:s): " };
         }
 
         public override void InteractWithUser()
         {
-            Console.WriteLine(Message);
-            Console.ReadLine();
+            BlankInputMenu menu = new BlankInputMenu(Message, Options);
+            string[] inputs = menu.RunMenu();
+
+            var diContainer = new ServiceCollection()
+                .AddScoped<IUserRepository, InMemoryUserRepository>()
+                .AddMediatR(typeof(IUserRepository))
+                .BuildServiceProvider();
+            var mediator = diContainer.GetRequiredService<IMediator>();
+
+
         }
     }
 }

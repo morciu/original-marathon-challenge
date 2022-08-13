@@ -8,6 +8,6 @@ namespace Application
 {
     public interface IActivityRepository
     {
-        void CreateActivity();
+        void CreateActivity(string id, string distance, string date, string duration);
     }
 }
