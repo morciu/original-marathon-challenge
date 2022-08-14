@@ -35,9 +35,9 @@ namespace Domain
             activity = new Marathon();
         }
 
-        public void StartSharedMarathon()
+        /*public void StartSharedMarathon()
         {
             activity = new SharedPrivateMarathon();
-        }
+        }*/
     }
 }

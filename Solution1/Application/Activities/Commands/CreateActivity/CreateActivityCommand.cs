@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Activities.Commands.CreateActivity
 {
-    internal class CreateActivityCommand : IRequest<Activity>
+    public class CreateActivityCommand : IRequest<Activity>
     {
         public int RunnerId { get; set; }
-        public float Distance { get; set; }
+        public decimal Distance { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
     }
 }

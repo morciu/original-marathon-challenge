@@ -9,11 +9,11 @@ namespace Domain
     public class Activity
     {
         public int _runnerId;
-        public float _distance;
+        public decimal _distance;
         public DateTime _date;
-        public DateTime _duration;
+        public TimeSpan _duration;
 
-        public Activity(int runnerId, float distance, DateTime date, DateTime duration)
+        public Activity(int runnerId, decimal distance, DateTime date, TimeSpan duration)
         {
             _runnerId = runnerId;
             _distance = distance;
