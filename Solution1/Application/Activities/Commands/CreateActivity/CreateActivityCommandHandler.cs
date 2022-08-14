@@ -20,8 +20,8 @@ namespace Application.Activities.Commands.CreateActivity
         {
             Activity activity = new Activity(request.RunnerId, request.Distance, request.Date, request.Duration);
             _repo.CreateActivity(request.RunnerId.ToString(), request.Distance.ToString(), request.Date.ToString(), request.Duration.ToString());
-
-            throw new NotImplementedException();
+            
+            return Task.FromResult(activity);
         }
     }
 }

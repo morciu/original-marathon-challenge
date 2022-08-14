@@ -38,9 +38,9 @@ namespace ConsolePresentation.Menus
                 Distance = distance,
                 Duration = time,
                 Date = DateTime.Now
-
-
             });
+
+            App.currentMenu = new UserMenu(App);
         }
     }
 }
