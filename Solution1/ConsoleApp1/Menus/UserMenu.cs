@@ -20,11 +20,7 @@ namespace ConsolePresentation.Menus
             Message = $"Hello {App.CurrentUserName}!";
             Options = new string[2] { "Start Marathon", "Exit" };
 
-            var diContainer = new ServiceCollection()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddMediatR(typeof(IUserRepository))
-                .BuildServiceProvider();
-            mediator = diContainer.GetRequiredService<IMediator>();
+            mediator = SingletonMediator.Instance.GetMediator();
         }
 
         public async override void InteractWithUser()

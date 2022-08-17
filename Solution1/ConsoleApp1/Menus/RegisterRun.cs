@@ -20,12 +20,7 @@ namespace ConsolePresentation.Menus
             BlankInputMenu menu = new BlankInputMenu(Message, Options);
             string[] inputs = menu.RunMenu();
 
-            // Set up container and mediator
-            var diContainer = new ServiceCollection()
-                .AddScoped<IActivityRepository, InMemoryActivityRepository>()
-                .AddMediatR(typeof(IActivityRepository))
-                .BuildServiceProvider();
-            var mediator = diContainer.GetRequiredService<IMediator>();
+            var mediator = SingletonMediator.Instance.GetMediator();
 
             // Store inputs for distance and duration
             decimal distance = Math.Round(decimal.Parse(inputs[0]));

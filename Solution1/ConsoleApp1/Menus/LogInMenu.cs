@@ -24,13 +24,7 @@ namespace ConsolePresentation.Menus
             BlankInputMenu menu = new BlankInputMenu(Message, Options);
             string[] inputs = menu.RunMenu();
 
-            var diContainer = new ServiceCollection()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddMediatR(typeof(IUserRepository))
-                .BuildServiceProvider();
-
-            // Get mediator
-            var mediator = diContainer.GetRequiredService<IMediator>();
+            var mediator = SingletonMediator.Instance.GetMediator();
 
             // Get new user
             var loggedInUser = await mediator.Send(new GetUserQueryLoginCommand
