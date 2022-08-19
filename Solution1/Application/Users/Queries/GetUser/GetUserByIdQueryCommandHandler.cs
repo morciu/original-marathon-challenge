@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Queries.GetUser
 {
-    internal class GetUserByIdQueryCommandHandler : IRequestHandler<GetUserByIdQueryCommand, User>
+    public class GetUserByIdQueryCommandHandler : IRequestHandler<GetUserByIdQueryCommand, User>
     {
         private readonly IUserRepository _userRepository;
 
