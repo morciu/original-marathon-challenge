@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries.GetUser;
+using Application.Activities.Queries.GetActivity;
 using ConsolePresentation.Factories;
 using Infrastructure;
 using MediatR;
@@ -50,7 +51,7 @@ namespace ConsolePresentation.Menus
                             Field = "activity",
                             Value = "marathon",
                         });
-                        App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = 1 });
+                        App.activityInfo = await mediator.Send(new GetUserActivityInfoQuery { Id = App.CurrentUserId });
                         break;
                     case 1: Environment.Exit(0); break;
                 }
@@ -58,7 +59,13 @@ namespace ConsolePresentation.Menus
             // If signed up display regular user menu
             else
             {
-                user.StartMarathon();
+                // Update user activities in AppState.cs
+                var mediator = SingletonMediator.Instance.GetMediator();
+                App.Activities = await mediator.Send(new GetAllUserActivitiesQuery
+                {
+                    UserId = App.CurrentUserId,
+                });
+
                 Options = new string[] { "Register a run", "Check your progress", "Exit" };
                 var menu = menuTemplate.CreateMenuTemplate(Message, Options);
                 menu.RunMenu();

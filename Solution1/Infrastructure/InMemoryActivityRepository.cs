@@ -19,5 +19,36 @@ namespace Infrastructure
                 sr.WriteLine($"{id},{distance},{date},{duration}");
             }
         }
+
+        public List<Activity> GetUserActivities(int userId)
+        {
+            List<Activity> activities = new List<Activity>();
+            string activitiesFile = Path.Combine(Directory.GetCurrentDirectory(), "activities.csv");
+
+            // Read through all locally registered activities and add the ones with userId to the activities list
+            using (var sr = new StreamReader(activitiesFile))
+            {
+                while (true)
+                {
+                    string line = sr.ReadLine();
+                    if (line == null)
+                    {
+                        break;
+                    }
+                    string[] activityInfo = line.Split(",");
+                    if (activityInfo[0] == userId.ToString())
+                    {
+                        activities.Add(new Activity(
+                            userId,
+                            System.Convert.ToDecimal(activityInfo[1]),
+                            DateTime.Parse(activityInfo[2]),
+                            TimeSpan.Parse(activityInfo[3])
+                            ));
+                    }
+                }
+            }
+
+            return activities;
+        }
     }
 }

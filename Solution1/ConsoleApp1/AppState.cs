@@ -5,6 +5,7 @@ using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ConsolePresentation.Menus;
+using Domain;
 
 namespace ConsolePresentation
 {
@@ -16,6 +17,7 @@ namespace ConsolePresentation
 
         // Current User activity info
         public Dictionary<string, string> activityInfo;
+        public List<Activity> Activities;
 
         // Current Menu
         public Menu currentMenu;

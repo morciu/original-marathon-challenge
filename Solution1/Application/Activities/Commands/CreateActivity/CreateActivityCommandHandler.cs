@@ -18,7 +18,9 @@ namespace Application.Activities.Commands.CreateActivity
 
         public Task<Activity> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
         {
+            // Create new activity instance
             Activity activity = new Activity(request.RunnerId, request.Distance, request.Date, request.Duration);
+            // Store activity info locally
             _repo.CreateActivity(request.RunnerId.ToString(), request.Distance.ToString(), request.Date.ToString(), request.Duration.ToString());
             
             return Task.FromResult(activity);
