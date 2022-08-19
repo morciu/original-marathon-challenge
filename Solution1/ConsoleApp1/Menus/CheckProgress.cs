@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsolePresentation.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace ConsolePresentation.Menus
 {
     internal class CheckProgress : Menu
     {
+        IMenuTemplateFactory menuTemplate;
         public CheckProgress(AppState app) : base(app)
         {
             Message = $"Marathon Progress:\nTotal Distance: <<PLACEHOLDER>>\nTotal Time: <<PLACEHOLDER>>";
@@ -16,9 +18,10 @@ namespace ConsolePresentation.Menus
 
         public override void InteractWithUser()
         {
-            BlankSelectionMenu menu = new BlankSelectionMenu(Message, Options);
-            int input = menu.RunMenu();
-            switch (input)
+            menuTemplate = new SelectionMenuFactory();
+            IMenuTemplate menu = menuTemplate.CreateMenuTemplate(Message, Options);
+            menu.RunMenu();
+            switch (menu.UserSelection)
             {
                 case 0: App.currentMenu = new UserMenu(App); break;
                 case 1: Environment.Exit(0); break;

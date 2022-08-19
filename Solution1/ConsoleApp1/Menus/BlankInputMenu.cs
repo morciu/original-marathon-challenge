@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsolePresentation.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +7,23 @@ using System.Threading.Tasks;
 
 namespace ConsolePresentation.Menus
 {
-    public class BlankInputMenu
+    public class BlankInputMenu : IMenuTemplate
     {
-        private string _message;
-        private string[] _fields;
-        public BlankInputMenu(string message, string[] fields)
-        {
-            _message = message;
-            _fields = fields;
-        }
+        public string Message { get ; set ; }
+        public string[] Options { get ; set; }
+        public int UserSelection { get ; set ; }
+        public string[] UserInput { get ; set; }
 
-        public string[] RunMenu()
+        public void RunMenu()
         {
             Console.Clear();
-            string[] inputs = new string[_fields.Length];
-            for (int i = 0; i < _fields.Length; i++)
+            string[] inputs = new string[Options.Length];
+            for (int i = 0; i < Options.Length; i++)
             {
-                Console.Write(_fields[i]);
+                Console.Write(Options[i]);
                 inputs[i] = Console.ReadLine();
             }
-            return inputs;
+            UserInput = inputs;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Users.Commands.UpdateUser;
 using Application.Users.Queries.GetUser;
+using ConsolePresentation.Factories;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ namespace ConsolePresentation.Menus
 {
     internal class UserMenu : Menu
     {
+        IMenuTemplateFactory menuTemplate = new SelectionMenuFactory();
         IMediator mediator;
         public UserMenu(AppState app) : base(app)
         {
@@ -25,7 +27,6 @@ namespace ConsolePresentation.Menus
 
         public async override void InteractWithUser()
         {
-            BlankSelectionMenu menu;
             int input;
             var user = await mediator.Send(new GetUserByIdQueryCommand
             {
@@ -35,8 +36,9 @@ namespace ConsolePresentation.Menus
             // Check if user is signed up for a marathon, if not display menu to sign up
             if (App.activityInfo["activity"] == "none")
             {
-                menu = new BlankSelectionMenu("You haven't started your Marathon yet.", Options);
-                input = menu.RunMenu();
+                var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+                menu.RunMenu();
+                input = menu.UserSelection;
                 switch (input)
                 {
                     case 0: 
@@ -58,8 +60,9 @@ namespace ConsolePresentation.Menus
             {
                 user.StartMarathon();
                 Options = new string[] { "Register a run", "Check your progress", "Exit" };
-                menu = new BlankSelectionMenu("Keep running!", Options);
-                input = menu.RunMenu();
+                var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+                menu.RunMenu();
+                input = menu.UserSelection;
                 switch (input)
                 {
                     case 0: App.currentMenu = new RegisterRun(App); break;

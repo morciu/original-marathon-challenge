@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.Users.Commands.CreateUser;
+using ConsolePresentation.Factories;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace ConsolePresentation.Menus
 {
     internal class RegisterUserMenu : Menu
     {
+        IMenuTemplateFactory menuTemplate;
         public RegisterUserMenu(AppState app) : base(app)
         {
             Message = "Registering new user";
@@ -21,8 +23,10 @@ namespace ConsolePresentation.Menus
 
         public override async void InteractWithUser()
         {
-            BlankInputMenu menu = new BlankInputMenu(Message, Options);
-            string[] inputs = menu.RunMenu();
+            menuTemplate = new InputMenuFactory();
+            var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+            menu.RunMenu();
+            string[] inputs = menu.UserInput;
 
             var mediator = SingletonMediator.Instance.GetMediator();
 

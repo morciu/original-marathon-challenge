@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.Activities.Commands.CreateActivity;
+using ConsolePresentation.Factories;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ namespace ConsolePresentation.Menus
 {
     internal class RegisterRun : Menu
     {
+        IMenuTemplateFactory menuTemplate;
         public RegisterRun(AppState app) : base(app)
         {
             Message = "Enter your last run";
@@ -17,8 +19,10 @@ namespace ConsolePresentation.Menus
         public override void InteractWithUser()
         {
             // Run Menu and get input
-            BlankInputMenu menu = new BlankInputMenu(Message, Options);
-            string[] inputs = menu.RunMenu();
+            menuTemplate = new InputMenuFactory();
+            var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+            menu.RunMenu();
+            string[] inputs = menu.UserInput;
 
             var mediator = SingletonMediator.Instance.GetMediator();
 

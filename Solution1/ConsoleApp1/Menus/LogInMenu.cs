@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.Users.Queries.GetUser;
+using ConsolePresentation.Factories;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace ConsolePresentation.Menus
 {
     public class LogInMenu : Menu
     {
+        IMenuTemplateFactory menuTemplate;
         public LogInMenu(AppState app) : base(app)
         {
             Message = "Loggin In";
@@ -21,8 +23,10 @@ namespace ConsolePresentation.Menus
 
         public async override void InteractWithUser()
         {
-            BlankInputMenu menu = new BlankInputMenu(Message, Options);
-            string[] inputs = menu.RunMenu();
+            menuTemplate = new InputMenuFactory();
+            var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+            menu.RunMenu();
+            string[] inputs = menu.UserInput;
 
             var mediator = SingletonMediator.Instance.GetMediator();
 

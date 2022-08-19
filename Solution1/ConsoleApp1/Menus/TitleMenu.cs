@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsolePresentation.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace ConsolePresentation.Menus
 {
     internal class TitleMenu : Menu
     {
+        IMenuTemplateFactory menuTemplate;
         public TitleMenu(AppState app) : base(app)
         {
             Message = "Welcome!";
@@ -16,8 +18,10 @@ namespace ConsolePresentation.Menus
 
         public override void InteractWithUser()
         {
-            BlankSelectionMenu menu = new BlankSelectionMenu(Message, Options);
-            int input = menu.RunMenu();
+            menuTemplate = new SelectionMenuFactory();
+            var menu = menuTemplate.CreateMenuTemplate(Message, Options);
+            menu.RunMenu();
+            int input = menu.UserSelection;
             switch (input)
             {
                 case 0: App.currentMenu = new LogInMenu(App); break;
