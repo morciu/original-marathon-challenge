@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsolePresentation.Menus
 {
-    internal class CheckProgress : Menu
+    public class CheckProgress : Menu
     {
         IMenuTemplateFactory menuTemplate;
         public CheckProgress(AppState app) : base(app)

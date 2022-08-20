@@ -13,7 +13,7 @@ namespace Domain
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string _password;
-        public string TotalDistance { get; }
+        public List<Activity> Activities { get; set; }
         public Marathon activity;
 
         public User(int id, string firstName, string lastName, string userName, string password)
@@ -35,9 +35,14 @@ namespace Domain
             activity = new Marathon();
         }
 
-        /*public void StartSharedMarathon()
+        public decimal CalculateTotalDistance()
         {
-            activity = new SharedPrivateMarathon();
-        }*/
+            decimal totalDistance = 0;
+            foreach (var activity in Activities)
+            {
+                totalDistance += activity._distance;
+            }
+            return totalDistance;
+        }
     }
 }
