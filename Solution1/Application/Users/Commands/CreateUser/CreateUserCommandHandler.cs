@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.Entities;
 using MediatR;
 
 namespace Application.Users.Commands.CreateUser

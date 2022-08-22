@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application;
-using Domain;
+using Domain.Entities;
 
 namespace Infrastructure
 {
