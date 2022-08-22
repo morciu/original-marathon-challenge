@@ -11,7 +11,7 @@ namespace Test
 {
     public class UserFixture
     {
-        // Test created before method
+        // Test created before method User.CalcualteTotalDistance()
         User user = new User(1, "firstName", "lastName", "userName", "password");
 
         [Fact]
