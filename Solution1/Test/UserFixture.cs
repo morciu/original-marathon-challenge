@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsolePresentation;
 using ConsolePresentation.Menus;
-using Domain.Entities;
+using Domain.Models;
 
 namespace Test
 {

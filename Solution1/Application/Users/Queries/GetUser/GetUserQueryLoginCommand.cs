@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using MediatR;
 
 namespace Application.Users.Queries.GetUser
