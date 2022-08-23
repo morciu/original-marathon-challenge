@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Application.Abstract;
+using Domain.Models;
 using MediatR;
 
 namespace Application.Users.Commands.CreateUser

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    internal class AppContext : DbContext
+    public class DataContext : DbContext
     {
-        public AppContext(DbContextOptions options) : base(options)
+        public DataContext(DbContextOptions options) : base(options)
         {
 
         }

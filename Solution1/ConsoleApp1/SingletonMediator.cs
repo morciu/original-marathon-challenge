@@ -1,5 +1,5 @@
 ﻿using Application;
-using Infrastructure;
+using Infrastructure.Repository;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +16,7 @@ namespace ConsolePresentation
         IMediator mediator;
         private SingletonMediator()
         {
+
             var diContainer = new ServiceCollection()
                 .AddScoped<IUserRepository, InMemoryUserRepository>()
                 .AddScoped<IActivityRepository, InMemoryActivityRepository>()

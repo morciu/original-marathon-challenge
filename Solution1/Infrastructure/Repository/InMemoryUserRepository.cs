@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application;
-using Domain.Entities;
+using Domain.Models;
 
-namespace Infrastructure
+namespace Infrastructure.Repository
 {
     public class InMemoryUserRepository : IUserRepository
     {
@@ -16,8 +16,8 @@ namespace Infrastructure
         {
             int nextUserId;
             try { nextUserId = GetNextUserId(); }
-            catch(FileNotFoundException) { nextUserId = 0; }
-            
+            catch (FileNotFoundException) { nextUserId = 0; }
+
 
             // Store registered user in registeredUsers.csv
             using (var sw = new StreamWriter(_registeredUsers, true))
@@ -84,7 +84,7 @@ namespace Infrastructure
             Dictionary<string, string> result = new Dictionary<string, string>();
             string filePath = Path.Combine(_registeredUsersFolder, Id.ToString() + ".csv");
             // store file content in dictionary
-            using(var sr = new StreamReader(filePath))
+            using (var sr = new StreamReader(filePath))
             {
                 while (true)
                 {
@@ -103,7 +103,7 @@ namespace Infrastructure
 
         public void UpdateUserActivity(int id, string field, string value)
         {
-            string filePath = Path.Combine(_registeredUsersFolder, id.ToString()+".csv");
+            string filePath = Path.Combine(_registeredUsersFolder, id.ToString() + ".csv");
             // Store all lines in an array
             string[] fileLines = File.ReadAllLines(filePath);
             // Find line that needs to be edited and modify fileLines
@@ -121,9 +121,9 @@ namespace Infrastructure
         public int GetNextUserId()
         {
             int idCount = 1;
-            using(var sr = new StreamReader(_registeredUsers))
+            using (var sr = new StreamReader(_registeredUsers))
             {
-                while(sr.ReadLine() != null)
+                while (sr.ReadLine() != null)
                 {
                     idCount++;
                 }
@@ -138,7 +138,7 @@ namespace Infrastructure
                 Directory.CreateDirectory(registeredUserPath);
             }
             var registeredUsers = Path.Combine(registeredUserPath, "registeredUsers.csv");
-            return (registeredUsers,registeredUserPath);
+            return (registeredUsers, registeredUserPath);
         }
     }
 }

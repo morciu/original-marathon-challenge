@@ -1,6 +1,7 @@
 using Application;
 using Application.Users.Queries.GetUser;
 using Domain;
+using Domain.Models;
 using Moq;
 
 namespace Test

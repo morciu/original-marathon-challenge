@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application;
-using Domain.Entities;
+using Domain.Models;
 
-namespace Infrastructure
+namespace Infrastructure.Repository
 {
     public class InMemoryActivityRepository : IActivityRepository
     {
@@ -14,7 +14,7 @@ namespace Infrastructure
         {
             // Store each activity in activities.csv - runnerId,distance,date,duration
             string activitiesFile = Path.Combine(Directory.GetCurrentDirectory(), "activities.csv");
-            using(var sr = new StreamWriter(activitiesFile, true))
+            using (var sr = new StreamWriter(activitiesFile, true))
             {
                 sr.WriteLine($"{id},{distance},{date},{duration}");
             }
@@ -40,7 +40,7 @@ namespace Infrastructure
                     {
                         activities.Add(new Activity(
                             userId,
-                            System.Convert.ToDecimal(activityInfo[1]),
+                            Convert.ToDecimal(activityInfo[1]),
                             DateTime.Parse(activityInfo[2]),
                             TimeSpan.Parse(activityInfo[3])
                             ));

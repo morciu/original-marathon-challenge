@@ -1,13 +1,5 @@
-﻿using Infrastructure;
-using System.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
-using Application;
-using Application.Users.Commands.CreateUser;
-using Application.Users.Queries.GetUser;
-using MediatR;
-using ConsolePresentation;
-using ConsolePresentation.Menus;
-
+﻿using ConsolePresentation;
+using Microsoft.EntityFrameworkCore.Design;
 
 
 AppState app = new AppState();

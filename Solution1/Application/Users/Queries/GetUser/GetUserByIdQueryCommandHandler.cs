@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;

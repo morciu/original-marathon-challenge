@@ -5,7 +5,7 @@ using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ConsolePresentation.Menus;
-using Domain.Entities;
+using Domain.Models;
 
 namespace ConsolePresentation
 {
