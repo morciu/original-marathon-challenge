@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Models
 {
     public class Activity
     {
@@ -8,12 +10,12 @@
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
 
-        public Activity(int runnerId, decimal distance, DateTime date, TimeSpan duration)
+/*        public Activity(int userId, decimal distance, DateTime date, TimeSpan duration)
         {
-            UserId = runnerId;
+            UserId = userId;
             Distance = distance;
             Date = date;
             Duration = duration;
-        }
+        }*/
     }
 }

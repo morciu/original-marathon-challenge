@@ -1,6 +1,8 @@
-﻿using Application;
+﻿using Application.Abstract;
+using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,10 +18,12 @@ namespace ConsolePresentation
         IMediator mediator;
         private SingletonMediator()
         {
-
             var diContainer = new ServiceCollection()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .AddScoped<IActivityRepository, InMemoryActivityRepository>()
+                .AddDbContext<DataContext>(options => 
+                    options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Marathon;Trusted_Connection=True;"))
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IActivityRepository, ActivityRepository>()
                 .AddMediatR(typeof(IUserRepository))
                 .AddMediatR(typeof(IActivityRepository))
                 .BuildServiceProvider();

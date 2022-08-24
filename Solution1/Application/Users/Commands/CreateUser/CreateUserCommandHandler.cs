@@ -12,16 +12,21 @@ namespace Application.Users.Commands.CreateUser
             _userRepository = userRepository;
         }
 
-        public Task<User> Handle(CreateUserCommand message, CancellationToken cancellationToken)
+        public Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            int nextId;
-            try { nextId = _userRepository.GetNextUserId(); }
-            catch (FileNotFoundException) { nextId = 0; }
-            var user = new User(nextId, message.FirstName, message.LastName, message.UserName, message.Password);
-            _userRepository.CreateUser(user);
-
-
-            return Task.FromResult(user);
+            throw new NotImplementedException();
         }
+        /*
+       public Task<User> Handle(CreateUserCommand message, CancellationToken cancellationToken)
+       {
+          *//* int nextId;
+           try { nextId = _userRepository.GetNextUserId(); }
+           catch (FileNotFoundException) { nextId = 0; }
+           var user = new User(nextId, message.FirstName, message.LastName, message.UserName, message.Password);
+           _userRepository.CreateUser(user);
+
+
+           return Task.FromResult(user);*//*
+       }*/
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application;
+using Application.Abstract;
 using Domain.Models;
 
 namespace Infrastructure.Repository
@@ -34,7 +34,7 @@ namespace Infrastructure.Repository
             }
         }
 
-        public User? GetUser(int userId)
+        public User GetUser(int userId)
         {
             if (File.Exists(_registeredUsers))
             {

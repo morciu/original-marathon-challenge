@@ -11,18 +11,18 @@ namespace Domain.Models
         public string LastName { get; set; }
         [MaxLength(20)]
         public string UserName { get; set; }
-        public string _password;
-        public ICollection<Activity> Activities { get; set; } = null;
-        public ICollection<Marathon> Marathon { get; set; } = null;
-
+        public string Password { get; set; }
+        public ICollection<Activity> Activities { get; set; }
+        public ICollection<Marathon> Marathon { get; set; }
+/*
         public User(int id, string firstName, string lastName, string userName, string password)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
-            _password = password;
-        }
+            Password = password;
+        }*/
 
         public void RunActivity()
         {

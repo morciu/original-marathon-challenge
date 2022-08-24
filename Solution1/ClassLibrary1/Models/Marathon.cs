@@ -8,9 +8,10 @@ namespace Domain.Models
 {
     public class Marathon
     {
-        public const float DistanceGoal = 240;
-        public List<User> members;
-
+/*        public const float DistanceGoal = 240;*/
+        public ICollection<User> Members { get; set; }
+        public int Id { get; set; }
+/*
         public virtual string ShowProgress()
         {
             return $"Everyone's marathon progress";
@@ -24,6 +25,6 @@ namespace Domain.Models
         public virtual string ShowFinishers()
         {
             return "No finishers";
-        }
+        }*/
     }
 }

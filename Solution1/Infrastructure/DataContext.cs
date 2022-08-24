@@ -5,13 +5,13 @@ namespace Infrastructure
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Marathon;Trusted_Connection=True;");
         }
 
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Activity> Activities => Set<Activity>();
-        public DbSet<Marathon> Marathon => Set<Marathon>();
+        public DbSet<User> Users { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Marathon> Marathon { get; set; }
     }
 }
