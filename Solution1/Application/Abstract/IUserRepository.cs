@@ -9,7 +9,7 @@ namespace Application.Abstract
 {
     public interface IUserRepository
     {
-        void CreateUser(User user);
+        Task CreateUser(User user);
         User GetUser(int userId);
         User GetUserByLogin(string userName, string password);
         int GetNextUserId();

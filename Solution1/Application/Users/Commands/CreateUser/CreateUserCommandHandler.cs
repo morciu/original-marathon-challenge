@@ -6,15 +6,20 @@ namespace Application.Users.Commands.CreateUser
 {
     internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
     {
-        private readonly IUserRepository _userRepository;
-        public CreateUserCommandHandler(IUserRepository userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public CreateUserCommandHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = new User { FirstName = request.FirstName, LastName = request.LastName, UserName = request.UserName, Password = request.Password};
+
+            await _unitOfWork.UserRepository.CreateUser(user);
+            await _unitOfWork.Save();
+
+            return user;
         }
         /*
        public Task<User> Handle(CreateUserCommand message, CancellationToken cancellationToken)

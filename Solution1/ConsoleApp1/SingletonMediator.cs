@@ -19,8 +19,7 @@ namespace ConsolePresentation
         private SingletonMediator()
         {
             var diContainer = new ServiceCollection()
-                .AddDbContext<DataContext>(options => 
-                    options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Marathon;Trusted_Connection=True;"))
+                .AddDbContext<DataContext>()
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IActivityRepository, ActivityRepository>()

@@ -17,9 +17,9 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
-        public void CreateUser(User user)
+        public async Task CreateUser(User user)
         {
-            throw new NotImplementedException();
+            await _context.Users.AddAsync(user);
         }
 
         public int GetNextUserId()
