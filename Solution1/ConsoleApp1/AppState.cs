@@ -11,6 +11,11 @@ namespace ConsolePresentation
 {
     public class AppState
     {
+        public bool inProgress = false;
+
+        // Mediator
+        public IMediator mediator = SingletonMediator.Instance.mediator;
+
         // Current User
         public int CurrentUserId { get; set; }
         public string CurrentUserName { get; set; }
@@ -36,7 +41,7 @@ namespace ConsolePresentation
 
         public void RunApp()
         {
-            currentMenu.InteractWithUser();
+            currentMenu.InteractWithUser().Wait();
         }
     }
 }

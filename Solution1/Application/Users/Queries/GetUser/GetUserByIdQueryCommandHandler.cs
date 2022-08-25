@@ -11,19 +11,19 @@ namespace Application.Users.Queries.GetUser
 {
     public class GetUserByIdQueryCommandHandler : IRequestHandler<GetUserByIdQueryCommand, User>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetUserByIdQueryCommandHandler(IUserRepository userRepository)
+        public GetUserByIdQueryCommandHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<User> Handle(GetUserByIdQueryCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserByIdQueryCommand request, CancellationToken cancellationToken)
         {
 
-            User result = _userRepository.GetUser(request.Id);
+            var result = await _unitOfWork.UserRepository.GetUser(request.Id);
 
-            return Task.FromResult(result);
+            return result;
         }
     }
 }

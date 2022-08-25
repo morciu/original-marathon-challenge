@@ -16,7 +16,7 @@ namespace ConsolePresentation.Menus
             Options = new string[3] { "Log In", "Register new user", "Exit" };
         }
 
-        public override void InteractWithUser()
+        public override async Task InteractWithUser()
         {
             menuTemplate = new SelectionMenuFactory();
             var menu = menuTemplate.CreateMenuTemplate(Message, Options);
@@ -28,6 +28,7 @@ namespace ConsolePresentation.Menus
                 case 1: App.currentMenu = new RegisterUserMenu(App); break;
                 case 2: Environment.Exit(0); break;
             }
+            await Task.Run(() => App.RunApp());
         }
     }
 }

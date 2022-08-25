@@ -11,25 +11,20 @@ namespace Application.Activities.Commands.CreateActivity
 {
     internal class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Activity>
     {
-        IActivityRepository _repo;
-        public CreateActivityCommandHandler(IActivityRepository repo)
+        IUnitOfWork _unitOfWork;
+        public CreateActivityCommandHandler(IUnitOfWork unitOfWork)
         {
-            _repo = repo;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<Activity> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
+        public async Task<Activity> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
-        /*
-       public Task<Activity> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
-       {
-           // Create new activity instance
-           *//*Activity activity = new Activity(request.RunnerId, request.Distance, request.Date, request.Duration);*//*
-           // Store activity info locally
-           _repo.CreateActivity(request.RunnerId.ToString(), request.Distance.ToString(), request.Date.ToString(), request.Duration.ToString());
+            var activity = new Activity { UserId = request.RunnerId, Distance = request.Distance, Date = request.Date, Duration = request.Duration };
 
-           return Task.FromResult(activity);
-       }*/
+            await _unitOfWork.ActivityRepository.CreateActivity(activity);
+            await _unitOfWork.Save();
+
+            return activity;
+        }
     }
 }

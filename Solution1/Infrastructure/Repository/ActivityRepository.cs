@@ -1,5 +1,6 @@
 ﻿using Application.Abstract;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,22 @@ namespace Infrastructure.Repository
 {
     public class ActivityRepository : IActivityRepository
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _context;
         public ActivityRepository(DataContext dataContext)
         {
-            _dataContext = dataContext;
+            _context = dataContext;
         }
 
-        public void CreateActivity(string id, string distance, string date, string duration)
+        public async Task CreateActivity(Activity activity)
         {
-            throw new NotImplementedException();
+            await _context.Activities.AddAsync(activity);
         }
 
-        public List<Activity> GetUserActivities(int userId)
+        public async Task<List<Activity>> GetUserActivities(int userId)
         {
-            throw new NotImplementedException();
+            var activities = await _context.Activities.Where(a => a.UserId == userId).ToListAsync();
+
+            return activities;
         }
     }
 }

@@ -10,10 +10,9 @@ namespace Application.Abstract
     public interface IUserRepository
     {
         Task CreateUser(User user);
-        User GetUser(int userId);
-        User GetUserByLogin(string userName, string password);
-        int GetNextUserId();
+        Task<User> GetUser(int userId);
+        Task<User> GetUserByLogin(string userName, string password);
         void UpdateUserActivity(int id, string field, string value);
-        Dictionary<string, string> GetUserActivityInfo(int Id);
+        Task<Dictionary<string, string>> GetUserActivityInfo(int Id);
     }
 }

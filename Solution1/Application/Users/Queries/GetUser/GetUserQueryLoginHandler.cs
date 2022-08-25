@@ -11,16 +11,17 @@ namespace Application.Users.Queries.GetUser
 {
     internal class GetUserQueryLoginHandler : IRequestHandler<GetUserQueryLoginCommand, User>
     {
-        private readonly IUserRepository _userRepository;
-        public GetUserQueryLoginHandler(IUserRepository userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public GetUserQueryLoginHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<User> Handle(GetUserQueryLoginCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserQueryLoginCommand request, CancellationToken cancellationToken)
         {
-            User result = _userRepository.GetUserByLogin(request.UserName, request.Password);
-            return Task.FromResult(result);
+            var user = await _unitOfWork.UserRepository.GetUserByLogin(request.UserName, request.Password);
+
+            return user;
         }
     }
 }

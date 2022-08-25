@@ -9,7 +9,7 @@ namespace Application.Abstract
 {
     public interface IActivityRepository
     {
-        void CreateActivity(string id, string distance, string date, string duration);
-        List<Activity> GetUserActivities(int userId);
+        Task CreateActivity(Activity activity);
+        Task<List<Activity>> GetUserActivities(int userId);
     }
 }

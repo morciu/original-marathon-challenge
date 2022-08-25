@@ -19,7 +19,7 @@ namespace Application.Users.Queries.GetUser
         public Task<Dictionary<string, string>> Handle(GetUserActivityInfoQuery request, CancellationToken cancellationToken)
         {
             // Access user's individual activity csv file
-            Dictionary<string, string> result = _repo.GetUserActivityInfo(request.Id);
+            Dictionary<string, string> result = new Dictionary<string, string>();
 
             return Task.FromResult(result);
         }

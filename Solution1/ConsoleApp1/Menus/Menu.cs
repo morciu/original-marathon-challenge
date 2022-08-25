@@ -17,7 +17,7 @@ namespace ConsolePresentation.Menus
             App = app;
         }
 
-        virtual public void InteractWithUser()
+        virtual public async Task InteractWithUser()
         {
 
         }

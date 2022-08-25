@@ -1,5 +1,6 @@
 ﻿using Application.Abstract;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,24 +23,24 @@ namespace Infrastructure.Repository
             await _context.Users.AddAsync(user);
         }
 
-        public int GetNextUserId()
+        public async Task<User> GetUser(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            return user;
+        }
+
+        public async Task<Dictionary<string, string>> GetUserActivityInfo(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public User GetUser(int userId)
+        public async Task<User> GetUserByLogin(string userName, string password)
         {
-            throw new NotImplementedException();
-        }
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password);
 
-        public Dictionary<string, string> GetUserActivityInfo(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetUserByLogin(string userName, string password)
-        {
-            throw new NotImplementedException();
+            return user;
         }
 
         public void UpdateUserActivity(int id, string field, string value)

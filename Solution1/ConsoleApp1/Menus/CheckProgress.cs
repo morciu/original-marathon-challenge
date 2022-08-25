@@ -16,7 +16,7 @@ namespace ConsolePresentation.Menus
             Options = new string[2] {"Go Back", "Exit" };
         }
 
-        public override void InteractWithUser()
+        public async override Task InteractWithUser()
         {
             menuTemplate = new SelectionMenuFactory();
             IMenuTemplate menu = menuTemplate.CreateMenuTemplate(Message, Options);
@@ -26,6 +26,7 @@ namespace ConsolePresentation.Menus
                 case 0: App.currentMenu = new UserMenu(App); break;
                 case 1: Environment.Exit(0); break;
             }
+            await Task.Run(() => App.RunApp());
         }
     }
 }

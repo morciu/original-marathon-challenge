@@ -21,16 +21,15 @@ namespace ConsolePresentation.Menus
             Options = new string[4] { "First Name: ", "Last Name: ", "User Name: ", "Password: " };
         }
 
-        public override async void InteractWithUser()
+        public async override Task InteractWithUser()
         {
             menuTemplate = new InputMenuFactory();
             var menu = menuTemplate.CreateMenuTemplate(Message, Options);
             menu.RunMenu();
             string[] inputs = menu.UserInput;
 
-            var mediator = SingletonMediator.Instance.GetMediator();
 
-            var newUser = await mediator.Send(new CreateUserCommand
+            var newUser = await App.mediator.Send(new CreateUserCommand
             {
                 FirstName = inputs[0],
                 LastName = inputs[1],
@@ -44,6 +43,7 @@ namespace ConsolePresentation.Menus
 
             // Set up next menu
             App.currentMenu = new UserMenu(App);
+            await Task.Run(() => App.RunApp());
         }
     }
 }

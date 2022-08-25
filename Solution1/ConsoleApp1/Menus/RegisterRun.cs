@@ -16,7 +16,7 @@ namespace ConsolePresentation.Menus
             Options = new string[2] { "Distance (km): ", "Time (h:m:s): " };
         }
 
-        public override void InteractWithUser()
+        public async override Task InteractWithUser()
         {
             // Run Menu and get input
             menuTemplate = new InputMenuFactory();
@@ -24,14 +24,13 @@ namespace ConsolePresentation.Menus
             menu.RunMenu();
             string[] inputs = menu.UserInput;
 
-            var mediator = SingletonMediator.Instance.GetMediator();
 
             // Store inputs for distance and duration
             decimal distance = Math.Round(decimal.Parse(inputs[0]));
             TimeSpan time = TimeSpan.Parse(inputs[1]);
 
             // Save activity
-            mediator.Send(new CreateActivityCommand
+            await App.mediator.Send(new CreateActivityCommand
             {
                 RunnerId = App.CurrentUserId,
                 Distance = distance,
@@ -40,6 +39,7 @@ namespace ConsolePresentation.Menus
             });
 
             App.currentMenu = new UserMenu(App);
+            await Task.Run(() => App.RunApp());
         }
     }
 }
