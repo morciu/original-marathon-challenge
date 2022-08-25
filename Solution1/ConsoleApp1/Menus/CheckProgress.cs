@@ -1,4 +1,5 @@
-﻿using ConsolePresentation.Factories;
+﻿using Application.Activities.Queries.GetActivity;
+using ConsolePresentation.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,16 @@ namespace ConsolePresentation.Menus
         IMenuTemplateFactory menuTemplate;
         public CheckProgress(AppState app) : base(app)
         {
-            Message = $"Marathon Progress:\nTotal Distance: <<PLACEHOLDER>>\nTotal Time: <<PLACEHOLDER>>";
+            // Get user activities
+            var activities = App.mediator.Send(new GetAllUserActivitiesQuery { UserId = App.CurrentUserId });
+            decimal totalDistance = activities.Result.Sum(d => d.Distance);
+            TimeSpan totalTime = new TimeSpan(000000);
+            foreach (var activity in activities.Result)
+            {
+                totalTime += activity.Duration;
+            }
+
+            Message = $"Marathon Progress:\nTotal Distance: {totalDistance}\nTotal Time: {totalTime}";
             Options = new string[2] {"Go Back", "Exit" };
         }
 
