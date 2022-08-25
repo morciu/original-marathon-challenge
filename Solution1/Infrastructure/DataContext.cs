@@ -22,6 +22,10 @@ namespace Infrastructure
                 .Property(x => x.Distance)
                 .HasPrecision(5, 2)
                 .HasColumnType("decimal");
+            modelBuilder.Entity<Activity>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Activities)
+                .HasForeignKey(x => x.UserId);
         }
 
     }
