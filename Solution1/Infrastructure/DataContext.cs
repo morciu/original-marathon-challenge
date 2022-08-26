@@ -20,8 +20,7 @@ namespace Infrastructure
                 .HasMany(x => x.Activities);
             modelBuilder.Entity<Activity>()
                 .Property(x => x.Distance)
-                .HasPrecision(5, 2)
-                .HasColumnType("decimal");
+                .HasPrecision(18, 6);
             modelBuilder.Entity<Activity>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Activities)
