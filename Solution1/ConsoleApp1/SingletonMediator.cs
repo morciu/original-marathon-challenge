@@ -23,7 +23,7 @@ namespace ConsolePresentation
         {
             var diContainer = new ServiceCollection()
                 .AddDbContext<DataContext>()
-                .AddMediatR(typeof(AssemblyMarker))
+                .AddMediatR(typeof(ApplicationAssemblyMarker))
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IActivityRepository, ActivityRepository>()
