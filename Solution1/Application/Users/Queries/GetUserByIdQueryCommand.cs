@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Users.Queries.GetUser
+namespace Application.Users.Queries
 {
     public class GetUserByIdQueryCommand : IRequest<User>
     {

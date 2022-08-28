@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Users.Commands.CreateUser
+namespace Application.Users.Commands
 {
     public class CreateUserCommand : IRequest<User>
     {

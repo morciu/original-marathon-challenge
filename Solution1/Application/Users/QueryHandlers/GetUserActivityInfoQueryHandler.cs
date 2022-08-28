@@ -1,4 +1,5 @@
 ﻿using Application.Abstract;
+using Application.Users.Queries;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Users.Queries.GetUser
+namespace Application.Users.QueryHandlers
 {
     internal class GetUserActivityInfoQueryHandler : IRequestHandler<GetUserActivityInfoQuery, Dictionary<string, string>>
     {

@@ -1,4 +1,5 @@
 ﻿using Application.Abstract;
+using Application.Users.Queries;
 using Domain.Models;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Users.Queries.GetUser
+namespace Application.Users.QueryHandlers
 {
     internal class GetUserQueryLoginHandler : IRequestHandler<GetUserQueryLoginCommand, User>
     {

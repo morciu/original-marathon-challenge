@@ -23,6 +23,12 @@ namespace Infrastructure.Repository
             await _context.Users.AddAsync(user);
         }
 
+        public async Task<List<User>> GetAll()
+        {
+            var result = await _context.Users.ToListAsync();
+            return result;
+        }
+
         public async Task<User> GetUser(int userId)
         {
             var user = await _context.Users.FindAsync(userId);

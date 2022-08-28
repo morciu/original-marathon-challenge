@@ -14,5 +14,6 @@ namespace Application.Abstract
         Task<User> GetUserByLogin(string userName, string password);
         void UpdateUserActivity(int id, string field, string value);
         Task<Dictionary<string, string>> GetUserActivityInfo(int Id);
+        Task<List<User>> GetAll();
     }
 }
