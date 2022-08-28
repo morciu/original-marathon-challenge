@@ -41,5 +41,15 @@ namespace WebAPI.Controllers
             var mappedResult = _mapper.Map<ActivityGetDto>(result);
             return Ok(mappedResult);
         }
+        [HttpGet]
+        [Route("user-activities/{id}")]
+        public async Task<IActionResult> GetAllUserActivities(int id)
+        {
+            var result = await _mediator.Send(new GetAllUserActivitiesQuery() { UserId = id });
+            if (result == null)
+                return NotFound();
+            var mappedResult = _mapper.Map<List<ActivityGetDto>>(result);
+            return Ok(mappedResult);
+        }
     }
 }

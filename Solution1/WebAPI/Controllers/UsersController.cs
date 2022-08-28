@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("login")]
-        public async Task<ActionResult> GetUserLogin(string userName, string password)
+        public async Task<IActionResult> GetUserLogin(string userName, string password)
         {
             var result = await _mediator.Send(new GetUserQueryLoginCommand() { UserName = userName, Password = password });
             if (result == null)
