@@ -34,11 +34,26 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("all-users")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllUsers());
+            if (result == null)
+                return NotFound();
             var mappedResult = _mapper.Map<List<UserGetDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("login")]
+        public async Task<ActionResult> GetUserLogin(string userName, string password)
+        {
+            var result = await _mediator.Send(new GetUserQueryLoginCommand() { UserName = userName, Password = password });
+            if (result == null)
+                return NotFound();
+            var mappedResult = _mapper.Map<UserGetDto>(result);
+            return Ok(mappedResult);
+
         }
     }
 }
