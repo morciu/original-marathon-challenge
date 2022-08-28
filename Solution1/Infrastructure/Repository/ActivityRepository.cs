@@ -22,6 +22,18 @@ namespace Infrastructure.Repository
             await _context.Activities.AddAsync(activity);
         }
 
+        public async Task<Activity> GetActivityById(int id)
+        {
+            var result = await _context.Activities.FindAsync(id);
+            return result;
+        }
+
+        public async Task<List<Activity>> GetAllActivities()
+        {
+            var activities = await _context.Activities.ToListAsync();
+            return activities;
+        }
+
         public async Task<List<Activity>> GetUserActivities(int userId)
         {
             var activities = await _context.Activities.Where(a => a.UserId == userId).ToListAsync();

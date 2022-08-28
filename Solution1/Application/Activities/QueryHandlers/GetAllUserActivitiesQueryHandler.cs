@@ -1,4 +1,5 @@
 ﻿using Application.Abstract;
+using Application.Activities.Queries;
 using Domain.Models;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Activities.Queries.GetActivity
+namespace Application.Activities.QueryHandlers
 {
     internal class GetAllUserActivitiesQueryHandler : IRequestHandler<GetAllUserActivitiesQuery, List<Activity>>
     {

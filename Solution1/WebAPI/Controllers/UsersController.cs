@@ -7,7 +7,7 @@ using WebAPI.Dto;
 namespace WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         public readonly IMediator _mediator;

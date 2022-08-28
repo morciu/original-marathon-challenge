@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
 
-namespace Application.Activities.Commands.CreateActivity
+namespace Application.Activities.Commands
 {
     public class CreateActivityCommand : IRequest<Activity>
     {

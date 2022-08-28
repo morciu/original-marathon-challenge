@@ -11,5 +11,7 @@ namespace Application.Abstract
     {
         Task CreateActivity(Activity activity);
         Task<List<Activity>> GetUserActivities(int userId);
+        Task<List<Activity>> GetAllActivities();
+        Task<Activity> GetActivityById(int id);
     }
 }

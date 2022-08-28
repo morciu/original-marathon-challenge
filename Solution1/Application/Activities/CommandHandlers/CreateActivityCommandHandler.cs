@@ -1,4 +1,5 @@
 ﻿using Application.Abstract;
+using Application.Activities.Commands;
 using Domain.Models;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Activities.Commands.CreateActivity
+namespace Application.Activities.CommandHandlers
 {
     internal class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Activity>
     {
