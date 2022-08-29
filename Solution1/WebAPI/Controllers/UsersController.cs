@@ -1,4 +1,5 @@
-﻿using Application.Users.Queries;
+﻿using Application.Users.Commands;
+using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,22 @@ namespace WebAPI.Controllers
                 return NotFound();
             var mappedResult = _mapper.Map<UserGetDto>(result);
             return Ok(mappedResult);
+        }
 
+        [HttpPost]
+        [Route("create-user")]
+        public async Task<IActionResult> CreateUser([FromBody] UserPutPostDto user)
+        {
+            var result = await _mediator.Send(new CreateUserCommand 
+            { 
+                FirstName = user.FirstName, 
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Password = user.Password,
+            });
+            var mappedResult = _mapper.Map<UserGetDto>(result);
+
+            return CreatedAtAction(nameof(GetUsersById), new { Id = mappedResult.Id }, mappedResult);
         }
     }
 }

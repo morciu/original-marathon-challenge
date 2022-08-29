@@ -9,6 +9,7 @@ namespace WebAPI.Profiles
         public UserProfile()
         {
             CreateMap<User, UserGetDto>();
+            CreateMap<UserPutPostDto, User>();
         }
     }
 }

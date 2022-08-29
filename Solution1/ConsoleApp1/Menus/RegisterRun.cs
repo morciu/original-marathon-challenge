@@ -1,9 +1,5 @@
-﻿using Application;
-using Application.Activities.Commands.CreateActivity;
+﻿using Application.Activities.Commands;
 using ConsolePresentation.Factories;
-using Infrastructure;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsolePresentation.Menus
 {

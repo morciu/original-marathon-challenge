@@ -4,6 +4,7 @@ using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
 using WebAPI;
+using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseRequestTimeLogger();
 
 app.MapControllers();
 
