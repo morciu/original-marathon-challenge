@@ -3,6 +3,7 @@ using Application.Abstract;
 using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using WebAPI;
 using WebAPI.Middleware;
 
@@ -15,7 +16,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddMediatR(typeof(ApplicationAssemblyMarker));
 builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));
 
