@@ -1,4 +1,5 @@
-﻿using Application.Activities.Queries;
+﻿using Application.Activities.Commands;
+using Application.Activities.Queries;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
@@ -50,6 +51,21 @@ namespace WebAPI.Controllers
                 return NotFound();
             var mappedResult = _mapper.Map<List<ActivityGetDto>>(result);
             return Ok(mappedResult);
+        }
+        [HttpPost]
+        [Route("create-activity")]
+        public async Task<IActionResult> CreateActivity([FromBody] ActivityPutPostDto activity)
+        {
+            var result = await _mediator.Send(new CreateActivityCommand
+            {
+                RunnerId = activity.UserId,
+                Distance = activity.Distance,
+                Date = activity.Date,
+                Duration = activity.Duration,
+            });
+            var mappedResult = _mapper.Map<ActivityGetDto>(result);
+
+            return CreatedAtAction(nameof(GetActivityById), new { id = mappedResult.Id }, mappedResult);
         }
     }
 }
