@@ -10,6 +10,7 @@ namespace Application.Abstract
     public interface IUserRepository
     {
         Task CreateUser(User user);
+        public void Delete(User user);
         Task<User> GetUser(int userId);
         Task<User> GetUserByLogin(string userName, string password);
         void UpdateUserActivity(int id, string field, string value);

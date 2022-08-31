@@ -37,6 +37,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetActivityById(int id)
         {
             var result = await _mediator.Send(new GetActivityByIdQuery(){ Id = id });
+
             if (result == null)
                 return NotFound();
             var mappedResult = _mapper.Map<ActivityGetDto>(result);

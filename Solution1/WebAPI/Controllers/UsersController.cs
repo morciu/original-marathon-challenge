@@ -1,4 +1,5 @@
-﻿using Application.Users.Commands;
+﻿using Application.Activities.Commands;
+using Application.Users.Commands;
 using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
@@ -70,6 +71,22 @@ namespace WebAPI.Controllers
             var mappedResult = _mapper.Map<UserGetDto>(result);
 
             return CreatedAtAction(nameof(GetUsersById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPost]
+        [Route("{userId}/activities/{activityId}")]
+        public async Task<IActionResult> AddActivityToUser(int userId, int activityId)
+        {
+            var command = new AddActivityToUser
+            {
+                UserId = userId,
+                ActivityId = activityId
+            };
+            var user = await _mediator.Send(command);
+            if (user == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<UserGetDto>(user));
         }
     }
 }
