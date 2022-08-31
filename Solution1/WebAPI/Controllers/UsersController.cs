@@ -90,7 +90,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("{userId}")]
+        [Route("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             var command = new DeleteUser { Id = userId };

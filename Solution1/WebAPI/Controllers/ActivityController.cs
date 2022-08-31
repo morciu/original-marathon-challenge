@@ -68,5 +68,16 @@ namespace WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetActivityById), new { id = mappedResult.Id }, mappedResult);
         }
+
+        [HttpDelete]
+        [Route("deleteActivity/{activityId}")]
+        public async Task<IActionResult> DeleteActivity(int activityId)
+        {
+            var command = new DeleteActivity { Id = activityId };
+            var result = await _mediator.Send(command);
+            if (result == null) return NotFound();
+
+            return NoContent();
+        }
     }
 }
