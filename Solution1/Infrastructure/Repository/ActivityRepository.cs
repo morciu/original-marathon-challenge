@@ -22,6 +22,11 @@ namespace Infrastructure.Repository
             await _context.Activities.AddAsync(activity);
         }
 
+        public void Delete(Activity activity)
+        {
+            _context.Activities.Remove(activity);
+        }
+
         public async Task<Activity> GetActivityById(int id)
         {
             var result = await _context.Activities.FindAsync(id);

@@ -10,6 +10,7 @@ namespace Application.Abstract
     public interface IActivityRepository
     {
         Task CreateActivity(Activity activity);
+        public void Delete(Activity activity);
         Task<List<Activity>> GetUserActivities(int userId);
         Task<List<Activity>> GetAllActivities();
         Task<Activity> GetActivityById(int id);
