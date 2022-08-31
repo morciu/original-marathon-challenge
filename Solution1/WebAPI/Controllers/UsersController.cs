@@ -88,5 +88,17 @@ namespace WebAPI.Controllers
 
             return Ok(_mapper.Map<UserGetDto>(user));
         }
+
+        [HttpDelete]
+        [Route("{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var command = new DeleteUser { Id = userId };
+            var result = await _mediator.Send(command);
+
+            if (result == null) return NotFound();
+
+            return NoContent();
+        }
     }
 }
