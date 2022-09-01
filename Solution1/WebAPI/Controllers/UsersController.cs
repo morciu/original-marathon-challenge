@@ -4,6 +4,7 @@ using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebAPI.Dto;
 
 namespace WebAPI.Controllers
@@ -14,21 +15,32 @@ namespace WebAPI.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IMediator mediator, IMapper mapper)
+        public UsersController(IMediator mediator, IMapper mapper, ILogger<UsersController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetUsersById(int id)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetUserByIdQueryCommand() { Id = id });
 
             if (result == null)
+            {
+                _logger.LogWarning($"No user found with Id: {id}.");
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<UserGetDto>(result);
 
@@ -39,10 +51,22 @@ namespace WebAPI.Controllers
         [Route("all-users")]
         public async Task<IActionResult> GetAll()
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetAllUsers());
             if (result == null)
+            {
+                _logger.LogWarning("No users found");
                 return NotFound();
+            }
+
             var mappedResult = _mapper.Map<List<UserGetDto>>(result);
+            _logger.LogInformation($"Found {result.Count} users");
+
             return Ok(mappedResult);
         }
 
@@ -50,10 +74,22 @@ namespace WebAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> GetUserLogin(string userName, string password)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetUserQueryLoginCommand() { UserName = userName, Password = password });
+
             if (result == null)
+            {
+                _logger.LogWarning($"Login failed, no user found with provided credentials");
                 return NotFound();
+            }
+
             var mappedResult = _mapper.Map<UserGetDto>(result);
+
             return Ok(mappedResult);
         }
 
@@ -61,6 +97,12 @@ namespace WebAPI.Controllers
         [Route("create-user")]
         public async Task<IActionResult> CreateUser([FromBody] UserPutPostDto user)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new CreateUserCommand 
             { 
                 FirstName = user.FirstName, 
@@ -68,6 +110,18 @@ namespace WebAPI.Controllers
                 UserName = user.UserName,
                 Password = user.Password,
             });
+
+            if (result == null)
+            {
+                _logger.LogWarning($"Could not create user.");
+                _logger.LogDebug("Tried to create user with the following:\n" +
+                    $"FirstName: {user.FirstName}\n" +
+                    $"LastName: {user.LastName}\n" +
+                    $"UserName: {user.UserName}\n" +
+                    $"Password: {user.Password}");
+                return NotFound();
+            }
+                
             var mappedResult = _mapper.Map<UserGetDto>(result);
 
             return CreatedAtAction(nameof(GetUsersById), new { Id = mappedResult.Id }, mappedResult);
@@ -77,12 +131,19 @@ namespace WebAPI.Controllers
         [Route("{userId}/activities/{activityId}")]
         public async Task<IActionResult> AddActivityToUser(int userId, int activityId)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var command = new AddActivityToUser
             {
                 UserId = userId,
                 ActivityId = activityId
             };
             var user = await _mediator.Send(command);
+
             if (user == null)
                 return NotFound();
 
@@ -93,10 +154,20 @@ namespace WebAPI.Controllers
         [Route("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var command = new DeleteUser { Id = userId };
             var result = await _mediator.Send(command);
 
-            if (result == null) return NotFound();
+            if (result == null)
+            {
+                _logger.LogWarning($"Could not delete user. User with id: {userId} was not found.");
+                return NotFound();
+            }
 
             return NoContent();
         }
