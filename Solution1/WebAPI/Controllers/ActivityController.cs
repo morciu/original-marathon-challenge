@@ -14,49 +14,91 @@ namespace WebAPI.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
+        private readonly ILogger<ActivityController> _logger;
 
-        public ActivityController(IMediator mediator, IMapper mapper)
+        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
+
         [HttpGet]
         [Route("all-activities")]
         public async Task<IActionResult> GetAll()
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetAllActivitiesQuery());
             if(result == null)
             {
+                _logger.LogWarning("No activities found.");
                 return NotFound();
             }
+
+            _logger.LogInformation($"Found {result.Count} activities.");
             var mappedResult = _mapper.Map<List<ActivityGetDto>>(result);
             return Ok(mappedResult);
         }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetActivityById(int id)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetActivityByIdQuery(){ Id = id });
 
             if (result == null)
+            {
+                _logger.LogWarning($"No activity found with id: {id}.");
                 return NotFound();
+            }
+
             var mappedResult = _mapper.Map<ActivityGetDto>(result);
             return Ok(mappedResult);
         }
+
         [HttpGet]
         [Route("user-activities/{id}")]
         public async Task<IActionResult> GetAllUserActivities(int id)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new GetAllUserActivitiesQuery() { UserId = id });
             if (result == null)
+            {
+                _logger.LogWarning($"No activity found for user with id: {id}");
                 return NotFound();
+            }
+
             var mappedResult = _mapper.Map<List<ActivityGetDto>>(result);
+            _logger.LogInformation($"Found {result.Count} activities for user with id: {id}");
             return Ok(mappedResult);
         }
+
         [HttpPost]
         [Route("create-activity")]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityPutPostDto activity)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var result = await _mediator.Send(new CreateActivityCommand
             {
                 RunnerId = activity.UserId,
@@ -64,7 +106,20 @@ namespace WebAPI.Controllers
                 Date = activity.Date,
                 Duration = activity.Duration,
             });
+
+            if(result == null)
+            {
+                _logger.LogWarning("Failed to create activity");
+                _logger.LogDebug("Tried to create activity with the following values\n" +
+                    $"RunnerId: {activity.UserId}\n" +
+                    $"Distance: {activity.Distance}\n" +
+                    $"Date: {activity.Date}\n" +
+                    $"Duration: {activity.Duration}");
+                return NotFound();
+            }
+
             var mappedResult = _mapper.Map<ActivityGetDto>(result);
+            _logger.LogInformation($"Succesfully created activity with id: {mappedResult.Id}.");
 
             return CreatedAtAction(nameof(GetActivityById), new { id = mappedResult.Id }, mappedResult);
         }
@@ -73,10 +128,20 @@ namespace WebAPI.Controllers
         [Route("deleteActivity/{activityId}")]
         public async Task<IActionResult> DeleteActivity(int activityId)
         {
+            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
             var command = new DeleteActivity { Id = activityId };
             var result = await _mediator.Send(command);
-            if (result == null) return NotFound();
 
+            if (result == null) {
+                _logger.LogWarning($"Failed to delete activity. No activity found with id: {activityId}.");
+                return NotFound(); }
+
+            _logger.LogInformation($"Successfully deleted activity with id: {activityId}.");
             return NoContent();
         }
     }
