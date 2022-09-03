@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\ConsoleApp1\ConsolePresentation.csproj" />
+    <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
   </ItemGroup>
 
 </Project>

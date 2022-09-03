@@ -5,6 +5,7 @@ using Infrastructure.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WebAPI;
+using WebAPI.ControllersHelpers;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<ControllerHelper>();
 
 var app = builder.Build();
 
