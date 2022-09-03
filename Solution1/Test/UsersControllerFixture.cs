@@ -58,5 +58,26 @@ namespace Test
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetAllUsers>(), It.IsAny<CancellationToken>()), Times.Once());
         }
+
+        [Fact]
+        public async Task Get_User_Login_GetUserLoginIsCalled()
+        {
+            // Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetUserQueryLoginCommand>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<UsersController>())).Returns("UsersControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("GetAllTest");
+
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+
+            // Act
+            await controller.GetUserLogin("userName", "password");
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<GetUserQueryLoginCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
     }
 }
