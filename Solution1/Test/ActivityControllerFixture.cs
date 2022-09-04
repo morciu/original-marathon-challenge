@@ -23,7 +23,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<GetAllActivitiesQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.GetControllerName(It.IsAny<ActivityController>())).Returns("ActionControllerTest");
+                .Setup(h => h.GetControllerName(It.IsAny<ActivityController>())).Returns("ActivityControllerTest");
             _mockHelper
                 .Setup(h => h.GetActionName(It.IsAny<ActivityController>())).Returns("GetAllTest");
 
@@ -34,6 +34,27 @@ namespace Test
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetAllActivitiesQuery>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
+
+        [Fact]
+        public async Task Get_Activity_By_Id_GetActivityByIdIsCalled()
+        {
+            // Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetActivityByIdQuery>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<ActivityController>())).Returns("ActivityControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<ActivityController>())).Returns("GetActivityByIdTest");
+
+            var controller = new ActivityController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+
+            // Act
+            await controller.GetActivityById(5);
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<GetActivityByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
         }
     }
 }
