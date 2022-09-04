@@ -1,4 +1,5 @@
-﻿using Application.Users.Commands;
+﻿using Application.Activities.Commands;
+using Application.Users.Commands;
 using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
@@ -81,6 +82,7 @@ namespace Test
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetUserQueryLoginCommand>(), It.IsAny<CancellationToken>()), Times.Once());
         }
+
         [Fact]
         public async Task Create_User_CreateUserIsCalled()
         {
@@ -107,6 +109,27 @@ namespace Test
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
+
+        [Fact]
+        public async Task Add_Activity_To_User_AddActivityToUserIsCalled()
+        {
+            // Arrange
+            _mockMediator
+               .Setup(m => m.Send(It.IsAny<AddActivityToUser>(), It.IsAny<CancellationToken>()))
+               .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<UsersController>())).Returns("UsersControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("AddActivityToUserTest");
+
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+
+            // Act
+            await controller.AddActivityToUser(5, 22);
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<AddActivityToUser>(), It.IsAny<CancellationToken>()), Times.Once());
         }
     }
 }
