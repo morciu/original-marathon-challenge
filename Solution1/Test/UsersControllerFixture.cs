@@ -131,5 +131,26 @@ namespace Test
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<AddActivityToUser>(), It.IsAny<CancellationToken>()), Times.Once());
         }
+
+        [Fact]
+        public async Task Delete_User_DeleteUserIsCalled()
+        {
+            // Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteUser>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<UsersController>())).Returns("UsersControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("DeleteUserTest");
+
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+
+            // Act
+            await controller.DeleteUser(5);
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<DeleteUser>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
     }
 }
