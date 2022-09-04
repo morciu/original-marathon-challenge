@@ -1,4 +1,5 @@
-﻿using Application.Users.Queries;
+﻿using Application.Users.Commands;
+using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Components;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using WebAPI.Controllers;
 using WebAPI.ControllersHelpers;
+using WebAPI.Dto;
 
 namespace Test
 {
@@ -69,7 +71,7 @@ namespace Test
             _mockHelper
                 .Setup(h => h.GetControllerName(It.IsAny<UsersController>())).Returns("UsersControllerTest");
             _mockHelper
-                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("GetAllTest");
+                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("GetUserLoginTest");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
@@ -78,6 +80,33 @@ namespace Test
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetUserQueryLoginCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
+        [Fact]
+        public async Task Create_User_CreateUserIsCalled()
+        {
+            // Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<UsersController>())).Returns("UsersControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<UsersController>())).Returns("CreateUserTest");
+
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var testDto = new UserPutPostDto()
+            {
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                UserName = "TestUserName",
+                Password = "TestPassWord"
+            };
+
+            // Act
+            await controller.CreateUser(testDto);
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()), Times.Once());
         }
     }
 }
