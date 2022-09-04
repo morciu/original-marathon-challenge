@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
 
 namespace WebAPI.Controllers
@@ -15,21 +16,24 @@ namespace WebAPI.Controllers
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
         private readonly ILogger<ActivityController> _logger;
+        private readonly ControllerHelper _controllerHelper;
 
-        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger)
+        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, ControllerHelper controllerHelper)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
+            _controllerHelper = controllerHelper;
         }
 
         [HttpGet]
         [Route("all-activities")]
         public async Task<IActionResult> GetAll()
         {
-            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
 
-            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+            _logger.LogInformation($"Controller: {controllerName}\n" +
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
@@ -49,9 +53,10 @@ namespace WebAPI.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetActivityById(int id)
         {
-            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
 
-            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+            _logger.LogInformation($"Controller: {controllerName}\n" +
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
@@ -71,9 +76,10 @@ namespace WebAPI.Controllers
         [Route("user-activities/{id}")]
         public async Task<IActionResult> GetAllUserActivities(int id)
         {
-            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
 
-            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+            _logger.LogInformation($"Controller: {controllerName}\n" +
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
@@ -93,9 +99,10 @@ namespace WebAPI.Controllers
         [Route("create-activity")]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityPutPostDto activity)
         {
-            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
 
-            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+            _logger.LogInformation($"Controller: {controllerName}\n" +
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
@@ -128,9 +135,10 @@ namespace WebAPI.Controllers
         [Route("deleteActivity/{activityId}")]
         public async Task<IActionResult> DeleteActivity(int activityId)
         {
-            var actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
 
-            _logger.LogInformation($"Controller: {typeof(UsersController).FullName}\n" +
+            _logger.LogInformation($"Controller: {controllerName}\n" +
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
