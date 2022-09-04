@@ -108,5 +108,26 @@ namespace Test
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<CreateActivityCommand>(), It.IsAny<CancellationToken>()), Times.Once());
         }
+
+        [Fact]
+        public async Task Delete_Activity_DeleteActivityIsCalle()
+        {
+            // Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteActivity>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+            _mockHelper
+                .Setup(h => h.GetControllerName(It.IsAny<ActivityController>())).Returns("ActivityControllerTest");
+            _mockHelper
+                .Setup(h => h.GetActionName(It.IsAny<ActivityController>())).Returns("DeleteActivitiesTest");
+
+            var controller = new ActivityController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+
+            // Act
+            await controller.DeleteActivity(5);
+
+            // Assert
+            _mockMediator.Verify(m => m.Send(It.IsAny<DeleteActivity>(), It.IsAny<CancellationToken>()), Times.Once());
+        }
     }
 }
