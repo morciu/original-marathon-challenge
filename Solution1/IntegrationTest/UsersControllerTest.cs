@@ -1,7 +1,9 @@
+using Application.Users.Commands;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Net;
+using System.Text;
 using WebAPI.Dto;
 using Xunit;
 
@@ -36,6 +38,38 @@ namespace IntegrationTest
 
             var firstUser = users.FirstOrDefault(u => u.Id == 1);
             UserAsserts(firstUser);
+        }
+
+        [Fact]
+        public async Task GetUserById_ShouldReturnValidUser()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("api/users/1");
+
+            var result = await response.Content.ReadAsStringAsync();
+            var user = JsonConvert.DeserializeObject<UserGetDto>(result);
+
+            UserAsserts(user);
+        }
+
+        [Fact]
+        public async Task CreateUser_ShouldReturnCreatedResponse()
+        {
+            var user = new CreateUserCommand
+            {
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                UserName = "TestUserName",
+                Password = "TestPassword",
+            };
+
+            var client = _factory.CreateClient();
+            var response = await client.PostAsync(
+                "api/users/create-user",
+                new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")
+                );
+
+            Xunit.Assert.True(response.StatusCode == HttpStatusCode.Created);
         }
 
         // Create asserts for testing first user
