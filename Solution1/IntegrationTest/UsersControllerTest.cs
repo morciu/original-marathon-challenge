@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System.Net;
+using WebAPI.Dto;
 using Xunit;
 
 namespace IntegrationTest
@@ -18,9 +20,29 @@ namespace IntegrationTest
         public async void Get_All_ShouldReturnOkResponse()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("api/Users/all-users");
+            var response = await client.GetAsync("api/users/all-users");
 
             Xunit.Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async void Get_All_ShouldReturnValidUser()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("api/users/all-users");
+
+            var result = await response.Content.ReadAsStringAsync();
+            var users = JsonConvert.DeserializeObject<List<UserGetDto>>(result);
+
+            var firstUser = users.FirstOrDefault(u => u.Id == 1);
+            UserAsserts(firstUser);
+        }
+
+        // Create asserts for testing first user
+        private static void UserAsserts(UserGetDto user)
+        {
+            Xunit.Assert.Equal("buffy", user.UserName);
+            Xunit.Assert.Equal(1, user.Id);
         }
     }
 }
