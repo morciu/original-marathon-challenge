@@ -5,6 +5,7 @@ namespace Domain.Models
     public class Activity
     {
         public int Id { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
         public decimal Distance { get; set; }
