@@ -12,10 +12,12 @@ namespace Infrastructure
 
         public DbSet<User> Users { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<Marathon> Marathon { get; set; }
+        public DbSet<Marathon> Marathons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Marathon>()
+                .HasMany(x => x.Members);
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Activities);
             modelBuilder.Entity<Activity>()

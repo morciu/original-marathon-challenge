@@ -4,6 +4,7 @@ using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using WebAPI;
 using WebAPI.ControllersHelpers;
 using WebAPI.Middleware;
@@ -25,6 +26,7 @@ builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IMarathonRepository, MarathonRepository>();
 builder.Services.AddScoped<ControllerHelper>();
 
 // Set up lowercase route urls

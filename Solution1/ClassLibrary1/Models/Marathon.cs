@@ -11,6 +11,7 @@ namespace Domain.Models
 /*        public const float DistanceGoal = 240;*/
         public ICollection<User> Members { get; set; }
         public int Id { get; set; }
+        public DateTime StartDate { get; set; }
 /*
         public virtual string ShowProgress()
         {

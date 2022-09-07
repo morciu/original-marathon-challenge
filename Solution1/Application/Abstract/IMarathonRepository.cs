@@ -9,7 +9,8 @@ namespace Application.Abstract
 {
     public interface IMarathonRepository
     {
-        Task CreateMarathon();
+        Task CreateMarathon(Marathon marathon);
+        Task<Marathon> GetMarathon(int id);
         Task<List<User>> GetAllUsers();
         Task<List<User>> GetAllUsersByDistance();
     }

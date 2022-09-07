@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ClassLibrary1\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Marathons\CommandHandlers\" />
+  </ItemGroup>
+
 </Project>
