@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("delete/{marathonId}")]
-        public async Task<IActionResult> DeleteMarathon(int id)
+        public async Task<IActionResult> DeleteMarathon(int marathonId)
         {
             var actionName = _controllerHelper.GetActionName(this);
             var controllerName = _controllerHelper.GetControllerName(this);
@@ -78,11 +78,28 @@ namespace WebAPI.Controllers
                 $"Action: {actionName}\n" +
                 $"Called at: {DateTime.Now.TimeOfDay}");
 
-            var result = await _mediator.Send(new DeleteMarathonCommand { Id = id });
+            var result = await _mediator.Send(new DeleteMarathonCommand { Id = marathonId });
 
             if (result == null) return NotFound();
 
             return NoContent();
-        } 
+        }
+
+        [HttpGet]
+        [Route("get-all")]
+        public async Task<IActionResult> GetAll()
+        {
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
+
+            _logger.LogInformation($"Controller: {controllerName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
+            var result = await _mediator.Send(new GetAllMarathonsQuery { });
+            var mappedResult = _mapper.Map<List<MarathonGetDto>>(result);
+
+            return Ok(result); 
+        }
     }
 }

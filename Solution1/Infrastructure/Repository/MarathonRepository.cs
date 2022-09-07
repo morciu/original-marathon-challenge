@@ -1,5 +1,6 @@
 ﻿using Application.Abstract;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace Infrastructure.Repository
         public async void Delete(Marathon marathon)
         {
             _context.Marathons.Remove(marathon);
+        }
+
+        public async Task<List<Marathon>> GetAllMarathons()
+        {
+            var result = await _context.Marathons.ToListAsync();
+            return result;
         }
 
         public Task<List<User>> GetAllUsers()

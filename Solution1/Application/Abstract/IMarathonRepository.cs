@@ -12,6 +12,7 @@ namespace Application.Abstract
         Task CreateMarathon(Marathon marathon);
         void Delete(Marathon marathon);
         Task<Marathon> GetMarathon(int id);
+        Task<List<Marathon>> GetAllMarathons();
         Task<List<User>> GetAllUsers();
         Task<List<User>> GetAllUsersByDistance();
     }
