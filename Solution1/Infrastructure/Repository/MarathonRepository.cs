@@ -34,9 +34,10 @@ namespace Infrastructure.Repository
             return result;
         }
 
-        public Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var result = await _context.Marathons.SelectMany(m => m.Members).ToListAsync();
+            return result;
         }
 
         public Task<List<User>> GetAllUsersByDistance()

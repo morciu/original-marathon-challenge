@@ -22,11 +22,11 @@ namespace Application.Marathons.CommandHandlers
         {
             var user = await _unitOfWork.UserRepository.GetUser(request.UserId);
             var marathon = await _unitOfWork.MarathonRepository.GetMarathon(request.MarathonId);
+            marathon.Members = await _unitOfWork.MarathonRepository.GetAllUsers();
 
             if (user == null || marathon == null) 
                 return null;
 
-            user.Marathons.Add(marathon);
             marathon.Members.Add(user);
             await _unitOfWork.Save();
 
