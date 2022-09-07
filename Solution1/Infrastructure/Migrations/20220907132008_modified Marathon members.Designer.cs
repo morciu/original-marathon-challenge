@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220907132008_modified Marathon members")]
+    partial class modifiedMarathonmembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,13 +102,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("MarathonUser", b =>
                 {
-                    b.Property<int>("MarathonsId")
+                    b.Property<int>("MarathonId")
                         .HasColumnType("int");
 
                     b.Property<int>("MembersId")
                         .HasColumnType("int");
 
-                    b.HasKey("MarathonsId", "MembersId");
+                    b.HasKey("MarathonId", "MembersId");
 
                     b.HasIndex("MembersId");
 
@@ -128,7 +130,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Models.Marathon", null)
                         .WithMany()
-                        .HasForeignKey("MarathonsId")
+                        .HasForeignKey("MarathonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

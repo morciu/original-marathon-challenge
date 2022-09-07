@@ -30,7 +30,7 @@ namespace Infrastructure.Repository
 
         public async Task<List<User>> GetAll()
         {
-            var result = await _context.Users.ToListAsync();
+            var result = await _context.Users.Include(u => u.Activities).ToListAsync();
             return result;
         }
 

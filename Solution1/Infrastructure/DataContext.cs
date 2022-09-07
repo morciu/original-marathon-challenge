@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
@@ -16,7 +17,12 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Marathon>()
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ActivityConfiguration());
+            modelBuilder.ApplyConfiguration(new MarathonConfiguration());
+
+            /*modelBuilder.Entity<Marathon>()
                 .HasMany(x => x.Members);
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Activities);
@@ -26,7 +32,7 @@ namespace Infrastructure
             modelBuilder.Entity<Activity>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Activities)
-                .HasForeignKey(x => x.UserId);
+                .HasForeignKey(x => x.UserId);*/
         }
 
     }

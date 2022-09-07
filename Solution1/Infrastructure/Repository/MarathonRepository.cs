@@ -30,7 +30,7 @@ namespace Infrastructure.Repository
 
         public async Task<List<Marathon>> GetAllMarathons()
         {
-            var result = await _context.Marathons.ToListAsync();
+            var result = await _context.Marathons.Include(m => m.Members).ToListAsync();
             return result;
         }
 

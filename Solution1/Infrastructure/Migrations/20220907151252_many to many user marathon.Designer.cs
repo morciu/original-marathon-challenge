@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220907151252_many to many user marathon")]
+    partial class manytomanyusermarathon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +68,29 @@ namespace Infrastructure.Migrations
                     b.ToTable("Marathons");
                 });
 
+            modelBuilder.Entity("Domain.Models.MarathonUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MarathonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarathonId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MarathonUser");
+                });
+
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -84,6 +109,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int?>("MarathonId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -95,22 +123,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MarathonId");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MarathonUser", b =>
-                {
-                    b.Property<int>("MarathonsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MembersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MarathonsId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("MarathonUser");
                 });
 
             modelBuilder.Entity("Domain.Models.Activity", b =>
@@ -124,24 +139,44 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MarathonUser", b =>
+            modelBuilder.Entity("Domain.Models.MarathonUser", b =>
                 {
-                    b.HasOne("Domain.Models.Marathon", null)
-                        .WithMany()
-                        .HasForeignKey("MarathonsId")
+                    b.HasOne("Domain.Models.Marathon", "Marathon")
+                        .WithMany("MarathonUser")
+                        .HasForeignKey("MarathonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithMany("MarathonUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Marathon");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.HasOne("Domain.Models.Marathon", null)
+                        .WithMany("Members")
+                        .HasForeignKey("MarathonId");
+                });
+
+            modelBuilder.Entity("Domain.Models.Marathon", b =>
+                {
+                    b.Navigation("MarathonUser");
+
+                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("Activities");
+
+                    b.Navigation("MarathonUser");
                 });
 #pragma warning restore 612, 618
         }

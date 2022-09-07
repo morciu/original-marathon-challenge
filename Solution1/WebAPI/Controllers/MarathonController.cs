@@ -99,7 +99,7 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(new GetAllMarathonsQuery { });
             var mappedResult = _mapper.Map<List<MarathonGetDto>>(result);
 
-            return Ok(result); 
+            return Ok(mappedResult); 
         }
     }
 }
