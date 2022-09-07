@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220826060206_precision-update")]
-    partial class precisionupdate
+    [Migration("20220907200801_many2many attempt 11")]
+    partial class many2manyattempt11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Distance")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
@@ -60,9 +60,12 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Marathon");
+                    b.ToTable("Marathons");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -99,13 +102,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("MarathonUser", b =>
                 {
-                    b.Property<int>("MarathonId")
+                    b.Property<int>("MarathonsId")
                         .HasColumnType("int");
 
                     b.Property<int>("MembersId")
                         .HasColumnType("int");
 
-                    b.HasKey("MarathonId", "MembersId");
+                    b.HasKey("MarathonsId", "MembersId");
 
                     b.HasIndex("MembersId");
 
@@ -127,7 +130,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Models.Marathon", null)
                         .WithMany()
-                        .HasForeignKey("MarathonId")
+                        .HasForeignKey("MarathonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

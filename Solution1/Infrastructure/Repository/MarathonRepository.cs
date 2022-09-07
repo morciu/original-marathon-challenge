@@ -46,7 +46,7 @@ namespace Infrastructure.Repository
 
         public async Task<Marathon> GetMarathon(int id)
         {
-            var result = await _context.Marathons.FindAsync(id);
+            var result = await _context.Marathons.Include(m => m.Members).FirstAsync();
             return result;
         }
     }

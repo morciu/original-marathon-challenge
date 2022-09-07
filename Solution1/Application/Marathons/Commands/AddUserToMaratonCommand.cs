@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Domain.Models;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Application.Marathons.Commands
 {
-    public class MarathonUser
+    public class AddUserToMaratonCommand : IRequest<Marathon>
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
         public int MarathonId { get; set; }
-        public Marathon Marathon { get; set; }
     }
 }

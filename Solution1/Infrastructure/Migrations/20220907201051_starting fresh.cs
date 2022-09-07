@@ -4,7 +4,7 @@
 
 namespace Infrastructure.Migrations
 {
-    public partial class AddedoverrideforOnModelCreating : Migration
+    public partial class startingfresh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

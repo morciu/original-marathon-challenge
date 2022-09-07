@@ -14,16 +14,15 @@ namespace Domain.Models
         public string Password { get; set; }
         public ICollection<Activity> Activities { get; set; }
         public ICollection<Marathon> Marathons { get; set; }
-        /*public ICollection<MarathonUser> MarathonUser { get; set; }*/
-/*
-        public User(int id, string firstName, string lastName, string userName, string password)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            UserName = userName;
-            Password = password;
-        }*/
+        /*
+                public User(int id, string firstName, string lastName, string userName, string password)
+                {
+                    Id = id;
+                    FirstName = firstName;
+                    LastName = lastName;
+                    UserName = userName;
+                    Password = password;
+                }*/
 
         public void RunActivity()
         {

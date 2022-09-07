@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220825140028_Added override for distance precision")]
-    partial class Addedoverridefordistanceprecision
+    [Migration("20220907201051_starting fresh")]
+    partial class startingfresh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Distance")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
@@ -60,9 +60,12 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Marathon");
+                    b.ToTable("Marathons");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -99,13 +102,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("MarathonUser", b =>
                 {
-                    b.Property<int>("MarathonId")
+                    b.Property<int>("MarathonsId")
                         .HasColumnType("int");
 
                     b.Property<int>("MembersId")
                         .HasColumnType("int");
 
-                    b.HasKey("MarathonId", "MembersId");
+                    b.HasKey("MarathonsId", "MembersId");
 
                     b.HasIndex("MembersId");
 
@@ -114,18 +117,20 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Activity", b =>
                 {
-                    b.HasOne("Domain.Models.User", null)
+                    b.HasOne("Domain.Models.User", "User")
                         .WithMany("Activities")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MarathonUser", b =>
                 {
                     b.HasOne("Domain.Models.Marathon", null)
                         .WithMany()
-                        .HasForeignKey("MarathonId")
+                        .HasForeignKey("MarathonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

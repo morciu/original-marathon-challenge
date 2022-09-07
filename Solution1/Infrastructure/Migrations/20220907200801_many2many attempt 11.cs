@@ -5,20 +5,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class many2manyattempt11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Marathon",
+                name: "Marathons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Marathon", x => x.Id);
+                    table.PrimaryKey("PK_Marathons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,7 +45,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Distance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Distance = table.Column<decimal>(type: "decimal(18,6)", precision: 18, scale: 6, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
@@ -63,16 +64,16 @@ namespace Infrastructure.Migrations
                 name: "MarathonUser",
                 columns: table => new
                 {
-                    MarathonId = table.Column<int>(type: "int", nullable: false),
+                    MarathonsId = table.Column<int>(type: "int", nullable: false),
                     MembersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MarathonUser", x => new { x.MarathonId, x.MembersId });
+                    table.PrimaryKey("PK_MarathonUser", x => new { x.MarathonsId, x.MembersId });
                     table.ForeignKey(
-                        name: "FK_MarathonUser_Marathon_MarathonId",
-                        column: x => x.MarathonId,
-                        principalTable: "Marathon",
+                        name: "FK_MarathonUser_Marathons_MarathonsId",
+                        column: x => x.MarathonsId,
+                        principalTable: "Marathons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -103,7 +104,7 @@ namespace Infrastructure.Migrations
                 name: "MarathonUser");
 
             migrationBuilder.DropTable(
-                name: "Marathon");
+                name: "Marathons");
 
             migrationBuilder.DropTable(
                 name: "Users");

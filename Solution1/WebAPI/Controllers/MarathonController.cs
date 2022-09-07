@@ -101,5 +101,18 @@ namespace WebAPI.Controllers
 
             return Ok(mappedResult); 
         }
+
+        [HttpPost]
+        [Route("{marathonId}/members/{userId}")]
+        public async Task<IActionResult> AddUserToMarathon(int marathonId, int userId)
+        {
+            var command = new AddUserToMaratonCommand { MarathonId = marathonId, UserId = userId };
+            var marathon = await _mediator.Send(command);
+            if (marathon == null) return NotFound();
+
+            var mappedResult = _mapper.Map<MarathonGetDto>(marathon);
+
+            return Ok(mappedResult);
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace Domain.Models
 {
     public class Marathon
     {
-        /*public ICollection<MarathonUser> MarathonUser { get; set; }*/
         public ICollection<User> Members { get; set; }
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
