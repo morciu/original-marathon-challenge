@@ -22,6 +22,11 @@ namespace Infrastructure.Repository
             await _context.Marathons.AddAsync(marathon);
         }
 
+        public async void Delete(Marathon marathon)
+        {
+            _context.Marathons.Remove(marathon);
+        }
+
         public Task<List<User>> GetAllUsers()
         {
             throw new NotImplementedException();

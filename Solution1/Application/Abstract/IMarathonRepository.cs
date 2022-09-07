@@ -10,6 +10,7 @@ namespace Application.Abstract
     public interface IMarathonRepository
     {
         Task CreateMarathon(Marathon marathon);
+        void Delete(Marathon marathon);
         Task<Marathon> GetMarathon(int id);
         Task<List<User>> GetAllUsers();
         Task<List<User>> GetAllUsersByDistance();

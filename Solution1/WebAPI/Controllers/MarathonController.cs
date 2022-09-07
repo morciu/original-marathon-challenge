@@ -66,5 +66,23 @@ namespace WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetMarathonById), new { Id = mappedResult.Id }, mappedResult);
         }
+
+        [HttpDelete]
+        [Route("delete/{marathonId}")]
+        public async Task<IActionResult> DeleteMarathon(int id)
+        {
+            var actionName = _controllerHelper.GetActionName(this);
+            var controllerName = _controllerHelper.GetControllerName(this);
+
+            _logger.LogInformation($"Controller: {controllerName}\n" +
+                $"Action: {actionName}\n" +
+                $"Called at: {DateTime.Now.TimeOfDay}");
+
+            var result = await _mediator.Send(new DeleteMarathonCommand { Id = id });
+
+            if (result == null) return NotFound();
+
+            return NoContent();
+        } 
     }
 }
