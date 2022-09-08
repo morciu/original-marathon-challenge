@@ -1,5 +1,6 @@
 using Application;
 using Application.Abstract;
+using Application.CustomSettings;
 using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
@@ -31,6 +32,13 @@ builder.Services.AddScoped<ControllerHelper>();
 
 // Set up lowercase route urls
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+// Set up Custom Settings
+builder.Services.Configure<CustomSettings>(
+    builder.Configuration.GetSection(
+        nameof(CustomSettings)
+        )
+    );
 
 var app = builder.Build();
 
