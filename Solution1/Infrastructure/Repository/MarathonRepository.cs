@@ -61,10 +61,17 @@ namespace Infrastructure.Repository
 
         public async Task<decimal> AverageDistance(Marathon marathon)
         {
-            var mar = await _context.Marathons.Include(m => m.Members).SingleAsync(m => m.Id == marathon.Id);
-            var memberIds = mar.Members.Select(m => m.Id).ToList();
-            var activities = await _context.Activities.Where(a => memberIds.Contains(a.UserId)).ToListAsync();
-            var result = activities.Average(a => a.Distance);
+            /* var mar = await _context.Marathons.Include(m => m.Members).SingleAsync(m => m.Id == marathon.Id);
+             var memberIds = mar.Members.Select(m => m.Id).ToList();
+             var activities = await _context.Activities.Where(a => memberIds.Contains(a.UserId)).ToListAsync();
+             var result = activities.Average(a => a.Distance);*/
+
+            var result = await _context.Marathons
+                .Include(m => m.Members)
+                .ThenInclude(m => m.Activities)
+                .SelectMany(m => m.Members)
+                .SelectMany(m => m.Activities)
+                .AverageAsync(x => x.Distance);
 
             return result;
         }
