@@ -15,5 +15,7 @@ namespace Application.Abstract
         Task<List<Marathon>> GetAllMarathons();
         Task<List<User>> GetAllUsers();
         Task<List<User>> GetAllUsersByDistance();
+        Task<int> CountMembers(Marathon marathon);
+        Task<decimal> AverageDistance(Marathon marathon);
     }
 }

@@ -47,7 +47,25 @@ namespace Infrastructure.Repository
 
         public async Task<Marathon> GetMarathon(int id)
         {
-            var result = await _context.Marathons.Include(m => m.Members).FirstAsync();
+            var result = await _context.Marathons.Include(m => m.Members).SingleAsync(m => m.Id == id);
+            return result;
+        }
+
+        public async Task<int> CountMembers(Marathon marathon)
+        {
+            var mar = await _context.Marathons.SingleAsync(m => m == marathon);
+            var result = mar.Members.Count();
+
+            return result;
+        }
+
+        public async Task<decimal> AverageDistance(Marathon marathon)
+        {
+            var mar = await _context.Marathons.Include(m => m.Members).SingleAsync(m => m.Id == marathon.Id);
+            var memberIds = mar.Members.Select(m => m.Id).ToList();
+            var activities = await _context.Activities.Where(a => memberIds.Contains(a.UserId)).ToListAsync();
+            var result = activities.Average(a => a.Distance);
+
             return result;
         }
     }

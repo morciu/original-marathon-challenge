@@ -36,7 +36,7 @@ namespace Infrastructure.Repository
 
         public async Task<User> GetUser(int userId)
         {
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _context.Users.Include(u => u.Activities).SingleAsync(u => u.Id == userId);
 
             return user;
         }
