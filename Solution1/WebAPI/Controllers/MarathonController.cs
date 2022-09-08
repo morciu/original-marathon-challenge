@@ -17,6 +17,7 @@ namespace WebAPI.Controllers
         private readonly ILogger<ActivityController> _logger;
         private readonly ControllerHelper _controllerHelper;
 
+
         public MarathonController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, ControllerHelper controllerHelper)
         {
             _mediator = mediator;

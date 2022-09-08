@@ -8,6 +8,6 @@ namespace Application.CustomSettings
 {
     public class CustomSettings
     {
-        public string CustomSetting1 { get; set; }
+        public string Setting1 { get; set; }
     }
 }
