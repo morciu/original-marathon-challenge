@@ -140,5 +140,16 @@ namespace WebAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("{marathonId}/check-progress/{userId}")]
+        public async Task<IActionResult> CheckProgress(int marathonId, int userId)
+        {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
+            var result = await _mediator.Send(new CheckProgressQuery { MarathonId = marathonId, UserId = userId });
+
+            return Ok(result);
+        }
     }
 }

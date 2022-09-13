@@ -83,5 +83,22 @@ namespace Infrastructure.Repository
 
             return result;
         }
+
+        public async Task<decimal> CheckProgress(int marathonId, int userId)
+        {
+            var totalDistance = await _context.Marathons
+                .Where(m => m.Id == marathonId)
+                .SelectMany(u => u.Members
+                    .Where(m => m.Id == userId)
+                    .SelectMany(u => u.Activities
+                        .Select(a => a.Distance)
+                        )
+                    )
+                .SumAsync();
+
+            var result = (totalDistance / 240) * 100;
+
+            return result;
+        }
     }
 }
