@@ -28,7 +28,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IMarathonRepository, MarathonRepository>();
-builder.Services.AddScoped<ControllerHelper>();
+builder.Services.AddScoped<LoggerHelper>();
 
 // Set up lowercase route urls
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

@@ -17,26 +17,21 @@ namespace WebAPI.Controllers
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
         private readonly ILogger<UsersController> _logger;
-        private readonly ControllerHelper _controllerHelper;
+        private readonly LoggerHelper _loggerHelper;
 
-        public UsersController(IMediator mediator, IMapper mapper, ILogger<UsersController> logger, ControllerHelper controllerHelper)
+        public UsersController(IMediator mediator, IMapper mapper, ILogger<UsersController> logger, LoggerHelper loggerHelper)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
-            _controllerHelper = controllerHelper;
+            _loggerHelper = loggerHelper;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetUsersById(int id)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetUserByIdQueryCommand() { Id = id });
 
@@ -55,12 +50,7 @@ namespace WebAPI.Controllers
         [Route("all-users")]
         public async Task<IActionResult> GetAll()
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetAllUsers());
             if (result == null)
@@ -79,12 +69,7 @@ namespace WebAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> GetUserLogin(string userName, string password)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetUserQueryLoginCommand() { UserName = userName, Password = password });
 
@@ -103,12 +88,7 @@ namespace WebAPI.Controllers
         [Route("create-user")]
         public async Task<IActionResult> CreateUser([FromBody] UserPutPostDto user)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new CreateUserCommand 
             { 
@@ -138,12 +118,7 @@ namespace WebAPI.Controllers
         [Route("{userId}/activities/{activityId}")]
         public async Task<IActionResult> AddActivityToUser(int userId, int activityId)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var command = new AddActivityToUser
             {
@@ -162,12 +137,7 @@ namespace WebAPI.Controllers
         [Route("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var command = new DeleteUser { Id = userId };
             var result = await _mediator.Send(command);

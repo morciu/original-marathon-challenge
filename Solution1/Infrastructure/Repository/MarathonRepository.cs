@@ -45,7 +45,9 @@ namespace Infrastructure.Repository
             var members = await _context.Marathons
                 .Where(m => m.Id == id)
                 .SelectMany(m => m.Members)
-                .OrderByDescending(m => m.Activities.Select(a => a.Distance).Sum())
+                .OrderByDescending(m => m.Activities
+                    .Select(a => a.Distance)
+                    .Sum())
                 .ToListAsync();
 
             return members;

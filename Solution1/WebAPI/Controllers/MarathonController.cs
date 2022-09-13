@@ -15,27 +15,22 @@ namespace WebAPI.Controllers
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
         private readonly ILogger<ActivityController> _logger;
-        private readonly ControllerHelper _controllerHelper;
+        private readonly LoggerHelper _loggerHelper;
 
 
-        public MarathonController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, ControllerHelper controllerHelper)
+        public MarathonController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, LoggerHelper loggerHelper)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
-            _controllerHelper = controllerHelper;
+            _loggerHelper = loggerHelper;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetMarathonById(int id)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetMarathonByIdCommand { Id = id });
 
@@ -54,12 +49,7 @@ namespace WebAPI.Controllers
         [Route("create-marathon")]
         public async Task<IActionResult> CreateMarathon([FromBody] MarathonPutPostDto body)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new CreateMarathonCommand { FirstMemberId = body.FirstUserId });
 
@@ -72,12 +62,7 @@ namespace WebAPI.Controllers
         [Route("delete/{marathonId}")]
         public async Task<IActionResult> DeleteMarathon(int marathonId)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new DeleteMarathonCommand { Id = marathonId });
 
@@ -90,12 +75,7 @@ namespace WebAPI.Controllers
         [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetAllMarathonsQuery { });
             var mappedResult = _mapper.Map<List<MarathonGetDto>>(result);
@@ -107,6 +87,8 @@ namespace WebAPI.Controllers
         [Route("{marathonId}/members/{userId}")]
         public async Task<IActionResult> AddUserToMarathon(int marathonId, int userId)
         {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
             var command = new AddUserToMaratonCommand { MarathonId = marathonId, UserId = userId };
             var marathon = await _mediator.Send(command);
             if (marathon == null) return NotFound();
@@ -120,6 +102,8 @@ namespace WebAPI.Controllers
         [Route("member-count")]
         public async Task<IActionResult> CountMembers(int marathonId)
         {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
             var result = await _mediator.Send(new CountMembersQuery { Id = marathonId });
 
             return Ok(result);
@@ -129,6 +113,8 @@ namespace WebAPI.Controllers
         [Route("average-distance")]
         public async Task<IActionResult> AverageDistance(int marathonId)
         {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
             var result = await _mediator.Send(new AverageDistanceQuery { Id = marathonId });
 
             return Ok(result);
@@ -138,6 +124,8 @@ namespace WebAPI.Controllers
         [Route("members")]
         public async Task<IActionResult> GetMembers(int marathonId)
         {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
             var result = await _mediator.Send(new GetAllMembersQuery { Id = marathonId });
             return Ok(result);
         }
@@ -146,6 +134,8 @@ namespace WebAPI.Controllers
         [Route("members-by-distance")]
         public async Task<IActionResult> GetUsersByDistance(int marathonId)
         {
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
+
             var result = await _mediator.Send(new UsersByDistanceQuery { Id = marathonId });
 
             return Ok(result);

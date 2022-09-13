@@ -16,26 +16,21 @@ namespace WebAPI.Controllers
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
         private readonly ILogger<ActivityController> _logger;
-        private readonly ControllerHelper _controllerHelper;
+        private readonly LoggerHelper _loggerHelper;
 
-        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, ControllerHelper controllerHelper)
+        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, LoggerHelper loggerHelper)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
-            _controllerHelper = controllerHelper;
+            _loggerHelper = loggerHelper;
         }
 
         [HttpGet]
         [Route("all-activities")]
         public async Task<IActionResult> GetAll()
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetAllActivitiesQuery());
             if(result == null)
@@ -53,12 +48,7 @@ namespace WebAPI.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetActivityById(int id)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetActivityByIdQuery(){ Id = id });
 
@@ -76,12 +66,7 @@ namespace WebAPI.Controllers
         [Route("user-activities/{id}")]
         public async Task<IActionResult> GetAllUserActivities(int id)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new GetAllUserActivitiesQuery() { UserId = id });
             if (result == null)
@@ -99,12 +84,7 @@ namespace WebAPI.Controllers
         [Route("create-activity")]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityPutPostDto activity)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new CreateActivityCommand
             {
@@ -135,12 +115,7 @@ namespace WebAPI.Controllers
         [Route("deleteActivity/{activityId}")]
         public async Task<IActionResult> DeleteActivity(int activityId)
         {
-            var actionName = _controllerHelper.GetActionName(this);
-            var controllerName = _controllerHelper.GetControllerName(this);
-
-            _logger.LogInformation($"Controller: {controllerName}\n" +
-                $"Action: {actionName}\n" +
-                $"Called at: {DateTime.Now.TimeOfDay}");
+            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var command = new DeleteActivity { Id = activityId };
             var result = await _mediator.Send(command);
