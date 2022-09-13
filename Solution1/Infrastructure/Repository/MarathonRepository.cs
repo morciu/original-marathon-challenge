@@ -84,7 +84,7 @@ namespace Infrastructure.Repository
             return result;
         }
 
-        public async Task<decimal> CheckProgress(int marathonId, int userId)
+        public async Task<decimal> TotalUserDistance(int marathonId, int userId)
         {
             var totalDistance = await _context.Marathons
                 .Where(m => m.Id == marathonId)
@@ -96,9 +96,7 @@ namespace Infrastructure.Repository
                     )
                 .SumAsync();
 
-            var result = (totalDistance / 240) * 100;
-
-            return result;
+            return totalDistance;
         }
     }
 }

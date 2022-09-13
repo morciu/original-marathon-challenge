@@ -20,7 +20,9 @@ namespace Application.Marathons.QueryHandlers
 
         public async Task<decimal> Handle(CheckProgressQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.MarathonRepository.CheckProgress(request.MarathonId, request.UserId);
+            decimal marathonDistance = 240m;
+            var totalDistance = await _unitOfWork.MarathonRepository.TotalUserDistance(request.MarathonId, request.UserId);
+            var result = Decimal.Round(totalDistance / marathonDistance * 100, 2);
 
             return result;
         }

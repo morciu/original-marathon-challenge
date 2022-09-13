@@ -17,6 +17,6 @@ namespace Application.Abstract
         Task<List<User>> GetAllUsersByDistance(int id);
         Task<int> CountMembers(Marathon marathon);
         Task<decimal> AverageDistance(Marathon marathon);
-        Task<decimal> CheckProgress(int marathonId, int userId);
+        Task<decimal> TotalUserDistance(int marathonId, int userId);
     }
 }
