@@ -133,5 +133,22 @@ namespace WebAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("members")]
+        public async Task<IActionResult> GetMembers(int marathonId)
+        {
+            var result = await _mediator.Send(new GetAllMembersQuery { Id = marathonId });
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("members-by-distance")]
+        public async Task<IActionResult> GetUsersByDistance(int marathonId)
+        {
+            var result = await _mediator.Send(new UsersByDistanceQuery { Id = marathonId });
+
+            return Ok(result);
+        }
     }
 }

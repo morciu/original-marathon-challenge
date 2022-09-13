@@ -34,15 +34,21 @@ namespace Infrastructure.Repository
             return result;
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers(int id)
         {
-            var result = await _context.Marathons.SelectMany(m => m.Members).ToListAsync();
+            var result = await _context.Marathons.Where(m => m.Id == id).SelectMany(m => m.Members).ToListAsync();
             return result;
         }
 
-        public Task<List<User>> GetAllUsersByDistance()
+        public async Task<List<User>> GetAllUsersByDistance(int id)
         {
-            throw new NotImplementedException();
+            var members = await _context.Marathons
+                .Where(m => m.Id == id)
+                .SelectMany(m => m.Members)
+                .OrderByDescending(m => m.Activities.Select(a => a.Distance).Sum())
+                .ToListAsync();
+
+            return members;
         }
 
         public async Task<Marathon> GetMarathon(int id)

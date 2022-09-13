@@ -1,6 +1,5 @@
 ﻿using Application.Abstract;
 using Application.Marathons.Queries;
-using Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,21 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Marathons.CommandHandlers
+namespace Application.Marathons.QueryHandlers
 {
-    public class CountMembersQueryHandler : IRequestHandler<CountMembersQuery, int>
+    public class AverageDistanceQueryHandler : IRequestHandler<AverageDistanceQuery, decimal>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CountMembersQueryHandler(IUnitOfWork unitOfWork)
+        public AverageDistanceQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<int> Handle(CountMembersQuery request, CancellationToken cancellationToken)
+        public async Task<decimal> Handle(AverageDistanceQuery request, CancellationToken cancellationToken)
         {
             var marathon = await _unitOfWork.MarathonRepository.GetMarathon(request.Id);
-            var result = await _unitOfWork.MarathonRepository.CountMembers(marathon);
-
+            var result = await _unitOfWork.MarathonRepository.AverageDistance(marathon);
             return result;
         }
     }
