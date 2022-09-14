@@ -7,5 +7,6 @@
         public decimal Distance { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
+        public TimeSpan Pace { get; set; }
     }
 }
