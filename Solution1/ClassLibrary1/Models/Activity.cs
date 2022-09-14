@@ -11,13 +11,15 @@ namespace Domain.Models
         public decimal Distance { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
+        public TimeSpan Pace { get; set; }
 
-/*        public Activity(int userId, decimal distance, DateTime date, TimeSpan duration)
+        public TimeSpan CalculatePace(decimal distance, TimeSpan duration)
         {
-            UserId = userId;
-            Distance = distance;
-            Date = date;
-            Duration = duration;
-        }*/
+            var totalSeconds = duration.TotalSeconds;
+            var paceInSeconds = Math.Round(totalSeconds / Convert.ToDouble(distance));
+            var paceInMinutes = TimeSpan.FromSeconds(paceInSeconds);
+
+            return paceInMinutes;
+        }
     }
 }
