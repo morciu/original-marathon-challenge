@@ -1,0 +1,111 @@
+:root {
+  background-color: var(--background);
+
+  /* color palette */
+  --dark: #22181C;
+  --green: #4B624B;
+  --green-transparent: #4B624BAA;
+  --light: #F6E8EA;
+
+  /* fonts */
+  --title-size: 32px;
+  --form-size: 24px
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+
+  background-image: url("./media/thomas-galler-X_pUX9BVTeE-unsplash.jpg");
+  background-position: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  color: var(--light);
+}
+
+#photo-credits{
+  font-size: 12px;
+  color: var(--light);
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.container {
+  background-color: var(--green-transparent);
+  height: 100vh;
+  width: min(800px, 100vw);
+  position: relative;
+
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--light);
+  font-size: var(--title-size);
+}
+
+.title {
+  text-align: center;
+  padding: 12px;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 20px;
+  color: var(--light);
+  font-size: var(--form-size);
+}
+
+input[type="text"],
+input[type="password"] {
+  background-color: var(--light);
+  border-radius: 8px;
+  border: none;
+  height: 34px;
+  padding: 4px 8px;
+}
+
+input:focus{
+  outline: none;
+}
+
+.btn {
+  background-color: var(--green);
+  border: none;
+  padding: 10px 40px;
+  border-radius: 8px;
+  color: var(--light);
+  font-size: var(--form-size);
+  text-align: center;
+}
