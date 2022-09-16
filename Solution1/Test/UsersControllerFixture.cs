@@ -27,7 +27,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<GetUserByIdQueryCommand>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
@@ -47,7 +47,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<GetAllUsers>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
@@ -66,7 +66,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<GetUserQueryLoginCommand>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
@@ -85,7 +85,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
             var testDto = new UserPutPostDto()
@@ -111,7 +111,7 @@ namespace Test
                .Setup(m => m.Send(It.IsAny<AddActivityToUser>(), It.IsAny<CancellationToken>()))
                .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
@@ -130,7 +130,7 @@ namespace Test
                 .Setup(m => m.Send(It.IsAny<DeleteUser>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<ActivityController>())).Returns("Mock logger message");
+                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 

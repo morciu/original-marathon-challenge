@@ -14,11 +14,11 @@ namespace WebAPI.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
-        private readonly ILogger<ActivityController> _logger;
+        private readonly ILogger<MarathonController> _logger;
         private readonly LoggerHelper _loggerHelper;
 
 
-        public MarathonController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, LoggerHelper loggerHelper)
+        public MarathonController(IMediator mediator, IMapper mapper, ILogger<MarathonController> logger, LoggerHelper loggerHelper)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -52,6 +52,12 @@ namespace WebAPI.Controllers
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new CreateMarathonCommand { FirstMemberId = body.FirstUserId });
+
+            if (result == null)
+            {
+                _logger.LogWarning($"Could not create Marathon having first user with Id: {body.FirstUserId}.");
+                return NotFound();
+            }
 
             var mappedResult = _mapper.Map<MarathonGetDto>(result);
 
