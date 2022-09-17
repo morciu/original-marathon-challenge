@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Activities.QueryHandlers
 {
-    internal class GetAllUserActivitiesQueryHandler : IRequestHandler<GetAllUserActivitiesQuery, List<Activity>>
+    public class GetAllUserActivitiesQueryHandler : IRequestHandler<GetAllUserActivitiesQuery, List<Activity>>
     {
         private readonly IUnitOfWork _unitOfWork;
         public GetAllUserActivitiesQueryHandler(IUnitOfWork unitOfWork)
