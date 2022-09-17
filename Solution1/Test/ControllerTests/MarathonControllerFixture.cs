@@ -13,7 +13,7 @@ using WebAPI.Controllers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
 
-namespace Test
+namespace Test.ControllerTests
 {
     public class MarathonControllerFixture
     {

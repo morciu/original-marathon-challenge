@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Test.ActivityCommandHandlerTests
 {
     public class CreateActivityCommandHandler_Fixture
     {
@@ -31,8 +31,7 @@ namespace Test
             var activityList = new List<Activity>();
 
 
-            _mockUnitOfWork.Setup(u => u.ActivityRepository.CreateActivity(It.IsAny<Activity>())).Callback(
-                () =>
+            _mockUnitOfWork.Setup(u => u.ActivityRepository.CreateActivity(It.IsAny<Activity>())).Callback(() =>
                 {
                     activityList.Add(new Activity());
                 });

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Test.ActivityCommandHandlerTests
 {
     public class AddActivityToUserHandler_Fixture
     {
@@ -24,7 +24,7 @@ namespace Test
             var request = new AddActivityToUser { ActivityId = 85, UserId = 58 };
 
             var user = new User
-            { 
+            {
                 Id = request.UserId,
                 FirstName = "John",
                 LastName = "Doe",
@@ -33,7 +33,7 @@ namespace Test
                 Activities = new List<Activity>(),
                 Marathons = new List<Marathon>()
             };
-            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult<User>(user));
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult(user));
 
             var activity = new Activity
             {
@@ -72,7 +72,7 @@ namespace Test
                 Activities = new List<Activity>(),
                 Marathons = new List<Marathon>()
             };
-            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult<User>(user));
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult(user));
 
             _mockUnitOfWork.Setup(a => a.ActivityRepository.GetActivityById(request.ActivityId)).Returns(Task.FromResult<Activity>(null));
 
