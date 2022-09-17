@@ -55,5 +55,63 @@ namespace Test
             // Assert
             Assert.IsType<User>(result);
         }
+
+        [Fact]
+        public async Task CheckIf_NullActivity_NotAddedTo_ValidUser()
+        {
+            // Arrange
+            var request = new AddActivityToUser { ActivityId = 85, UserId = 58 };
+
+            var user = new User
+            {
+                Id = request.UserId,
+                FirstName = "John",
+                LastName = "Doe",
+                UserName = "testUser",
+                Password = "secret",
+                Activities = new List<Activity>(),
+                Marathons = new List<Marathon>()
+            };
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult<User>(user));
+
+            _mockUnitOfWork.Setup(a => a.ActivityRepository.GetActivityById(request.ActivityId)).Returns(Task.FromResult<Activity>(null));
+
+            var handler = new AddActivityToUserHandler(_mockUnitOfWork.Object);
+
+            // Act
+
+            var result = await handler.Handle(request, It.IsAny<CancellationToken>());
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task CheckIf_ValidActivity_NotAddedTo_NullUser()
+        {
+            // Arrange
+            var request = new AddActivityToUser { ActivityId = 85, UserId = 58 };
+            _mockUnitOfWork.Setup(u => u.UserRepository.GetUser(request.UserId)).Returns(Task.FromResult<User>(null));
+
+            var activity = new Activity
+            {
+                Id = request.ActivityId,
+                UserId = request.UserId,
+                User = null,
+                Distance = 11.11m,
+                Date = DateTime.Now,
+                Duration = TimeSpan.Parse("01:01:22"),
+            };
+            _mockUnitOfWork.Setup(a => a.ActivityRepository.GetActivityById(request.ActivityId)).Returns(Task.FromResult(activity));
+
+            var handler = new AddActivityToUserHandler(_mockUnitOfWork.Object);
+
+            // Act
+
+            var result = await handler.Handle(request, It.IsAny<CancellationToken>());
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
