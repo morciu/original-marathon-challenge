@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Activities.CommandHandlers
 {
-    internal class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Activity>
+    public class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Activity>
     {
         IUnitOfWork _unitOfWork;
         public CreateActivityCommandHandler(IUnitOfWork unitOfWork)
