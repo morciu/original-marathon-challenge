@@ -13,7 +13,7 @@ const Button = (props) => {
 
     return(
         <>
-            <button style={style} type="submit"  onClick={props.clickEvent}>Log In</button>
+            <button style={style} type="submit"  onClick={() => props.clickEvent}>Log In</button>
         </>
     );
 };
