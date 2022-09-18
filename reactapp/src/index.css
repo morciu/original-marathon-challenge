@@ -99,13 +99,3 @@ input[type="password"] {
 input:focus{
   outline: none;
 }
-
-.btn {
-  background-color: var(--green);
-  border: none;
-  padding: 10px 40px;
-  border-radius: 8px;
-  color: var(--light);
-  font-size: var(--form-size);
-  text-align: center;
-}

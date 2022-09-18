@@ -3,8 +3,8 @@ import React from "react";
 const Header = () => {
     return(
         <>
-            <div class="header">
-                <h1 class="title">Marathon Tracker</h1>
+            <div className="header">
+                <h1 className="title">Marathon Tracker</h1>
             </div>
         </>
     );

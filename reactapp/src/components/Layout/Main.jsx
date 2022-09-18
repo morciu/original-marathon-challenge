@@ -4,8 +4,8 @@ import Login from "../Login/Login";
 const Main = () => {
     return(
         <>
-            <div class="main">
-                <Login />
+            <div className="main">
+                <Login userNameLabel="User Name" passwordLabel="Password" />
             </div>
         </>
     );

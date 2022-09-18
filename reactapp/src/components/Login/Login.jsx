@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import Button from "../Buttons/MainButton";
+import TextInput from "../Inputs/TextInput";
+import PasswordInput from "../Inputs/PasswordInput";
 
-const Login = () => {
+const Login = (props) => {
+    /* Test event */
+    const buttonClicked = () => {
+        console.log("Log in button Clicked");
+    };
+
     return(
         <>
-            <div class="login-form">
-                <div class="input-form">
-                    <label for="username-input">User Name</label>
-                    <input type="text" id="username-input" name="username-input" required></input>
-                </div>
-                <div class="input-form">
-                    <label for="password-inputt">Password</label>
-                    <input type="password" id="password-input" name="password-input" required></input>
-                </div>
+            <div className="login-form">
+                <TextInput userNameLabel="User Name" />
+                <PasswordInput passwordLabel="Password"/>
                 
-                <button type="submit" class="btn">Log In</button>
+                <Button clickEvent={buttonClicked} />
             </div>
         </>
     )

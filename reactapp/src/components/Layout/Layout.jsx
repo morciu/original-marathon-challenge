@@ -7,7 +7,7 @@ import PhotoCredits from "../../media/PhotoCredits";
 const Layout = () => {
     return(
         <>
-            <div class="container">
+            <div className="container">
                 <Header />
                 <Main />
                 <Footer />

@@ -4,7 +4,7 @@ import PhotoCredits from "../../media/PhotoCredits";
 const Footer = () => {
     return(
         <>
-            <div class="footer">
+            <div className="footer">
                 <PhotoCredits />
             </div>
         </>
