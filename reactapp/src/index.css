@@ -68,9 +68,10 @@ a {
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-}
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  justify-items: center;
+  }
 
 .login-form {
   display: flex;
@@ -78,14 +79,7 @@ a {
   justify-content: space-evenly;
 }
 
-.input-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 20px;
-  color: var(--light);
-  font-size: var(--form-size);
-}
+
 
 input[type="text"],
 input[type="password"] {
