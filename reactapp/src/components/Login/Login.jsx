@@ -14,7 +14,8 @@ const Login = (props) => {
                 <TextInput userNameLabel="User Name" type="text"/>
                 <TextInput userNameLabel="Password" type="password"/>
                 
-                <Button clickEvent={buttonClicked} />
+                <Button type="submit" text="Log In" clickEvent={buttonClicked} />
+                <Button text="Register" />
             </div>
         </>
     )

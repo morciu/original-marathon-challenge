@@ -79,8 +79,6 @@ a {
   justify-content: space-evenly;
 }
 
-
-
 input[type="text"],
 input[type="password"] {
   background-color: var(--light);
