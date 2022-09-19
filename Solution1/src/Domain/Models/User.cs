@@ -6,14 +6,16 @@ namespace Domain.Models
     {
         public int Id { get; set; }
         [MaxLength(20)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = null!;
+
+        [MaxLength(20)] 
+        public string LastName { get; set; } = null!;
+
         [MaxLength(20)]
-        public string LastName { get; set; }
-        [MaxLength(20)]
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public ICollection<Activity> Activities { get; set; }
-        public ICollection<Marathon> Marathons { get; set; }
+        public string UserName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public ICollection<Activity> Activities { get; set; } = null!;
+        public ICollection<Marathon> Marathons { get; set; } = null!;
         /*
                 public User(int id, string firstName, string lastName, string userName, string password)
                 {
