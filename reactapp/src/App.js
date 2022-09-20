@@ -13,12 +13,7 @@ function App() {
 
   return (
       <BrowserRouter>
-        <Layout page={page} nextPage={changePage}>
-          <Routes>
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
-          </Routes>
-        </Layout>
+        <Layout page={page} nextPage={changePage} />
       </BrowserRouter>
   );
 }
