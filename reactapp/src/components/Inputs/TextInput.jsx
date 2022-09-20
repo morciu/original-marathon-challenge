@@ -20,8 +20,8 @@ const TextInput = (props) => {
     return(
         <>
             <div className="form" style={mainStyle}>
-                <label htmlFor="username-input" style={labelStyle}>{props.label}</label>
-                <input type={props.type} id="username-input" name="username-input" required></input>
+                <label htmlFor={props.label} style={labelStyle}>{props.label}</label>
+                <input type={props.type} id={props.label} name={props.label} required></input>
             </div>
         </>
     );

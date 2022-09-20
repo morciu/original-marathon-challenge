@@ -18,7 +18,7 @@ const Register = (props) =>{
             <TextInput label="User Name" type="text" />
             <TextInput label="Password" type="password" />
 
-            <Button type="submit" text="Register" />
+            <Button type="submit" text="Register" nextPage={props.nextPage} page="login" />
         </div>
     );
 };
