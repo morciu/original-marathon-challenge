@@ -1,0 +1,6 @@
+.registerContainer{
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+    align-items: center;
+}

@@ -1,0 +1,11 @@
+.button{
+    background-color: var(--green);
+    border: none;
+    padding: 10px 40px;
+    border-radius: 8px;
+    color: var(--light);
+    font-size: var(--form-size);
+    text-align: center;
+    max-height: 44px;
+    line-height: 1em
+}

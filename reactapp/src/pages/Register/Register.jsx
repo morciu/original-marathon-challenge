@@ -1,18 +1,12 @@
 import React from "react";
-import Button from "../Buttons/MainButton";
-import TextInput from "../Inputs/TextInput";
+import styles from "./Register.module.css";
+import Button from "../../components/Buttons/MainButton";
+import TextInput from "../../components/Inputs/TextInput";
 
 const Register = (props) =>{
 
-    const style = {
-        display: "grid",
-        gridTemplateRows: "repeat(5, 1fr)",
-        gap: "5px",
-        alignItems: "center",
-    };
-
     return(
-        <div style={style}>
+        <div className={styles.registerContainer}>
             <TextInput label="First Name" type="text" />
             <TextInput label="Last Name" type="text" />
             <TextInput label="User Name" type="text" />

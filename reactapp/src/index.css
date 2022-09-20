@@ -73,12 +73,6 @@ a {
   justify-items: center;
   }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
 input[type="text"],
 input[type="password"] {
   background-color: var(--light);

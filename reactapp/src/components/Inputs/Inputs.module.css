@@ -1,0 +1,14 @@
+.formContainer{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    color: var(--light);
+    font-size: var(--form-size);
+}
+
+.label{
+    display: flex;
+    justify-content: flext-start;
+    align-items: center;
+    padding-left: 4px;
+}
