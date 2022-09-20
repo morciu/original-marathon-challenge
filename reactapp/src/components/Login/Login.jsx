@@ -8,11 +8,18 @@ const Login = (props) => {
         console.log("Log in button Clicked");
     };
 
+    const style = {
+        display: "grid",
+        gridTemplateRows: "repeat(4, 1fr)",
+        gap: "5px",
+        alignItems: "center",
+    };
+
     return(
         <>
-            <div className="login-form">
-                <TextInput userNameLabel="User Name" type="text"/>
-                <TextInput userNameLabel="Password" type="password"/>
+            <div style={style}>
+                <TextInput label="User Name" type="text"/>
+                <TextInput label="Password" type="password"/>
                 
                 <Button type="submit" text="Log In" clickEvent={buttonClicked} />
                 <Button text="Register" />

@@ -19,8 +19,8 @@ const TextInput = (props) => {
 
     return(
         <>
-            <div className="input-form" style={mainStyle}>
-                <label htmlFor="username-input" style={labelStyle}>{props.userNameLabel}</label>
+            <div className="form" style={mainStyle}>
+                <label htmlFor="username-input" style={labelStyle}>{props.label}</label>
                 <input type={props.type} id="username-input" name="username-input" required></input>
             </div>
         </>

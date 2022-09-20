@@ -9,6 +9,8 @@ const Button = (props) => {
         color: "var(--light)",
         fontSize: "var(--form-size)",
         textAlign: "center",
+        maxHeight: "44px",
+        lineHeight: "1em"
     };
 
     return(

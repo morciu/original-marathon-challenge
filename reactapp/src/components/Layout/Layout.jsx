@@ -4,12 +4,12 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PhotoCredits from "../../media/PhotoCredits";
 
-const Layout = () => {
+const Layout = (props) => {
     return(
         <>
             <div className="container">
                 <Header />
-                <Main />
+                <Main page={props.page} />
                 <Footer />
             </div>
             

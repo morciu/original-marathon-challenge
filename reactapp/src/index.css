@@ -73,7 +73,7 @@ a {
   justify-items: center;
   }
 
-.login-form {
+.form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
