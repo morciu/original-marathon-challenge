@@ -4,6 +4,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PhotoCredits from "../../media/PhotoCredits";
 import { Route, Routes } from "react-router-dom";
+import Users from "../Users/Users";
 
 const Layout = (props) => {
     return(
@@ -14,6 +15,7 @@ const Layout = (props) => {
                         <Route path="/login" element={<Main nextPage={props.nextPage} page="login" />}></Route>
                         <Route path="/register" element={<Main nextPage={props.nextPage} page="register" />}></Route>
                         <Route path="/home" element={<Main nextPage={props.nextPage} page="home" />}></Route>
+                        <Route path="/users" element={<Users />}></Route>
                     </Routes>
                 <Footer />
             </div>
