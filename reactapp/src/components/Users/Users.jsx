@@ -1,48 +1,29 @@
 import React, { useEffect, useState } from "react";
+import useFetchData from "../../hooks/useFetchData";
 import styles from "./Users.module.css"
 
 const Users = () => {
+    // Request config for axios
+    const requestConfig = {
+        url: "/users/all-users",
+        method: "GET",
+    };
 
-    // States
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [items, setItems] = useState([]);
-
-    // Fetch data
-    useEffect(() => {
-        fetch("/users/all-users")
-        .then(result => result.json())
-        .then(
-            (result) => {
-                setIsLoaded(true);
-                setItems(result);
-            },
-            // Error handling
-            (error) => {
-                setIsLoaded(true);
-                setError(error);
-            }
-        )
-    }, []);
+    const {data, loading, error} = useFetchData(requestConfig);
+    
 
     // Display Results
-    if (error) {
-        return(
-            <div>Error: {error.message}</div>
-        );
-    } else if (!isLoaded) {
-        return(
-            <div>Loading...</div>
-        );
-    } else {
-        return(
+    return(
+        <div>
             <ul>
-                {items.map((item) => (
-                    <li key={item.id}>{item.userName}</li>
-                ))}
+            {loading && <p>Loading...</p>}
+            {error && <p>{error.message}</p>}
+            {data && data.map((item) => (
+                <li key={item.id}>{item.userName}</li>
+            ))}
             </ul>
-        );
-    }
+        </div>
+    );
 };
 
 export default Users;
