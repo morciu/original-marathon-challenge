@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
-import Button from "../../components/Buttons/MainButton";
+import Button from "@mui/material/Button";
 import TextInput from "../../components/Inputs/TextInput";
 
 const Login = (props) => {
@@ -11,8 +11,8 @@ const Login = (props) => {
                 <TextInput label="User Name" type="text"/>
                 <TextInput label="Password" type="password"/>
                 
-                <Button type="submit" text="Log In" />
-                <Button text="Register" nextPage={props.nextPage} page="register"/>
+                <Button variant="contained">Log In</Button>
+                <Button href="/register">Register</Button>
             </div>
         </>
     )

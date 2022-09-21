@@ -5,7 +5,7 @@ const Button = (props) => {
 
     return(
         <>
-            <button className={styles.button} type={props.type}  onClick={() => props.nextPage(props.page)}>{props.text}</button>
+            <button className={styles.button} type={props.type}  onClick={() => props.action }>{props.text}</button>
         </>
     );
 };

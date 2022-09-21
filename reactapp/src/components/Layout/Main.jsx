@@ -8,7 +8,7 @@ const Main = (props) => {
         return(
             <>
                 <div className="main">
-                    <Login currentPage={props.page} nextPage={props.nextPage} />
+                    <Login />
                 </div>
             </>
         );
@@ -17,7 +17,7 @@ const Main = (props) => {
         return(
             <>
                 <div className="main">
-                    <Register currentPage={props.page} nextPage={props.nextPage} />
+                    <Register />
                 </div>
             </>
         )

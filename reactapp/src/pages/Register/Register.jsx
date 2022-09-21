@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Register.module.css";
-import Button from "../../components/Buttons/MainButton";
+import Button from "@mui/material/Button";
 import TextInput from "../../components/Inputs/TextInput";
 
 const Register = (props) =>{
@@ -12,7 +12,7 @@ const Register = (props) =>{
             <TextInput label="User Name" type="text" />
             <TextInput label="Password" type="password" />
 
-            <Button type="submit" text="Register" nextPage={props.nextPage} page="login" />
+            <Button variant="contained">Register</Button>
         </div>
     );
 };
