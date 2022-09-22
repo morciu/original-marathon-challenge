@@ -7,13 +7,9 @@ import Register from "./pages/Register/Register";
 
 function App() {
 
-  const [page, setPage] = useState("login");
-
-  const changePage = (newPage) => setPage(newPage);
-
   return (
       <BrowserRouter>
-        <Layout page={page} nextPage={changePage} />
+        <Layout />
       </BrowserRouter>
   );
 }

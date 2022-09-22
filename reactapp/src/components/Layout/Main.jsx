@@ -8,7 +8,7 @@ const Main = (props) => {
         return(
             <>
                 <div className="main">
-                    <Login />
+                    <Login  />
                 </div>
             </>
         );
