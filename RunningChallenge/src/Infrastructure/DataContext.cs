@@ -1,11 +1,10 @@
 ﻿using Domain.Models;
 using Infrastructure.Configurations;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class DataContext : IdentityDbContext<User>
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions options) : base(options)
         {

@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
-    public class User : IdentityUser
+    public class User
     {
         public int Id { get; set; }
         [MaxLength(20)]

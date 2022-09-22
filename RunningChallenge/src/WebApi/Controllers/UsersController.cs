@@ -60,6 +60,10 @@ namespace WebAPI.Controllers
             }
 
             var mappedResult = _mapper.Map<List<UserGetDto>>(result);
+            for (var i = 0; i < mappedResult.Count; i++)
+            {
+                mappedResult[i].TotalDistance = mappedResult[i].Activities.Select(a => a.Distance).Sum();
+            }
             _logger.LogInformation($"Found {result.Count} users");
 
             return Ok(mappedResult);

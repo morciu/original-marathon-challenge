@@ -20,10 +20,11 @@ const Login = () => {
             <TextField 
                 onChange={(e) => setLoginState({...loginState, "userName": e.target.value})} 
                 label="User Name" variant="outlined" />
+            
             <TextField
                 onChange={(e) => setLoginState({...loginState, "password": e.target.value})} 
                 type="password" label="Password" variant="outlined" />
-            
+
             <Button type="submit" variant="contained">Log In</Button>
             <Button variant="contained" href="/register" 
             startIcon={<AppRegistrationRoundedIcon />}>
