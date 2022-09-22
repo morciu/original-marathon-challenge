@@ -4,8 +4,10 @@ using Application.CustomSettings;
 using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.DependencyInjection;
 using WebAPI;
 using WebAPI.ControllersHelpers;
 using WebAPI.Middleware;
@@ -21,6 +23,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// Set up Identity
+/*builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>();*/
+
 builder.Services.AddMediatR(typeof(ApplicationAssemblyMarker));
 builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));
 

@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useFetchData from "../../hooks/useFetchData";
 import styles from "./Users.module.css"
@@ -14,15 +15,15 @@ const Users = () => {
 
     // Display Results
     return(
-        <div>
-            <ul>
+        <Grid container>
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
             {data && data.map((item) => (
-                <li key={item.id}>{item.userName}</li>
+                <Grid item xs={8}>
+                    <div className={styles.userContainer} key={item.id}>{item.userName}</div>
+                </Grid>
             ))}
-            </ul>
-        </div>
+        </Grid>
     );
 };
 
