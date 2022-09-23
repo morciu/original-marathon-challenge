@@ -29,7 +29,6 @@ namespace Test.ActivityCommandHandlerTests
                 FirstName = "John",
                 LastName = "Doe",
                 UserName = "testUser",
-                Password = "secret",
                 Activities = new List<Activity>(),
                 Marathons = new List<Marathon>()
             };
@@ -68,7 +67,6 @@ namespace Test.ActivityCommandHandlerTests
                 FirstName = "John",
                 LastName = "Doe",
                 UserName = "testUser",
-                Password = "secret",
                 Activities = new List<Activity>(),
                 Marathons = new List<Marathon>()
             };

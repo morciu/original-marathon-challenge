@@ -23,7 +23,6 @@ namespace IntegrationTest.Helpers
                 FirstName = "Buffy",
                 LastName = "Summers",
                 UserName = "buffy",
-                Password = "mrpointy",
             });
 
             db.Users.Add(new User
@@ -31,7 +30,6 @@ namespace IntegrationTest.Helpers
                 FirstName = "Willow",
                 LastName = "Rosenberg",
                 UserName = "willow",
-                Password = "abracadabra",
             });
 
             db.Users.Add(new User
@@ -39,7 +37,6 @@ namespace IntegrationTest.Helpers
                 FirstName = "Alexander",
                 LastName = "Harris",
                 UserName = "xander",
-                Password = "vampiressucks",
             });
 
             // Add activities
