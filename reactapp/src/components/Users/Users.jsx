@@ -15,7 +15,10 @@ const Users = () => {
 
     // Display Results
     return(
-        <Grid container sx={{display: 'grid'}}>
+        <Grid container 
+            alignItems="center"
+            justify="center"
+            direction="column">
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
             {data && data.map((item) => (

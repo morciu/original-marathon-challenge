@@ -1,39 +1,62 @@
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import styles from "./Register.module.css"
-import Button from "@mui/material/Button";
-import TextInput from "../../components/Inputs/TextInput";
-import { TextField } from "@mui/material";
+import { Alert, Button, Grid, TextField } from "@mui/material";
 
-const Register = (props) =>{
+const requiredFieldRule = {
+    required: {
+        value: true,
+        message: "Field is required!",
+    }
+};
 
-    const [registerState, setRegisterState ] = useState({
-        "firstName": "",
-        "lastName": "",
-        "userName": "",
-        "password": "",
-    });
+const Register = () =>{
+    const [showAlert, setShowAlert] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const handleFormSubmission = () => {
+        // Only executed when valid form inputs
+        setShowAlert(true)
+    };
 
     return(
+        <>
+        {showAlert && (
+            <div style={{position: "absolute", top: 0}}>
+                <Alert>Submission Successfull!</Alert>
+            </div>
+        )}
+        
         <form className={styles.registerContainer}
-            onSubmit={(e) => {
-                e.preventDefault();
-                console.log(registerState);
-            }}>
+            onSubmit={handleSubmit(handleFormSubmission)}>
             <TextField 
-                onChange={(e) => {setRegisterState({...registerState, "firstName": e.target.value})}}
+                type="text"
+                error={!!errors["firstName"]}
+                helperText={errors["firstName"]?.message}
+                {...register("firstName", {...requiredFieldRule})}
                 label="First Name" variant="outlined" />
             <TextField 
-                onChange={(e) => {setRegisterState({...registerState, "lastName": e.target.value})}}
+                type="text"
+                error={!!errors["lastName"]}
+                helperText={errors["lastName"]?.message}
+                {...register("lastName", {...requiredFieldRule})}
                 label="Last Name" variant="outlined" />
             <TextField 
-                onChange={(e) => {setRegisterState({...registerState, "userName": e.target.value})}}
+                type="text"
+                error={!!errors["userName"]}
+                helperText={errors["userName"]?.message}
+                {...register("userName", {...requiredFieldRule})}
                 label="User Name" variant="outlined" />
             <TextField 
-                onChange={(e) => {setRegisterState({...registerState, "password": e.target.value})}}
-                type="password" label="Password" variant="outlined" />
+                type="password"
+                error={!!errors["password"]}
+                helperText={errors["password"]?.message}
+                {...register("password", {...requiredFieldRule})}
+                label="Password" variant="outlined" />
 
             <Button type="submit" variant="contained">Register</Button>
         </form>
+        </>
     );
 };
 

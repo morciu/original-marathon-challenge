@@ -1,35 +1,55 @@
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Alert, Button, Grid, TextField } from "@mui/material";
 import styles from "./Login.module.css";
-import Button from "@mui/material/Button";
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 import TextInput from "../../components/Inputs/TextInput";
-import { TextField } from "@mui/material";
+
+const requiredFieldRule = {
+    required: {
+        value: true,
+        message: "Field is required!",
+    }
+};
 
 const Login = () => {
-    const [loginState, setLoginState] = useState({
-        "userName": "",
-        "password": "",
-    });
+    const [showAlert, setShowAlert] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const handleFormSubmission = () => {
+        // Only executed when valid form inputs
+        setShowAlert(true)
+    };
 
     return(
-        <form className={styles.loginContainer} onSubmit={(e) => {
-            e.preventDefault();
-            console.log(`userName: ${loginState.userName}`);
-            console.log(`password: ${loginState.password}`);
-        }}>
+        <>
+        {showAlert && (
+            <div style={{position: "absolute", top: 0}}>
+                <Alert>Submission Successfull!</Alert>
+            </div>
+        )}
+        <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}>
             <TextField 
-                onChange={(e) => setLoginState({...loginState, "userName": e.target.value})} 
+                type="text"
+                error={!!errors['userName']}
+                helperText={errors["userName"]?.message}
+                {...register("userName", {...requiredFieldRule})}
                 label="User Name" variant="outlined" />
             
             <TextField
-                onChange={(e) => setLoginState({...loginState, "password": e.target.value})} 
-                type="password" label="Password" variant="outlined" />
+                type="text"
+                error={!!errors['password']}
+                helperText={errors["password"]?.message}
+                {...register("password", {...requiredFieldRule})}
+                label="Password" variant="outlined" />            
+            
 
             <Button type="submit" variant="contained">Log In</Button>
             <Button variant="contained" href="/register" 
             startIcon={<AppRegistrationRoundedIcon />}>
                 Register</Button>
         </form>
+        </>
     )
 };
 
