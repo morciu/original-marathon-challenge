@@ -67,9 +67,9 @@ app.UseRequestTimeLogger();
 
 app.MapControllers();
 
-//using var scope = app.Services.CreateScope();
-//var services = scope.ServiceProvider;
-//var userManager = services.GetRequiredService<UserManager<User>>();
-//await UserCreator.SeedAsync(userManager);
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var userManager = services.GetRequiredService<UserManager<User>>();
+await UserCreator.SeedAsync(userManager);
 
 app.Run();

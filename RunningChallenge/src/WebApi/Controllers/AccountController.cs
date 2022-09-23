@@ -19,4 +19,11 @@ public class AccountController : ControllerBase
     {
         return Ok(await _authenticationService.AuthenticateAsync(request));
     }
+
+
+    [HttpPost("register")]
+    public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
+    {
+        return Ok(await _authenticationService.RegisterAsync(request));
+    }
 }

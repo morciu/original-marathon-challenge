@@ -89,8 +89,42 @@ public class AuthenticationService : IAuthenticationService
         return jwtSecurityToken;
     }
 
-    public Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
+    public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
     {
-        throw new NotImplementedException();
+        var existingUser = await _userManager.FindByNameAsync(request.UserName);
+
+        if (existingUser != null)
+        {
+            throw new Exception($"Username '{request.UserName}' already exists.");
+        }
+
+        var user = new User
+        {
+            Email = request.Email,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            UserName = request.UserName,
+            EmailConfirmed = true
+        };
+
+        var existingEmail = await _userManager.FindByEmailAsync(request.Email);
+
+        if (existingEmail == null)
+        {
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            if (result.Succeeded)
+            {
+                return new RegistrationResponse() { UserId = user.Id };
+            }
+            else
+            {
+                throw new Exception($"{result.Errors}");
+            }
+        }
+        else
+        {
+            throw new Exception($"Email {request.Email} already exists.");
+        }
     }
 }

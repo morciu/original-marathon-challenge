@@ -11,9 +11,6 @@ namespace Domain.Models
         [MaxLength(20)] 
         public string LastName { get; set; } = null!;
 
-        [MaxLength(20)]
-        public string UserName { get; set; } = null!;
-        public string Password { get; set; } = null!;
         public ICollection<Activity> Activities { get; set; } = null!;
         public ICollection<Marathon> Marathons { get; set; } = null!;
 
