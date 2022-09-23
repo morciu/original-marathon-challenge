@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
         [MaxLength(20)]
         public string FirstName { get; set; } = null!;
 
@@ -16,15 +16,6 @@ namespace Domain.Models
         public string Password { get; set; } = null!;
         public ICollection<Activity> Activities { get; set; } = null!;
         public ICollection<Marathon> Marathons { get; set; } = null!;
-        /*
-                public User(int id, string firstName, string lastName, string userName, string password)
-                {
-                    Id = id;
-                    FirstName = firstName;
-                    LastName = lastName;
-                    UserName = userName;
-                    Password = password;
-                }*/
 
         public void RunActivity()
         {

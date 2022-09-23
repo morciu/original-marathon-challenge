@@ -15,7 +15,8 @@ namespace Infrastructure.Configurations
         {
             builder.HasMany(u => u.Activities)
                 .WithOne(a => a.User)
-                .HasForeignKey(a => a.UserId);
+                .HasPrincipalKey(u => u.Id);
+
             builder.HasMany(u => u.Marathons)
                 .WithMany(m => m.Members);
         }

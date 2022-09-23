@@ -14,7 +14,9 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Activity> builder)
         {
             builder.HasOne(a => a.User)
-                .WithMany(u => u.Activities);
+                .WithMany(u => u.Activities)
+                .HasPrincipalKey(a => a.Id);
+
             builder.Property(x => x.Distance)
                 .HasPrecision(18, 6);
         }

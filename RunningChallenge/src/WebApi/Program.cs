@@ -1,6 +1,7 @@
 using Application;
 using Application.Abstract;
 using Application.CustomSettings;
+using Domain.Models;
 using Infrastructure;
 using Infrastructure.Repository;
 using MediatR;
@@ -25,8 +26,8 @@ builder.Services.AddDbContext<DataContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 // Set up Identity
-/*builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>();*/
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddMediatR(typeof(ApplicationAssemblyMarker));
 builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));
