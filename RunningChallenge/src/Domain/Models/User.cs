@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         [MaxLength(20)]
         public string FirstName { get; set; } = null!;
