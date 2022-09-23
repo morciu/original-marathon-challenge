@@ -9,14 +9,14 @@ namespace Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _dataContext;
+        private readonly ApplicationDbContext _applicationDbContext;
         public IUserRepository UserRepository { get; private set; }
         public IActivityRepository ActivityRepository { get; private set; }
         public IMarathonRepository MarathonRepository { get; private set; }
 
-        public UnitOfWork(DataContext dataContext, IUserRepository userRepo, IActivityRepository activityRepo, IMarathonRepository marathonRepo)
+        public UnitOfWork(ApplicationDbContext applicationDbContext, IUserRepository userRepo, IActivityRepository activityRepo, IMarathonRepository marathonRepo)
         {
-            _dataContext = dataContext;
+            _applicationDbContext = applicationDbContext;
             UserRepository = userRepo;
             ActivityRepository = activityRepo;
             MarathonRepository = marathonRepo;
@@ -24,12 +24,12 @@ namespace Infrastructure
 
         public void Dispose()
         {
-            _dataContext.Dispose();
+            _applicationDbContext.Dispose();
         }
 
         public async Task Save()
         {
-            await _dataContext.SaveChangesAsync();
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 }

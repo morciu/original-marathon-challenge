@@ -3,6 +3,7 @@ using Application.Users.Commands;
 using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAPI.ControllersHelpers;
@@ -29,6 +30,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUsersById(int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));

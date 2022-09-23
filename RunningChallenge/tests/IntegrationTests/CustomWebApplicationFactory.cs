@@ -30,7 +30,7 @@ namespace IntegrationTest
             builder.ConfigureServices(services =>
             {
                 // Remove initial service
-                var serviceDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DataContext>));
+                var serviceDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
                 services.Remove(serviceDescriptor);
 
                 // Set up new service provider
@@ -38,7 +38,7 @@ namespace IntegrationTest
                     .AddEntityFrameworkSqlite()
                     .BuildServiceProvider();
 
-                services.AddDbContext<DataContext>(options =>
+                services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseSqlite(_connection);
                     options.UseInternalServiceProvider(serviceProvider);
@@ -50,7 +50,7 @@ namespace IntegrationTest
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<DataContext>();
+                    var db = scopedServices.GetRequiredService<ApplicationDbContext>();
 
                     db.Database.EnsureDeleted();
                     db.Database.EnsureCreated();

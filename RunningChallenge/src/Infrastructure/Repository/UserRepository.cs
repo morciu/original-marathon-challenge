@@ -11,9 +11,9 @@ namespace Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public UserRepository(DataContext context)
+        public UserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -36,9 +36,10 @@ namespace Infrastructure.Repository
 
         public async Task<User> GetUser(int userId)
         {
-            var user = await _context.Users.Include(u => u.Activities).SingleAsync(u => u.Id == userId);
+            //var user = await _context.Users.Include(u => u.Activities).SingleAsync(u => u.Id == userId);
 
-            return user;
+            //return user;
+            throw new NotImplementedException();
         }
 
         public async Task<Dictionary<string, string>> GetUserActivityInfo(int Id)
@@ -48,10 +49,11 @@ namespace Infrastructure.Repository
 
         public async Task<User> GetUserByLogin(string userName, string password)
         {
-            var user = await _context.Users
-                .SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password);
+            //var user = await _context.Users
+            //    .SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password);
 
-            return user;
+            //return user;
+            throw new NotImplementedException();
         }
 
         public void UpdateUserActivity(int id, string field, string value)
