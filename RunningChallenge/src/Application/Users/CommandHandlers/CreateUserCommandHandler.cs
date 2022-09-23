@@ -15,12 +15,14 @@ namespace Application.Users.CommandHandlers
 
         public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User { FirstName = request.FirstName, LastName = request.LastName, UserName = request.UserName, Password = request.Password };
+            //var user = new User { FirstName = request.FirstName, LastName = request.LastName, UserName = request.UserName, Password = request.Password };
 
-            await _unitOfWork.UserRepository.CreateUser(user);
-            await _unitOfWork.Save();
+            //await _unitOfWork.UserRepository.CreateUser(user);
+            //await _unitOfWork.Save();
 
-            return user;
+            //return user;
+
+            throw new NotImplementedException();
         }
     }
 }

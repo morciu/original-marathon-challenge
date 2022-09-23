@@ -11,10 +11,10 @@ namespace Infrastructure.Repository
 {
     public class ActivityRepository : IActivityRepository
     {
-        private readonly DataContext _context;
-        public ActivityRepository(DataContext dataContext)
+        private readonly ApplicationDbContext _context;
+        public ActivityRepository(ApplicationDbContext applicationDbContext)
         {
-            _context = dataContext;
+            _context = applicationDbContext;
         }
 
         public async Task CreateActivity(Activity activity)

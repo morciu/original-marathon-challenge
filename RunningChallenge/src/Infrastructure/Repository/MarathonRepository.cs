@@ -11,9 +11,9 @@ namespace Infrastructure.Repository
 {
     public class MarathonRepository : IMarathonRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public MarathonRepository(DataContext context)
+        public MarathonRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -86,17 +86,19 @@ namespace Infrastructure.Repository
 
         public async Task<decimal> TotalUserDistance(int marathonId, int userId)
         {
-            var totalDistance = await _context.Marathons
-                .Where(m => m.Id == marathonId)
-                .SelectMany(u => u.Members
-                    .Where(m => m.Id == userId)
-                    .SelectMany(u => u.Activities
-                        .Select(a => a.Distance)
-                        )
-                    )
-                .SumAsync();
+            //var totalDistance = await _context.Marathons
+            //    .Where(m => m.Id == marathonId)
+            //    .SelectMany(u => u.Members
+            //        .Where(m => m.Id == userId)
+            //        .SelectMany(u => u.Activities
+            //            .Select(a => a.Distance)
+            //            )
+            //        )
+            //    .SumAsync();
 
-            return totalDistance;
+            //return totalDistance;
+
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using Domain.Models;
 using Infrastructure.Configurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class DataContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        public DataContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Marathon> Marathons { get; set; }
 
@@ -35,6 +34,5 @@ namespace Infrastructure
                 .WithMany(x => x.Activities)
                 .HasForeignKey(x => x.UserId);*/
         }
-
     }
 }

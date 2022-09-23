@@ -10,7 +10,7 @@ namespace IntegrationTest.Helpers
 {
     public static class Utilities
     {
-        public static void InitializeDbForTests(DataContext db)
+        public static void InitializeDbForTests(ApplicationDbContext db)
         {
             // Test distance values
             decimal[] distances = { 2.44m, 5.33m, 7.89m, 24.22m, 11.01m, 20.59m };
