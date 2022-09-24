@@ -27,11 +27,15 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        var user = await _userManager.FindByNameAsync(request.UserName);
 
         if (user == null)
         {
-            throw new Exception($"User with {request.Email} not found.");
+            throw new Exception($"User with {request.UserName} not found.");
+        }
+        if (!await _userManager.CheckPasswordAsync(user, request.Password))
+        {
+            throw new Exception("Wrong Password!");
         }
 
         var result =
@@ -39,7 +43,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (!result.Succeeded)
         {
-            throw new Exception($"Credentials for '{request.Email} aren't valid'.");
+            throw new Exception($"Credentials for '{request.UserName} aren't valid'.");
         }
 
         JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
@@ -48,7 +52,6 @@ public class AuthenticationService : IAuthenticationService
         {
             Id = user.Id,
             Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-            Email = user.Email,
             UserName = user.UserName
         };
 
@@ -71,7 +74,6 @@ public class AuthenticationService : IAuthenticationService
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id.ToString())
             }
             .Union(userClaims)
@@ -100,31 +102,21 @@ public class AuthenticationService : IAuthenticationService
 
         var user = new User
         {
-            Email = request.Email,
             FirstName = request.FirstName,
             LastName = request.LastName,
             UserName = request.UserName,
-            EmailConfirmed = true
         };
 
-        var existingEmail = await _userManager.FindByEmailAsync(request.Email);
+        
+        var result = await _userManager.CreateAsync(user, request.Password);
 
-        if (existingEmail == null)
+        if (result.Succeeded)
         {
-            var result = await _userManager.CreateAsync(user, request.Password);
-
-            if (result.Succeeded)
-            {
-                return new RegistrationResponse() { UserId = user.Id };
-            }
-            else
-            {
-                throw new Exception($"{result.Errors}");
-            }
+            return new RegistrationResponse() { UserId = user.Id };
         }
         else
         {
-            throw new Exception($"Email {request.Email} already exists.");
+            throw new Exception($"{result.Errors}");
         }
     }
 }
