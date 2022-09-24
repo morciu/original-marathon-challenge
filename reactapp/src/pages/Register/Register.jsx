@@ -14,9 +14,10 @@ const Register = () =>{
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleFormSubmission = () => {
+    const handleFormSubmission = (data) => {
         // Only executed when valid form inputs
-        setShowAlert(true)
+        console.log(true);
+        console.log(data);
     };
 
     return(

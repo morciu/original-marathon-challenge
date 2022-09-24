@@ -7,9 +7,14 @@ import Register from "./pages/Register/Register";
 
 function App() {
 
+  const currentUser = {
+    userName: null,
+    loggedIn: false
+  }
+
   return (
       <BrowserRouter>
-        <Layout />
+        <Layout user={currentUser}/>
       </BrowserRouter>
   );
 }

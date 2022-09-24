@@ -3,7 +3,18 @@ import { useForm } from "react-hook-form";
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import styles from "./Login.module.css";
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
-import TextInput from "../../components/Inputs/TextInput";
+import usePostHook from "../../hooks/usePostHook";
+import useFetchData from "../../hooks/useFetchData";
+import axios from "axios";
+
+// Post config for axios
+const requestConfig = {
+    url: "/account/authenticate",
+    payload: "",
+    method: "POST",
+};
+
+let loginStatus = false;
 
 const requiredFieldRule = {
     required: {
@@ -12,14 +23,35 @@ const requiredFieldRule = {
     }
 };
 
+const handleFormSubmission = async(submission) => {
+    // Only executed when valid form inputs
+    requestConfig.payload = submission;
+    try {
+        const response = await axios({
+            method: requestConfig.method,
+            url: requestConfig.url,
+            data: requestConfig.payload,
+            headers: { "Content-Type": "application/json" }
+        }
+        );
+        loginStatus = true;
+    } catch(error) {
+        console.log(error)
+        loginStatus = false;
+    }
+
+    console.log(loginStatus);
+};
+
+
+
 const Login = () => {
+    
+
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleFormSubmission = () => {
-        // Only executed when valid form inputs
-        setShowAlert(true)
-    };
+    
 
     return(
         <>
@@ -28,7 +60,8 @@ const Login = () => {
                 <Alert>Submission Successfull!</Alert>
             </div>
         )}
-        <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}>
+        <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}
+            action={requestConfig.url} method={requestConfig.method}>
             <TextField 
                 type="text"
                 error={!!errors['userName']}
@@ -37,7 +70,7 @@ const Login = () => {
                 label="User Name" variant="outlined" />
             
             <TextField
-                type="text"
+                type="password"
                 error={!!errors['password']}
                 helperText={errors["password"]?.message}
                 {...register("password", {...requiredFieldRule})}

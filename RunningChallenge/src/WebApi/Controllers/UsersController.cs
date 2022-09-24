@@ -91,36 +91,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("create-user")]
-        public async Task<IActionResult> CreateUser([FromBody] UserPutPostDto user)
-        {
-            _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
-
-            var result = await _mediator.Send(new CreateUserCommand 
-            { 
-                FirstName = user.FirstName, 
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Password = user.Password,
-            });
-
-            if (result == null)
-            {
-                _logger.LogWarning($"Could not create user.");
-                _logger.LogDebug("Tried to create user with the following:\n" +
-                    $"FirstName: {user.FirstName}\n" +
-                    $"LastName: {user.LastName}\n" +
-                    $"UserName: {user.UserName}\n" +
-                    $"Password: {user.Password}");
-                return NotFound();
-            }
-                
-            var mappedResult = _mapper.Map<UserGetDto>(result);
-
-            return CreatedAtAction(nameof(GetUsersById), new { Id = mappedResult.Id }, mappedResult);
-        }
-
-        [HttpPost]
         [Route("{userId}/activities/{activityId}")]
         public async Task<IActionResult> AddActivityToUser(int userId, int activityId)
         {
