@@ -37,8 +37,6 @@ const handleFormSubmission = async(submission) => {
             headers: { "Content-Type": "application/json" }
         }
         );
-        console.log(response);
-        loginStatus = true;
         // Store response in local storage
         localStorage.setItem("id", response.data.id )
         localStorage.setItem("userName", response.data.userName )
@@ -47,10 +45,7 @@ const handleFormSubmission = async(submission) => {
         window.location.reload(false);
     } catch(error) {
         console.log(error)
-        loginStatus = false;
     }
-
-    console.log(loginStatus);
 };
 
 

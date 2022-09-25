@@ -8,6 +8,9 @@ const Users = () => {
     const requestConfig = {
         url: "/users/all-users",
         method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage["auth-token"]}`,
+        },
     };
 
     const {data, loading, error} = useFetchData(requestConfig);

@@ -5,7 +5,7 @@ import Users from "../../components/Users/Users";
 
 const Home = () => {
     const isAuthenticated = !!localStorage.getItem("auth-token");
-    console.log(isAuthenticated);
+    console.log(localStorage);
 
     if (isAuthenticated){
         

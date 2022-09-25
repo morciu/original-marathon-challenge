@@ -50,6 +50,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("all-users")]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
