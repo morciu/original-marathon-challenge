@@ -24,6 +24,9 @@ const requiredFieldRule = {
 };
 
 const handleFormSubmission = async(submission) => {
+    // Clear local storare
+    localStorage.clear();
+
     // Only executed when valid form inputs
     requestConfig.payload = submission;
     try {
@@ -34,7 +37,14 @@ const handleFormSubmission = async(submission) => {
             headers: { "Content-Type": "application/json" }
         }
         );
+        console.log(response);
         loginStatus = true;
+        // Store response in local storage
+        localStorage.setItem("id", response.data.id )
+        localStorage.setItem("userName", response.data.userName )
+        localStorage.setItem("auth-token", response.data.token )
+        // Refresh page
+        window.location.reload(false);
     } catch(error) {
         console.log(error)
         loginStatus = false;
@@ -46,12 +56,9 @@ const handleFormSubmission = async(submission) => {
 
 
 const Login = () => {
-    
-
+    // Prepare hooks
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    
 
     return(
         <>
