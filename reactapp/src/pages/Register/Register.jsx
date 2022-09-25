@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./Register.module.css"
 import { Alert, Button, Grid, TextField } from "@mui/material";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+
+// Post config for axios
+const requestConfig = {
+    url: "/account/register",
+    payload: "",
+    method: "POST",
+};
+
+
 
 const requiredFieldRule = {
     required: {
@@ -10,14 +21,36 @@ const requiredFieldRule = {
     }
 };
 
+
+
 const Register = () =>{
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleFormSubmission = (data) => {
+    // Navigate Hook
+    const navigate = useNavigate();
+
+    const handleFormSubmission = async (submission) => {
+        // Clear local storare
+        localStorage.clear();
+    
+        console.log(submission)
+    
         // Only executed when valid form inputs
-        console.log(true);
-        console.log(data);
+        requestConfig.payload = submission;
+        try {
+            const response = await axios({
+                method: requestConfig.method,
+                url: requestConfig.url,
+                data: requestConfig.payload,
+                headers: { "Content-Type": "application/json" }
+            }
+            );
+            // redirect to home page
+            navigate("/");
+        } catch(error) {
+            console.log(error)
+        }
     };
 
     return(
