@@ -9,6 +9,8 @@ import Main from "./components/Layout/Main";
 import Users from "./components/Users/Users";
 import Footer from "./components/Layout/Footer";
 import Home from "./pages/Home/Home"
+import RegisterRun from "./pages/RegisterRun/RegisterRun";
+import CheckProgress from "./pages/CheckProgress/CheckProgress";
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/users" element={<Users />}></Route>
+            <Route path="/register-run" element={<RegisterRun />}></Route>
+            <Route path="/check-progress" element={<CheckProgress />}></Route>
         </Routes>
       </div>
       <Footer />
