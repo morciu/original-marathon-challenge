@@ -6,6 +6,7 @@ import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRound
 import usePostHook from "../../hooks/usePostHook";
 import useFetchData from "../../hooks/useFetchData";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Post config for axios
 const requestConfig = {
@@ -23,30 +24,7 @@ const requiredFieldRule = {
     }
 };
 
-const handleFormSubmission = async(submission) => {
-    // Clear local storare
-    localStorage.clear();
 
-    // Only executed when valid form inputs
-    requestConfig.payload = submission;
-    try {
-        const response = await axios({
-            method: requestConfig.method,
-            url: requestConfig.url,
-            data: requestConfig.payload,
-            headers: { "Content-Type": "application/json" }
-        }
-        );
-        // Store response in local storage
-        localStorage.setItem("id", response.data.id )
-        localStorage.setItem("userName", response.data.userName )
-        localStorage.setItem("auth-token", response.data.token )
-        // Refresh page
-        window.location.reload(false);
-    } catch(error) {
-        console.log(error)
-    }
-};
 
 
 
@@ -54,6 +32,34 @@ const Login = () => {
     // Prepare hooks
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+
+    const handleFormSubmission = async(submission) => {
+        
+    
+        // Clear local storare
+        localStorage.clear();
+    
+        // Only executed when valid form inputs
+        requestConfig.payload = submission;
+        try {
+            const response = await axios({
+                method: requestConfig.method,
+                url: requestConfig.url,
+                data: requestConfig.payload,
+                headers: { "Content-Type": "application/json" }
+            }
+            );
+            // Store response in local storage
+            localStorage.setItem("id", response.data.id )
+            localStorage.setItem("userName", response.data.userName )
+            localStorage.setItem("auth-token", response.data.token )
+            // Refresh page
+            navigate("/");
+        } catch(error) {
+            console.log(error)
+        }
+    };
 
     return(
         <>
