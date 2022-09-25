@@ -2,6 +2,8 @@ import Login from "../Login/Login";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import Users from "../../components/Users/Users";
+import { Button, TextField } from "@mui/material";
+import { Stack } from "@mui/system";
 
 const Home = () => {
     const isAuthenticated = !!localStorage.getItem("auth-token");
@@ -10,7 +12,13 @@ const Home = () => {
     if (isAuthenticated){
         
         return(
-            <> <Users /> </> );
+            <>
+                <Button variant="contained">Register Run</Button>
+                <Button variant="contained">Check Progress</Button>
+                <Button variant="contained" href="/users">Global Leaderboard</Button>
+                <Button variant="contained">Private Marathons</Button>
+            </>
+            );
     } else {
         return( <> <Login /> </>)
     }
