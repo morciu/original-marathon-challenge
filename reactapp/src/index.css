@@ -46,7 +46,7 @@ a {
 
 .container {
   background-color: var(--green-transparent);
-  height: 100vh;
+  height: 100%;
   width: min(800px, 100vw);
   position: relative;
 
@@ -69,8 +69,8 @@ a {
 
 .main {
   display: grid;
-  grid-template-rows: 2fr 1fr;
   justify-items: center;
+  align-items: center;
   }
 
 input[type="text"],

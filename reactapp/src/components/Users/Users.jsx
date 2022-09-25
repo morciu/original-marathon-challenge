@@ -1,4 +1,4 @@
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import { Grid, Card, CardContent, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useFetchData from "../../hooks/useFetchData";
 import styles from "./Users.module.css"
@@ -18,23 +18,20 @@ const Users = () => {
 
     // Display Results
     return(
-        <Grid container 
-            alignItems="center"
-            justify="center"
-            direction="column">
-            {loading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
-            {data && data.map((item) => (
-                <Grid key={item.id} item xs={8}>
+        <Stack spacing={2}>
+                {loading && <p>Loading...</p>}
+                {error && <p>{error.message}</p>}
+                {data && data.map((item) => (
+                <Stack item key={item.id}>
                     <Card>
                         <CardContent>
                             <Typography variant="h5">Username: {item.userName}</Typography>
                             <Typography variant="h5">Total Distance: {item.totalDistance} km</Typography>
-                            </CardContent>
+                        </CardContent>
                     </Card>
-                </Grid>
+                </Stack>
             ))}
-        </Grid>
+        </Stack>
     );
 };
 

@@ -10,10 +10,7 @@ const Home = () => {
     if (isAuthenticated){
         
         return(
-            <>
-                <Users />
-            </>
-        );
+            <> <Users /> </> );
     } else {
         return( <> <Login /> </>)
     }
