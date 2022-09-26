@@ -1,8 +1,9 @@
 import React from "react";
 
 import MenuIcon from '@mui/icons-material/Menu';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Logout } from "@mui/icons-material";
 
 import PhotoCredits from "../../media/PhotoCredits";
 import { AppBar, Fab, IconButton, Toolbar } from "@mui/material";
@@ -29,10 +30,10 @@ const Footer = () => {
                         <MenuIcon />
                     </IconButton>
                     <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
-                        <DirectionsRunIcon style={{ width: 50, height: 50 }} />
+                        <DirectionsRunRoundedIcon style={{ width: 50, height: 50 }} />
                     </StyledFab>
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color="inherit"><MoreIcon /></IconButton>
+                    <IconButton color="inherit"><Logout /></IconButton>
                 </Toolbar>
             </AppBar>
 
