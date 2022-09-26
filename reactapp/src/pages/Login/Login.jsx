@@ -35,7 +35,7 @@ const Login = () => {
         requestConfig.payload = submission;
         
         if (await loginUser(requestConfig) == true) {
-            navigate("/");
+            window.location.reload();
         }
     };
 

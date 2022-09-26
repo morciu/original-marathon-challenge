@@ -1,5 +1,7 @@
 import React from "react";
 
+import {logout} from "../../utils/Logout"
+
 import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -33,7 +35,7 @@ const Footer = () => {
                         <DirectionsRunRoundedIcon style={{ width: 50, height: 50 }} />
                     </StyledFab>
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color="inherit"><Logout /></IconButton>
+                    <IconButton color="inherit" onClick={ logout }><Logout /></IconButton>
                 </Toolbar>
             </AppBar>
 
