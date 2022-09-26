@@ -5,7 +5,7 @@ const CheckProgress = () => {
     return(
         <>
             <Card>Progress placeholder</Card>
-            <Button variant="contained">Back</Button>
+            <Button href="/" variant="contained">Back</Button>
         </>
     );
 };

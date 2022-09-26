@@ -10,7 +10,7 @@ const RegisterRun = () => {
             pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" value="00:00:00"/>
             <Button variant="contained">Submit</Button>
         </Stack>
-            <Button variant="contained">Back</Button>
+            <Button href="/" variant="contained">Back</Button>
         </>
     );
 };
