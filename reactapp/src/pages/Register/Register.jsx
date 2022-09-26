@@ -4,6 +4,7 @@ import styles from "./Register.module.css"
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { registerUser } from "../../utils/PostData";
 
 // Post config for axios
 const requestConfig = {
@@ -11,9 +12,6 @@ const requestConfig = {
     payload: "",
     method: "POST",
 };
-
-
-
 const requiredFieldRule = {
     required: {
         value: true,
@@ -30,26 +28,17 @@ const Register = () =>{
     // Navigate Hook
     const navigate = useNavigate();
 
+    
+
     const handleFormSubmission = async (submission) => {
+        requestConfig.payload = submission;
         // Clear local storare
         localStorage.clear();
-    
-        console.log(submission)
-    
-        // Only executed when valid form inputs
-        requestConfig.payload = submission;
-        try {
-            const response = await axios({
-                method: requestConfig.method,
-                url: requestConfig.url,
-                data: requestConfig.payload,
-                headers: { "Content-Type": "application/json" }
-            }
-            );
-            // redirect to home page
+
+        if (await registerUser(requestConfig)){
             navigate("/");
-        } catch(error) {
-            console.log(error)
+        } else {
+            console.log("something went wrong!");
         }
     };
 

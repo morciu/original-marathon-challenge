@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import styles from "./Login.module.css";
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
-import usePostHook from "../../hooks/usePostHook";
+import { loginUser } from "../../utils/PostData";
 import useFetchData from "../../hooks/useFetchData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // Post config for axios
 const requestConfig = {
@@ -15,18 +16,12 @@ const requestConfig = {
     method: "POST",
 };
 
-let loginStatus = false;
-
 const requiredFieldRule = {
     required: {
         value: true,
         message: "Field is required!",
     }
 };
-
-
-
-
 
 const Login = () => {
     // Prepare hooks
@@ -35,29 +30,12 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleFormSubmission = async(submission) => {
-        
-    
         // Clear local storare
         localStorage.clear();
-    
-        // Only executed when valid form inputs
         requestConfig.payload = submission;
-        try {
-            const response = await axios({
-                method: requestConfig.method,
-                url: requestConfig.url,
-                data: requestConfig.payload,
-                headers: { "Content-Type": "application/json" }
-            }
-            );
-            // Store response in local storage
-            localStorage.setItem("id", response.data.id )
-            localStorage.setItem("userName", response.data.userName )
-            localStorage.setItem("auth-token", response.data.token )
-            // Refresh page
+        
+        if (await loginUser(requestConfig) == true) {
             navigate("/");
-        } catch(error) {
-            console.log(error)
         }
     };
 
