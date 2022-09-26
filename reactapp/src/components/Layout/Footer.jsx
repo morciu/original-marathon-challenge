@@ -28,8 +28,8 @@ const Footer = () => {
                     <IconButton color="inherit" aria-label="open drawer">
                         <MenuIcon />
                     </IconButton>
-                    <StyledFab color="secondary" aria-label="add">
-                        <DirectionsRunIcon />
+                    <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
+                        <DirectionsRunIcon style={{ width: 50, height: 50 }} />
                     </StyledFab>
                     <Box sx={{ flexGrow: 1 }} />
                     <IconButton color="inherit"><MoreIcon /></IconButton>
