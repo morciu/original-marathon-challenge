@@ -13,7 +13,7 @@ const Home = () => {
         
         return(
             <>
-                <Button variant="contained">Register Run</Button>
+                <Button variant="contained" href="/register-run">Register Run</Button>
                 <Button variant="contained" href="check-progress">Check Progress</Button>
                 <Button variant="contained" href="/users">Global Leaderboard</Button>
                 <Button variant="contained">Private Marathons</Button>
