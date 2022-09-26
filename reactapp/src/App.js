@@ -11,6 +11,7 @@ import Footer from "./components/Layout/Footer";
 import Home from "./pages/Home/Home"
 import RegisterRun from "./pages/RegisterRun/RegisterRun";
 import CheckProgress from "./pages/CheckProgress/CheckProgress";
+import { AppBar } from "@mui/material";
 
 function App() {
 

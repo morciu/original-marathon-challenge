@@ -7,7 +7,6 @@ import { Stack } from "@mui/system";
 
 const Home = () => {
     const isAuthenticated = !!localStorage.getItem("auth-token");
-    console.log(localStorage);
 
     if (isAuthenticated){
         

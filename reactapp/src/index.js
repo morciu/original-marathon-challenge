@@ -16,7 +16,17 @@ const theme = createTheme({
     fontFamily: ['Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     'sans-serif'].join(",")
-  }
+  },
+  components: {
+    MuiToolbar: {
+      styleOverrides: {
+        dense: {
+          height: 32,
+          minHeight: 32
+        }
+      }
+    }
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

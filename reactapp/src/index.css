@@ -51,7 +51,7 @@ a {
   position: relative;
 
   display: grid;
-  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-rows: 2fr 7fr 1fr;
 }
 
 .header {
