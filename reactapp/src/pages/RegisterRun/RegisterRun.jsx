@@ -39,7 +39,9 @@ const RegisterRun = () => {
         <form onSubmit={handleSubmit(handleFormSubmission)}
         action={requestConfig.url} method={requestConfig.method}>
         <Stack>
-            <TextField type={"number"} variant="filled" label="Distance"
+            <TextField type={"number"}
+                inputProps={{step: ".01"}}
+                variant="filled" label="Distance"
                 error={!!errors['distance']}
                 {...register("distance", {...requiredFieldRule})}/>
             <TextField type={"text"} variant="outlined" label="Time"
