@@ -20,7 +20,7 @@ export const loginUser = async (requestConfig) => {
     }
 };
 
-export const registerUser = async (requestConfig) => {
+export const postData = async (requestConfig) => {
     try {
         const response = await axios({
             method: requestConfig.method,

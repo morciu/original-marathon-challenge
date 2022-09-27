@@ -4,7 +4,7 @@ import styles from "./Register.module.css"
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-import { registerUser } from "../../utils/PostData";
+import { postData } from "../../utils/PostData";
 
 // Post config for axios
 const requestConfig = {
@@ -27,15 +27,13 @@ const Register = () =>{
 
     // Navigate Hook
     const navigate = useNavigate();
-
     
-
     const handleFormSubmission = async (submission) => {
         requestConfig.payload = submission;
         // Clear local storare
         localStorage.clear();
 
-        if (await registerUser(requestConfig)){
+        if (await postData(requestConfig)){
             navigate("/");
         } else {
             console.log("something went wrong!");
