@@ -40,7 +40,7 @@ const RegisterRun = () => {
         action={requestConfig.url} method={requestConfig.method}>
         <Stack>
             <TextField type={"number"}
-                inputProps={{step: ".01"}}
+                inputProps={{maxLength: 4, step: ".01"}}
                 variant="filled" label="Distance"
                 error={!!errors['distance']}
                 {...register("distance", {...requiredFieldRule})}/>
