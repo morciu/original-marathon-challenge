@@ -12,6 +12,8 @@ import Home from "./pages/Home/Home"
 import RegisterRun from "./pages/RegisterRun/RegisterRun";
 import CheckProgress from "./pages/CheckProgress/CheckProgress";
 import { AppBar } from "@mui/material";
+import PrivateMarathons from "./pages/PrivateMarathons/PrivateMarathons";
+import User from "./pages/User/User";
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
             <Route path="/users" element={<Users />}></Route>
             <Route path="/register-run" element={<RegisterRun />}></Route>
             <Route path="/check-progress" element={<CheckProgress />}></Route>
+            <Route path="/private-marathons" element={<PrivateMarathons />}></Route>
+            <Route path="/user/:userId" element={<User />}></Route>
         </Routes>
       </div>
       <Footer />

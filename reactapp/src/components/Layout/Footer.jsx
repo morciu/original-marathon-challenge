@@ -59,7 +59,7 @@ const Footer = () => {
                         }}>
                             <MenuItem component={Link} to="/check-progress">Check Progress</MenuItem>
                             <MenuItem component={Link} to="/users">Global Leaderboard</MenuItem>
-                            <MenuItem>Private Marathons</MenuItem>
+                            <MenuItem component={Link} to="/private-marathons">Private Marathons</MenuItem>
                             <MenuItem component={Link} to="/login">Log In</MenuItem>
                     </Menu>
 

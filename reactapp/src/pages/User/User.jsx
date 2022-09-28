@@ -1,16 +1,18 @@
-import Login from "../Login/Login";
+import { Card, Typography } from "@mui/material";
 import React from "react";
-import { Navigate } from "react-router-dom";
-import Users from "../../components/Users/Users";
-import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
+import { useParams } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
+import Login from "../Login/Login";
 
-const Home = () => {
+
+const User = () => {
     const isAuthenticated = !!localStorage.getItem("auth-token");
+
+    const params = useParams();
+    
     // Request config for axios
     const requestConfig = {
-        url: `/users/${localStorage.id}`,
+        url: `/users/${params.userId}`,
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage["auth-token"]}`,
@@ -44,6 +46,7 @@ const Home = () => {
     } else {
         return( <> <Login /> </>)
     }
-}
 
-export default Home;
+};
+
+export default User;

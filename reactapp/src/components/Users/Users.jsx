@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import styles from "./Users.module.css"
 
@@ -24,7 +25,7 @@ const Users = () => {
                 {data && data.map((item) => (
                 <Stack item key={item.id}>
                     <Card>
-                        <CardContent>
+                        <CardContent component={Link} to={`/user/${item.id}`}>
                             <Typography variant="h5">Username: {item.userName}</Typography>
                             <Typography variant="h5">Total Distance: {item.totalDistance} km</Typography>
                         </CardContent>
