@@ -19,12 +19,6 @@ const Home = () => {
 
     const {data, loading, error} = useFetchData(requestConfig);
 
-    const totalTime = (data) => {
-        let total = 0;
-    } 
-
-    
-
     if (isAuthenticated){
         
         return(
