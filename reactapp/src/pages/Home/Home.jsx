@@ -2,19 +2,46 @@ import Login from "../Login/Login";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import Users from "../../components/Users/Users";
-import { Button, TextField } from "@mui/material";
+import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import useFetchData from "../../hooks/useFetchData";
 
 const Home = () => {
     const isAuthenticated = !!localStorage.getItem("auth-token");
+
+    
+
+    // Request config for axios
+    const requestConfig = {
+        url: `/users/${localStorage.id}`,
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage["auth-token"]}`,
+        },
+    };
+
+    const {data, loading, error} = useFetchData(requestConfig);
+
+    const totalTime = (data) => {
+        let total = 0;
+    } 
+
+    
 
     if (isAuthenticated){
         
         return(
             <>
-                <Button variant="contained" href="check-progress">Check Progress</Button>
-                <Button variant="contained" href="/users">Global Leaderboard</Button>
-                <Button variant="contained">Private Marathons</Button>
+                {loading && <p>Loading...</p>}
+                {error && <p>{error.message}</p>}
+                {data && 
+                <Card>
+                    <Typography variant="h5">User Name: {data.userName}</Typography>
+                    <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
+                    <Typography variant="h5">Total Time: {data.totalTime}</Typography>
+                    <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
+                </Card>
+                }
             </>
             );
     } else {

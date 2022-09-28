@@ -60,6 +60,7 @@ const Footer = () => {
                             <MenuItem component={Link} to="/check-progress">Check Progress</MenuItem>
                             <MenuItem component={Link} to="/users">Global Leaderboard</MenuItem>
                             <MenuItem>Private Marathons</MenuItem>
+                            <MenuItem component={Link} to="/login">Log In</MenuItem>
                     </Menu>
 
                     <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
