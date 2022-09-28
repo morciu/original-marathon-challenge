@@ -7,7 +7,7 @@ import styles from "./Users.module.css"
 const Users = () => {
     // Request config for axios
     const requestConfig = {
-        url: "/users/all-users",
+        url: "/marathon/members-by-distance?marathonId=1",
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage["auth-token"]}`,
