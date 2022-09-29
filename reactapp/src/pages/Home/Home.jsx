@@ -30,16 +30,14 @@ const Home = () => {
                 {data && 
                 <Card>
                     <CardContent>
-                        <Typography variant="h5">User Name: {data.userName}</Typography>
+                        <Typography variant="h5">Hello {data.userName}!</Typography>
                     </CardContent>
                     <CardContent>
-                        <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
+                        <Typography variant="h5">You have run a total distance of {data.totalDistance}km and your total time spent running is {data.totalTime}.</Typography>
+                        <Typography variant="h5">Your average running pace is {data.averagePace.substring(3)} min/km.</Typography>
                     </CardContent>
                     <CardContent>
-                        <Typography variant="h5">Total Time: {data.totalTime}</Typography>
-                    </CardContent>
-                    <CardContent>
-                        <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
+                        <Typography variant="h5">Pretty good! Keep going!</Typography>
                     </CardContent>
                 </Card>
                 }
