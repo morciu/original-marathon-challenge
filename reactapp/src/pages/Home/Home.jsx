@@ -5,9 +5,12 @@ import Users from "../../components/Users/Users";
 import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import useFetchData from "../../hooks/useFetchData";
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 const Home = () => {
-    const isAuthenticated = !!localStorage.getItem("auth-token");
+    const {user} = useContext(UserContext);
+    
     // Request config for axios
     const requestConfig = {
         url: `/users/${localStorage.id}`,
@@ -18,9 +21,8 @@ const Home = () => {
     };
 
     const {data, loading, error} = useFetchData(requestConfig);
-
-    if (isAuthenticated){
-        
+    
+    if (user.auth){
         return(
             <>
                 {loading && <p>Loading...</p>}

@@ -3,6 +3,7 @@ import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
 import { postData } from "../../utils/PostData";
+import { Link } from "react-router-dom";
 
 const PrivateMarathons = () => {
     // Request config for axios
@@ -32,11 +33,11 @@ const PrivateMarathons = () => {
             {data.marathons && data.marathons.map((item) => (
                 <>
                 {item.id > 1 ?
-                    <Stack item key={item.id}>
+                <Stack item key={item.id}>
                     <Card>
-                    <CardContent>
-                        <Typography variant="h5">Start Date: {item.startDate}</Typography>
-                    </CardContent>
+                        <CardContent component={Link} to={`/marathon/${item.id}`}>
+                            <Typography variant="h5">Start Date: {item.startDate}</Typography>
+                        </CardContent>
                     </Card>             
                 </Stack> : null}
                 </>

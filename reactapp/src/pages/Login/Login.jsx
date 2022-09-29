@@ -8,6 +8,8 @@ import useFetchData from "../../hooks/useFetchData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 // Post config for axios
 const requestConfig = {
@@ -27,16 +29,15 @@ const Login = () => {
     // Prepare hooks
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const navigate = useNavigate();
+    const { login } = useContext(UserContext);
+    const [ userName, setUserName ] = useState();
 
     const handleFormSubmission = async(submission) => {
         // Clear local storare
         localStorage.clear();
         requestConfig.payload = submission;
         
-        if (await loginUser(requestConfig) == true) {
-            window.location.reload();
-        }
+        await login(requestConfig);
     };
 
     return(
