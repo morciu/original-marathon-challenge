@@ -6,7 +6,7 @@ const Header = () => {
     return(
         <>
             <div className="header">
-            <Typography component={Link} to="/" className="title" variant="h2">Marathon Tracker</Typography>
+            <Typography component={Link} to="/" className="title" variant="h2" style={{ textDecoration: 'none' }}>Marathon Tracker</Typography>
             </div>
         </>
     );

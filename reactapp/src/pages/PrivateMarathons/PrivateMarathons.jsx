@@ -36,7 +36,7 @@ const PrivateMarathons = () => {
                 <Stack item key={item.id}>
                     <Card>
                         <CardContent component={Link} to={`/marathon/${item.id}`}>
-                            <Typography variant="h5">Start Date: {item.startDate}</Typography>
+                            <Typography color={"black"} variant="h5">Start Date: {item.startDate}</Typography>
                         </CardContent>
                     </Card>             
                 </Stack> : null}

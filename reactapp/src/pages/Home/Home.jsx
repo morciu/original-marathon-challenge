@@ -21,7 +21,7 @@ const Home = () => {
     };
 
     const {data, loading, error} = useFetchData(requestConfig);
-    
+
     if (user.auth){
         return(
             <>
@@ -29,10 +29,18 @@ const Home = () => {
                 {error && <p>{error.message}</p>}
                 {data && 
                 <Card>
-                    <Typography variant="h5">User Name: {data.userName}</Typography>
-                    <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
-                    <Typography variant="h5">Total Time: {data.totalTime}</Typography>
-                    <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
+                    <CardContent>
+                        <Typography variant="h5">User Name: {data.userName}</Typography>
+                    </CardContent>
+                    <CardContent>
+                        <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
+                    </CardContent>
+                    <CardContent>
+                        <Typography variant="h5">Total Time: {data.totalTime}</Typography>
+                    </CardContent>
+                    <CardContent>
+                        <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
+                    </CardContent>
                 </Card>
                 }
             </>

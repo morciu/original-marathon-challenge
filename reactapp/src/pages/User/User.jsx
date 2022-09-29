@@ -23,29 +23,21 @@ const User = () => {
 
     const totalTime = (data) => {
         let total = 0;
-    } 
-
-    
-
-    if (isAuthenticated){
-        
-        return(
-            <>
-                {loading && <p>Loading...</p>}
-                {error && <p>{error.message}</p>}
-                {data && 
-                <Card>
-                    <Typography variant="h5">User Name: {data.userName}</Typography>
-                    <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
-                    <Typography variant="h5">Total Time: {data.totalTime}</Typography>
-                    <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
-                </Card>
-                }
-            </>
-            );
-    } else {
-        return( <> <Login /> </>)
-    }
+    }   
+    return(
+        <>
+            {loading && <p>Loading...</p>}
+            {error && <p>{error.message}</p>}
+            {data && 
+            <Card>
+                <Typography variant="h5">User Name: {data.userName}</Typography>
+                <Typography variant="h5">Total Distance: {data.totalDistance}</Typography>
+                <Typography variant="h5">Total Time: {data.totalTime}</Typography>
+                <Typography variant="h5">Average Pace: {data.averagePace}</Typography>
+            </Card>
+            }
+        </>
+        );
 
 };
 

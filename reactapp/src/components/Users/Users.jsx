@@ -26,8 +26,8 @@ const Users = () => {
                 <Stack item key={item.id}>
                     <Card>
                         <CardContent component={Link} to={`/user/${item.id}`}>
-                            <Typography variant="h5">Username: {item.userName}</Typography>
-                            <Typography variant="h5">Total Distance: {item.totalDistance} km</Typography>
+                            <Typography color={"black"} variant="h5">Username: {item.userName}</Typography>
+                            <Typography color={"black"} variant="h5">Total Distance: {item.totalDistance} km</Typography>
                         </CardContent>
                     </Card>
                 </Stack>

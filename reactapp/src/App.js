@@ -30,7 +30,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/users" element={<Users />}></Route>
             <Route path="/register-run" element={<RegisterRun />}></Route>
-            <Route path="/check-progress" element={<CheckProgress />}></Route>
+            <Route path="/marathon/:marathonId/check-progress/:userId" element={<CheckProgress />}></Route>
             <Route path="/private-marathons" element={<PrivateMarathons />}></Route>
             <Route path="/user/:userId" element={<User />}></Route>
             <Route path="/marathon/:marathonId" element={<Marathon />}></Route>
