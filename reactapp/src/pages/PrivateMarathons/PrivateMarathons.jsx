@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
@@ -26,6 +26,7 @@ const PrivateMarathons = () => {
     const {data, loading, error} = useFetchData(requestConfig);
 
     return(
+        <>
         <Stack spacing={2}>
             <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
             {loading && <p>Loading...</p>}
@@ -33,16 +34,33 @@ const PrivateMarathons = () => {
             {data.marathons && data.marathons.map((item) => (
                 <>
                 {item.id > 1 ?
-                <Stack item key={item.id}>
-                    <Card>
-                        <CardContent component={Link} to={`/marathon/${item.id}`}>
-                            <Typography color={"black"} variant="h5">Start Date: {item.startDate}</Typography>
-                        </CardContent>
-                    </Card>             
-                </Stack> : null}
+                <Card key={item.id}>
+                    <CardHeader
+                        title={"Members: " + item.memberCount}
+                        subheader={ (new Date(item.startDate)).toDateString() }
+                        />
+                </Card> : null}
                 </>
             ))}
         </Stack>
+        </>
+        // <Stack spacing={2}>
+            
+        //     {loading && <p>Loading...</p>}
+        //     {error && <p>{error.message}</p>}
+        //     {data.marathons && data.marathons.map((item) => (
+        //         <>
+        //         {item.id > 1 ?
+        //         <Stack item key={item.id}>
+        //             <Card>
+        //                 <CardContent component={Link} to={`/marathon/${item.id}`}>
+        //                     <Typography color={"black"} variant="h5">Start Date: {item.startDate}</Typography>
+        //                 </CardContent>
+        //             </Card>             
+        //         </Stack> : null}
+        //         </>
+        //     ))}
+        // </Stack>
     );
 };
 

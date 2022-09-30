@@ -1,4 +1,5 @@
 ﻿using Application.Activities.Commands;
+using Application.Marathons.Queries;
 using Application.Users.Commands;
 using Application.Users.Queries;
 using AutoMapper;
@@ -43,6 +44,11 @@ namespace WebAPI.Controllers
             }
 
             var mappedResult = _mapper.Map<UserGetDto>(result);
+
+            foreach(var marathon in mappedResult.Marathons)
+            {
+                marathon.MemberCount = await _mediator.Send(new CountMembersQuery() { Id = marathon.Id });
+            }
 
             return Ok(mappedResult);
         }
