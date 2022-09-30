@@ -70,7 +70,7 @@ a {
 .main {
   display: grid;
   justify-items: center;
-  align-items: center;
+  align-items: start;
   }
 
 input[type="text"],
