@@ -2,6 +2,15 @@ import { Button, Card, CardContent } from "@mui/material";
 import React from "react";
 
 const CheckProgress = () => {
+    // Request config for axios
+    const requestConfig = {
+        url: "/marathon/members-by-distance?marathonId=1",
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage["auth-token"]}`,
+        },
+    };
+    
     return(
         <>
             <Card>
