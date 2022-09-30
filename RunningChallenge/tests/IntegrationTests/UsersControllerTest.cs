@@ -52,26 +52,6 @@ namespace IntegrationTest
             UserAsserts(user);
         }
 
-        [Fact]
-        public async Task CreateUser_ShouldReturnCreatedResponse()
-        {
-            var user = new CreateUserCommand
-            {
-                FirstName = "TestFirstName",
-                LastName = "TestLastName",
-                UserName = "TestUserName",
-                Password = "TestPassword",
-            };
-
-            var client = _factory.CreateClient();
-            var response = await client.PostAsync(
-                "api/users/create-user",
-                new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")
-                );
-
-            Xunit.Assert.True(response.StatusCode == HttpStatusCode.Created);
-        }
-
         // Create asserts for testing first user
         private static void UserAsserts(UserGetDto user)
         {

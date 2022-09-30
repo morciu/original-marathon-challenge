@@ -143,8 +143,16 @@ namespace WebAPI.Controllers
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
             var result = await _mediator.Send(new UsersByDistanceQuery { Id = marathonId });
+            var mappedResult = new List<UserGetDto>();
+            foreach (var user in result)
+            {
+                user.TotalDistance = user.CalculateTotalDistance();
+                user.TotalTime = user.CalculateTotalTime();
+                user.AveragePace = user.CalculateAveragePace();
+                mappedResult.Add(_mapper.Map<UserGetDto>(user));
+            }
 
-            return Ok(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]

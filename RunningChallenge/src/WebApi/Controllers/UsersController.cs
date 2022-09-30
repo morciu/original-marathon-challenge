@@ -30,7 +30,6 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize]
         public async Task<IActionResult> GetUsersById(int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));

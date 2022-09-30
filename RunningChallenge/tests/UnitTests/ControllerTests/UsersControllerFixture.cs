@@ -78,32 +78,6 @@ namespace Test.ControllerTests
         }
 
         [Fact]
-        public async Task Create_User_CreateUserIsCalled()
-        {
-            // Arrange
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()))
-                .Verifiable();
-            _mockHelper
-                .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
-
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
-            var testDto = new UserPutPostDto()
-            {
-                FirstName = "TestFirstName",
-                LastName = "TestLastName",
-                UserName = "TestUserName",
-                Password = "TestPassWord"
-            };
-
-            // Act
-            await controller.CreateUser(testDto);
-
-            // Assert
-            _mockMediator.Verify(m => m.Send(It.IsAny<CreateUserCommand>(), It.IsAny<CancellationToken>()), Times.Once());
-        }
-
-        [Fact]
         public async Task Add_Activity_To_User_AddActivityToUserIsCalled()
         {
             // Arrange

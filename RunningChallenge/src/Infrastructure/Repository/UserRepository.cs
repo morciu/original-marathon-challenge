@@ -36,7 +36,14 @@ namespace Infrastructure.Repository
 
         public async Task<User> GetUser(int userId)
         {
-            var user = await _context.Users.Include(u => u.Activities).SingleAsync(u => u.Id == userId);
+            var user = await _context.Users
+                .Include(u => u.Activities)
+                .Include(u => u.Marathons)
+                .SingleAsync(u => u.Id == userId);
+
+            user.TotalDistance = user.CalculateTotalDistance();
+            user.TotalTime = user.CalculateTotalTime();
+            user.AveragePace = user.CalculateAveragePace();
 
             return user;
         }

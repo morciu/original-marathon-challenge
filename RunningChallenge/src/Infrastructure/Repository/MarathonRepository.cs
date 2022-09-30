@@ -42,8 +42,12 @@ namespace Infrastructure.Repository
 
         public async Task<List<User>> GetAllUsersByDistance(int id)
         {
+            var marathon = await _context.Marathons.FindAsync(id);
+
             var members = await _context.Marathons
                 .Where(m => m.Id == id)
+                .Include(m => m.Members)
+                .ThenInclude(m => m.Activities.Where(a => a.Date > marathon.StartDate))
                 .SelectMany(m => m.Members)
                 .OrderByDescending(m => m.Activities
                     .Select(a => a.Distance)
@@ -86,19 +90,17 @@ namespace Infrastructure.Repository
 
         public async Task<decimal> TotalUserDistance(int marathonId, int userId)
         {
-            //var totalDistance = await _context.Marathons
-            //    .Where(m => m.Id == marathonId)
-            //    .SelectMany(u => u.Members
-            //        .Where(m => m.Id == userId)
-            //        .SelectMany(u => u.Activities
-            //            .Select(a => a.Distance)
-            //            )
-            //        )
-            //    .SumAsync();
+            var totalDistance = await _context.Marathons
+                .Where(m => m.Id == marathonId)
+                .SelectMany(u => u.Members
+                    .Where(m => m.Id == userId)
+                    .SelectMany(u => u.Activities
+                        .Select(a => a.Distance)
+                        )
+                    )
+                .SumAsync();
 
-            //return totalDistance;
-
-            throw new NotImplementedException();
+            return totalDistance;
         }
     }
 }
