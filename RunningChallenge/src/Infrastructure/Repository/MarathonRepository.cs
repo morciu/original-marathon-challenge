@@ -47,7 +47,7 @@ namespace Infrastructure.Repository
             var members = await _context.Marathons
                 .Where(m => m.Id == id)
                 .Include(m => m.Members)
-                .ThenInclude(m => m.Activities.Where(a => a.Date > marathon.StartDate))
+                .ThenInclude(m => m.Activities.Where(a => a.Date >= marathon.StartDate))
                 .SelectMany(m => m.Members)
                 .OrderByDescending(m => m.Activities
                     .Select(a => a.Distance)
