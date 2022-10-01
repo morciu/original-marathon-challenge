@@ -1,6 +1,7 @@
 import React from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import { Modal, Box, Typography, IconButton } from "@mui/material";
 import { Stack } from "@mui/system";
+import { Favorite } from "@mui/icons-material";
 
 const style = {
     position: 'absolute',
@@ -22,7 +23,11 @@ const RunningActivityModal = (props) => {
             <Box sx={style}>
             <Stack>
                 {props.modalObjects && props.modalObjects.map((item) => (
-                    <Typography key={item.id}>- Distance: {item.distance}, Time: {item.duration}, Pace: {item.pace}</Typography>
+                    <Typography key={item.id}>- Distance: {item.distance}, 
+                        Time: {item.duration}, 
+                        Pace: {item.pace}
+                        <IconButton aria-label="settings"><Favorite /></IconButton>
+                    </Typography>
                 ))}
             </Stack>
             </Box>
