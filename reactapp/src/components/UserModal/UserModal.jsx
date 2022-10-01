@@ -32,7 +32,7 @@ const UserModal = (props) => {
                 <Typography sx={{ mt: 2 }}>
                     Average Pace: {props.modalObject.averagePace != null && props.modalObject.averagePace.substring(3)}
                 </Typography>
-                {!!props.modalObject?.activities.length && 
+                {!!props.modalObject.activities?.length && 
                     <Button variant="contained" onClick={props.action}>Check Runs</Button>}
             </Box>
         </Modal>
