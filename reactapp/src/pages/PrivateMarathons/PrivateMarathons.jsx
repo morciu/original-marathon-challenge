@@ -1,9 +1,10 @@
-import { Button, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { Button, Card, CardActionArea, CardContent, CardHeader, Icon, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
 import { postData } from "../../utils/PostData";
 import { Link } from "react-router-dom";
+import { OpenInFull } from "@mui/icons-material";
 
 const PrivateMarathons = () => {
     // Request config for axios
@@ -34,10 +35,10 @@ const PrivateMarathons = () => {
             {data.marathons && data.marathons.map((item) => (
                 <>
                 {item.id > 1 ?
-                <Card key={item.id}>
+                <Card key={item.id} component={Link} to={`/marathon/${item.id}`} >
                     <CardHeader
                         title={"Members: " + item.memberCount}
-                        subheader={ (new Date(item.startDate)).toDateString() }
+                        subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }
                         />
                 </Card> : null}
                 </>
