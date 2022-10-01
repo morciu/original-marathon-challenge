@@ -9,6 +9,7 @@ import axios from "axios";
 import { Favorite } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import UserModal from "../../components/UserModal/UserModal";
+import RunningActivityModal from "../../components/RunningActivityModal/RunningActivityModal";
 
 const Marathon = () => {
     const {user} = useContext(UserContext);
@@ -36,7 +37,8 @@ const Marathon = () => {
         });
         return response.data;
     };
-      
+    
+    // Main modal content
     const [modalObject, setmodalObject] = useState({
         id: null,
         userName: null,
@@ -45,12 +47,24 @@ const Marathon = () => {
         averagePace: null
     });
 
+    // User Modal State
     const[openModal, setOpenModal] = useState(false);
     const handleOpenModal = (item) => {
-    setmodalObject(item);
-    setOpenModal(true);
-    }
+        setmodalObject(item);
+        setOpenModal(true);
+    };
     const handleCloseModal = () => setOpenModal(false);
+
+    // Child Modal (Running activity) Content
+    const [childModalObjects, setChildObjects] = useState([]);
+
+    // Running Activity Modal State
+    const[openChildModal, setOpenChildModal] = useState(false);
+    const handleOpenChildModal = (item) => {
+        setChildObjects(item);
+        setOpenChildModal(true)
+    };
+    const handleCloseChildModal = () => setOpenChildModal(false);
 
     // Display Results
     return(
@@ -59,7 +73,13 @@ const Marathon = () => {
         
         <UserModal open={openModal}
             modalObject={modalObject}
-            handleCloseModal={handleCloseModal} />
+            handleCloseModal={handleCloseModal}
+            action={() => { handleOpenChildModal(modalObject.activities) }} />
+
+        <RunningActivityModal open={openChildModal}
+            modalObjects={childModalObjects}
+            parent={modalObject}
+            handleCloseModal={handleCloseChildModal} />
 
         <Stack spacing={2}>
                 {loading && <p>Loading...</p>}
