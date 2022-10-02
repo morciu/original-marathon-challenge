@@ -14,6 +14,7 @@ namespace Infrastructure
 
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Marathon> Marathons { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ActivityConfiguration());
             modelBuilder.ApplyConfiguration(new MarathonConfiguration());
+            modelBuilder.ApplyConfiguration(new InvitationConfiguration());
 
             /*modelBuilder.Entity<Marathon>()
                 .HasMany(x => x.Members);

@@ -13,13 +13,19 @@ namespace Infrastructure
         public IUserRepository UserRepository { get; private set; }
         public IActivityRepository ActivityRepository { get; private set; }
         public IMarathonRepository MarathonRepository { get; private set; }
+        public IInvitationRepository InvitationRepository { get; private set; }
 
-        public UnitOfWork(ApplicationDbContext applicationDbContext, IUserRepository userRepo, IActivityRepository activityRepo, IMarathonRepository marathonRepo)
+        public UnitOfWork(ApplicationDbContext applicationDbContext, 
+                            IUserRepository userRepo, 
+                            IActivityRepository activityRepo, 
+                            IMarathonRepository marathonRepo, 
+                            IInvitationRepository invitationRepository)
         {
             _applicationDbContext = applicationDbContext;
             UserRepository = userRepo;
             ActivityRepository = activityRepo;
             MarathonRepository = marathonRepo;
+            InvitationRepository = invitationRepository;
         }
 
         public void Dispose()

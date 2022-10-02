@@ -8,17 +8,15 @@ namespace Domain.Models
 {
     public class Invitation
     {
+        public int Id { get; set; }
         public bool IsActive { get; set; } = false;
         public User? Sender { get; set; }
         public User? Receiver { get; set; }
         public Marathon? Marathon { get; set; }
 
-        public Invitation(User? sender, User? receiver, Marathon? marathon)
+        public Invitation()
         {
             IsActive = true;
-            Sender = sender;
-            Receiver = receiver;
-            Marathon = marathon;
         }
     }
 }

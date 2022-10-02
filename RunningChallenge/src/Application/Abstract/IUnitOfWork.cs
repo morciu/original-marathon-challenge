@@ -11,6 +11,7 @@ namespace Application.Abstract
         IUserRepository UserRepository { get; }
         IActivityRepository ActivityRepository { get; }
         IMarathonRepository MarathonRepository { get; }
+        IInvitationRepository InvitationRepository { get; }
         Task Save();
     }
 }
