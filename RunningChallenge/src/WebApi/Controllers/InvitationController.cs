@@ -1,4 +1,5 @@
 ﻿using Application.Invitations.Commands;
+using Application.Invitations.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,16 @@ namespace WebApi.Controllers
         {
             var result = await _mediator.Send(new CreateInvitation { SenderId = senderId, ReceiverId = receiverId, MarathonId = marathonId });
             var mappedResult = _mapper.Map<InvitationGetDto>(result);
+
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("/unanswered/{receiverId}")]
+        public async Task<IActionResult> CheckUnansweredInvitations(int receiverId)
+        {
+            var result = await _mediator.Send(new CheckUnansweredInvitations { ReceiverId = receiverId });
+            var mappedResult = _mapper.Map<List<InvitationGetDto>>(result);
 
             return Ok(mappedResult);
         }

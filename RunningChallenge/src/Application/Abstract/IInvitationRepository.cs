@@ -10,5 +10,6 @@ namespace Application.Abstract
     public interface IInvitationRepository
     {
         Task CreateInvitation(Invitation invitation);
+        Task<List<Invitation>> CheckUnansweredInvitations(User receiver);
     }
 }
