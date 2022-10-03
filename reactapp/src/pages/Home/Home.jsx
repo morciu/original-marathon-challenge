@@ -10,6 +10,7 @@ import { UserContext } from "../../hooks/UserContext";
 import axios from "axios";
 import useCheckInvitations from "../../hooks/useCheckInvitations";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const {user} = useContext(UserContext);
@@ -33,10 +34,7 @@ const Home = () => {
     }
 
     const {data, loading, error} = useFetchData(requestConfig);
-    const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);
-
-    console.log(invData);
-    
+    const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);    
 
     if (user.auth){
         return(
@@ -58,8 +56,8 @@ const Home = () => {
                 </Card>
                 }
                 {invData.length != 0 ?
-                <Button variant="contained" color="error">Invitations</Button> :
-                <Button variant="contained">Invitations</Button>
+                <Button variant="contained" color="error" component={Link} to="/invitations">Invitations</Button> :
+                <Button variant="contained" component={Link} to="/invitations">Invitations</Button>
                 }
             </>
             );

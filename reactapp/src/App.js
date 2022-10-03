@@ -15,6 +15,7 @@ import CheckProgress from "./pages/CheckProgress/CheckProgress";
 import PrivateMarathons from "./pages/PrivateMarathons/PrivateMarathons";
 import User from "./pages/User/User";
 import Marathon from "./pages/Marathon/Marathon";
+import Invitations from "./pages/Invitations/Invitations";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/private-marathons" element={<PrivateMarathons />}></Route>
             <Route path="/user/:userId" element={<User />}></Route>
             <Route path="/marathon/:marathonId" element={<Marathon />}></Route>
+            <Route path="/invitations" element={<Invitations />}></Route>
         </Routes>
       </div>
       <Footer />
