@@ -11,5 +11,6 @@ namespace Application.Abstract
     {
         Task CreateInvitation(Invitation invitation);
         Task<List<Invitation>> CheckUnansweredInvitations(User receiver);
+        Task<Invitation> GetInvtiation(int invitationId);
     }
 }

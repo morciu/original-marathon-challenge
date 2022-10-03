@@ -33,5 +33,15 @@ namespace Infrastructure.Repository
         {
             await _context.Invitations.AddAsync(invitation);
         }
+
+        public async Task<Invitation> GetInvtiation(int invitationId)
+        {
+            return await _context.Invitations
+                .Include(i => i.Sender)
+                .Include(i => i.Receiver)
+                .Include(i => i.Marathon)
+                .Where(i => i.Id == invitationId)
+                .FirstAsync();
+        }
     }
 }

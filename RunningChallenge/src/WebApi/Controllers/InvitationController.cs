@@ -40,5 +40,14 @@ namespace WebApi.Controllers
 
             return Ok(mappedResult);
         }
+
+        [HttpPut]
+        [Route("answer/{invitationId}")]
+        public async Task<IActionResult> AnswerInvitation(int invitationId, bool answer)
+        {
+            await _mediator.Send(new AnswerInvitation { InvitationId = invitationId, Answer = answer });
+
+            return Ok();
+        }
     }
 }
