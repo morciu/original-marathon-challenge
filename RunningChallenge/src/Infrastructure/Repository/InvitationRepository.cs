@@ -22,6 +22,8 @@ namespace Infrastructure.Repository
             var result = await _context.Invitations
                 .Where(i => i.Receiver.Id == receiver.Id)
                 .Where(i => i.IsActive == true)
+                .Include(i => i.Sender)
+                .Include(i => i.Marathon)
                 .ToListAsync();
 
             return result;
