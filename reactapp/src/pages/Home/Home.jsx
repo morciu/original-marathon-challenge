@@ -7,11 +7,14 @@ import { Stack } from "@mui/system";
 import useFetchData from "../../hooks/useFetchData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
+import axios from "axios";
+import useCheckInvitations from "../../hooks/useCheckInvitations";
+import { useEffect } from "react";
 
 const Home = () => {
     const {user} = useContext(UserContext);
     
-    // Request config for axios
+    // Request config for user
     const requestConfig = {
         url: `/users/${localStorage.id}`,
         method: "GET",
@@ -20,7 +23,20 @@ const Home = () => {
         },
     };
 
+    // Request config for invitations
+    const requestConfigInvitations = {
+        url: `/invitation/unanswered/${user.id}`,
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage["auth-token"]}`,
+        },
+    }
+
     const {data, loading, error} = useFetchData(requestConfig);
+    const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);
+
+    console.log(invData);
+    
 
     if (user.auth){
         return(
@@ -40,6 +56,10 @@ const Home = () => {
                         <Typography variant="h5">Pretty good! Keep going!</Typography>
                     </CardContent>
                 </Card>
+                }
+                {invData.length != 0 ?
+                <Button variant="contained" color="error">Invitations</Button> :
+                <Button variant="contained">Invitations</Button>
                 }
             </>
             );

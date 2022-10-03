@@ -3,6 +3,7 @@ using Application.Invitations.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.ControllersHelpers;
 using WebApi.Dto;
 
 namespace WebApi.Controllers
@@ -21,7 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/create-invitation")]
+        [Route("create-invitation")]
         public async Task<IActionResult> CreateInvitation(int senderId, int receiverId, int marathonId)
         {
             var result = await _mediator.Send(new CreateInvitation { SenderId = senderId, ReceiverId = receiverId, MarathonId = marathonId });
@@ -31,7 +32,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/unanswered/{receiverId}")]
+        [Route("unanswered/{receiverId}")]
         public async Task<IActionResult> CheckUnansweredInvitations(int receiverId)
         {
             var result = await _mediator.Send(new CheckUnansweredInvitations { ReceiverId = receiverId });
