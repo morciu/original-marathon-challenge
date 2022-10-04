@@ -1,15 +1,10 @@
 import Login from "../Login/Login";
 import React from "react";
-import { Navigate } from "react-router-dom";
-import Users from "../../components/Users/Users";
-import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Backdrop, Button, Card, CardContent, CircularProgress, TextField, Typography } from "@mui/material";
 import useFetchData from "../../hooks/useFetchData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
-import axios from "axios";
 import useCheckInvitations from "../../hooks/useCheckInvitations";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -39,7 +34,12 @@ const Home = () => {
     if (user.auth){
         return(
             <>
-                {loading && <p>Loading...</p>}
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
                 {error && <p>{error.message}</p>}
                 {data && 
                 <Card>
