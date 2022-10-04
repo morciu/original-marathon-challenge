@@ -8,7 +8,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Logout } from "@mui/icons-material";
 
 import PhotoCredits from "../../media/PhotoCredits";
-import { AppBar, Fab, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
+import { AppBar, Button, Fab, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import PublicTwoToneIcon from '@mui/icons-material/PublicTwoTone';
+import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
 import { styled } from '@mui/material/styles';
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
@@ -31,6 +33,8 @@ const Footer = () => {
         right: 0,
         margin: '0 auto',
       });
+    
+    const buttonSize = { width: 50, height: 50 };
 
     return(
         <>
@@ -42,7 +46,7 @@ const Footer = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}>
-                            <MenuIcon />
+                            <MenuIcon style={{ width: 50, height: 50 }}/>
                     </IconButton>
                     <Menu id='main-menu'
                         anchorEl={anchorEl}
@@ -57,17 +61,22 @@ const Footer = () => {
                             vertical: 'bottom',
                             horizontal: 'left'
                         }}>
-                            <MenuItem component={Link} to="/check-progress">Check Progress</MenuItem>
-                            <MenuItem component={Link} to="/users">Global Leaderboard</MenuItem>
-                            <MenuItem component={Link} to="/private-marathons">Private Marathons</MenuItem>
-                            <MenuItem component={Link} to="/login">Log In</MenuItem>
+                            <MenuItem component={Link} to="/register">Register</MenuItem>
+                            <MenuItem component={Link} to="/login">Change User</MenuItem>
                     </Menu>
+                    <Tooltip title={<Typography variant="h5">Global Ranking</Typography>}>
+                        <IconButton component={Link} to="/users"><PublicTwoToneIcon style={buttonSize}/></IconButton>
+                    </Tooltip>
 
                     <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
-                        <DirectionsRunRoundedIcon style={{ width: 50, height: 50 }} />
+                        <DirectionsRunRoundedIcon style={buttonSize} />
                     </StyledFab>
+
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color="inherit" onClick={ logout }><Logout /></IconButton>
+                    <Tooltip title={<Typography variant="h5">Private Marathons</Typography>}>
+                        <IconButton component={Link} to="/private-marathons"><Groups2TwoToneIcon style={buttonSize}/></IconButton>
+                    </Tooltip>
+                    <IconButton color="inherit" onClick={ logout }><Logout style={buttonSize} /></IconButton>
                 </Toolbar>
             </AppBar>
 

@@ -14,9 +14,12 @@ const theme = createTheme({
       main: "#4B624B" }
   },
   typography: {
-    fontFamily: ['Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    'sans-serif'].join(",")
+    h2: {
+      fontFamily: ['Skranji', 'cursive'].join(',')
+    }
+    // fontFamily: ['Roboto', 'Oxygen',
+    // 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    // 'sans-serif'].join(",")
   },
   components: {
     MuiToolbar: {

@@ -6,7 +6,7 @@ import { UserContext } from "./hooks/UserContext";
 
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import Header from "./components/Layout/Header";
+import Header from "./components/Layout/Header/Header";
 import Users from "./components/Users/Users";
 import Footer from "./components/Layout/Footer";
 import Home from "./pages/Home/Home"

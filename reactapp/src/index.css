@@ -54,14 +54,6 @@ a {
   grid-template-rows: 2fr 7fr 1fr;
 }
 
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--light);
-  font-size: var(--title-size);
-}
-
 .title {
   text-align: center;
   padding: 12px;
