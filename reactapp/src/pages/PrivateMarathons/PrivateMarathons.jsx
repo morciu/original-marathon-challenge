@@ -1,4 +1,4 @@
-import { Button, Card, CardActionArea, CardContent, CardHeader, Icon, Typography } from "@mui/material";
+import { Backdrop, Button, Card, CardActionArea, CardContent, CardHeader, CircularProgress, Icon, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
@@ -28,9 +28,14 @@ const PrivateMarathons = () => {
 
     return(
         <>
+        <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+        >
+            <CircularProgress color="inherit" />
+        </Backdrop>
         <Stack spacing={2}>
             <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
-            {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
             {data.marathons && data.marathons.map((item) => (
                 <>
