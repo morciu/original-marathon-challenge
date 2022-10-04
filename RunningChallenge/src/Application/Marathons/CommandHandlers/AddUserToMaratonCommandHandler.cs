@@ -18,7 +18,7 @@ namespace Application.Marathons.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Marathon> Handle(AddUserToMaratonCommand request, CancellationToken cancellationToken)
+        public async Task<Marathon?> Handle(AddUserToMaratonCommand request, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.UserRepository.GetUser(request.UserId);
             var marathon = await _unitOfWork.MarathonRepository.GetMarathon(request.MarathonId);
