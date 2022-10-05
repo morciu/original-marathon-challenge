@@ -4,7 +4,7 @@ import React from "react";
 import useCheckInvitations from "../../hooks/useCheckInvitations";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { postData } from "../../utils/PostData";
+import { sendData } from "../../utils/SendData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 
@@ -20,7 +20,7 @@ const Invitations = () => {
     }
 
     const acceptInvitation = (invId) => {
-        if(postData({
+        if(sendData({
             url: `invitation/answer/${invId}?answer=true`,
             payload: "",
             method: "PUT",
@@ -32,7 +32,7 @@ const Invitations = () => {
     };
 
     const refuseInvitation = (invId) => {
-        if(postData({
+        if(sendData({
             url: `invitation/answer/${invId}?answer=false`,
             payload: "",
             method: "PUT",

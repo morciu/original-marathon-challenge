@@ -65,7 +65,7 @@ const Footer = () => {
                             <MenuItem component={Link} to="/login">Change User</MenuItem>
                     </Menu>
                     <Tooltip title={<Typography variant="h5">Global Ranking</Typography>}>
-                        <IconButton component={Link} to="/users"><PublicTwoToneIcon style={buttonSize}/></IconButton>
+                        <IconButton component={Link} to="/marathon/1"><PublicTwoToneIcon style={buttonSize}/></IconButton>
                     </Tooltip>
 
                     <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>

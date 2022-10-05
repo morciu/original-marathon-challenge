@@ -2,7 +2,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { postData } from "../../utils/PostData";
+import { sendData } from "../../utils/SendData";
 
 // Post config for axios
 const requestConfig = {
@@ -27,7 +27,7 @@ const RegisterRun = () => {
         requestConfig.payload = submission;
         console.log(requestConfig.payload);
 
-        if (await postData(requestConfig)){
+        if (await sendData(requestConfig)){
             console.log("All Good!");
         } else {
             console.log("something went wrong!");

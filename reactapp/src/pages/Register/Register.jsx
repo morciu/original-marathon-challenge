@@ -4,7 +4,7 @@ import styles from "./Register.module.css"
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-import { postData } from "../../utils/PostData";
+import { sendData } from "../../utils/SendData";
 
 // Post config for axios
 const requestConfig = {
@@ -33,7 +33,7 @@ const Register = () =>{
         // Clear local storare
         localStorage.clear();
 
-        if (await postData(requestConfig)){
+        if (await sendData(requestConfig)){
             navigate("/");
         } else {
             console.log("something went wrong!");

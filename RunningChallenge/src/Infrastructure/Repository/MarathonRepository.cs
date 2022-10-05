@@ -48,6 +48,8 @@ namespace Infrastructure.Repository
                 .Where(m => m.Id == id)
                 .Include(m => m.Members)
                 .ThenInclude(m => m.Activities.Where(a => a.Date >= marathon.StartDate))
+                .Include(m => m.Members)
+                .ThenInclude(m => m.Marathons)
                 .SelectMany(m => m.Members)
                 .OrderByDescending(m => m.Activities
                     .Select(a => a.Distance)

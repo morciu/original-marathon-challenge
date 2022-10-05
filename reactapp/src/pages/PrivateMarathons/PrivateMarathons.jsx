@@ -2,7 +2,7 @@ import { Backdrop, Button, Card, CardActionArea, CardContent, CardHeader, Circul
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
-import { postData } from "../../utils/PostData";
+import { sendData } from "../../utils/SendData";
 import { Link } from "react-router-dom";
 import { OpenInFull } from "@mui/icons-material";
 
@@ -22,7 +22,7 @@ const PrivateMarathons = () => {
         method: "POST",
     };
 
-    const newPrivateMarathon = () => { postData(postConfig) }
+    const newPrivateMarathon = () => { sendData(postConfig) }
 
     const {data, loading, error} = useFetchData(requestConfig);
 

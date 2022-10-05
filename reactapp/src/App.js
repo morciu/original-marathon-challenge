@@ -29,7 +29,6 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/users" element={<Users />}></Route>
             <Route path="/register-run" element={<RegisterRun />}></Route>
             <Route path="/check-progress" element={<CheckProgress />}></Route>
             <Route path="/private-marathons" element={<PrivateMarathons />}></Route>

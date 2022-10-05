@@ -4,17 +4,17 @@ import useFetchData from "../../hooks/useFetchData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 
-import { Stack, Card, CardContent, Link, Typography, makeStyles, CardHeader, Avatar, IconButton, Modal } from "@mui/material";
+import { Stack, Card, CardContent, Link, Typography, makeStyles, CardHeader, Avatar, IconButton, Modal, Backdrop, CircularProgress } from "@mui/material";
 import axios from "axios";
 import { Favorite } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import UserModal from "../../components/UserModal/UserModal";
 import RunningActivityModal from "../../components/RunningActivityModal/RunningActivityModal";
+import MarathonListInvitationModal from "../../components/MarathonListInvitationModal/MarathonListInvitationModal";
 
 const Marathon = () => {
     const {user} = useContext(UserContext);
     const params = useParams();
-
 
     // Request config for axios
     const requestConfig = {
@@ -58,13 +58,21 @@ const Marathon = () => {
     // Child Modal (Running activity) Content
     const [childModalObjects, setChildObjects] = useState([]);
 
-    // Running Activity Modal State
+    // Child Modal State - running activities
     const[openChildModal, setOpenChildModal] = useState(false);
     const handleOpenChildModal = (item) => {
         setChildObjects(item);
         setOpenChildModal(true)
     };
+    // Child Modal State - marathon list for invitations
+    const[openChildMarathonModal, setOpenChildMarathonModal] = useState(false);
+    const handleOpenChildMarathonModal = (item) => {
+        setChildObjects(item);
+        setOpenChildMarathonModal(true)
+    };
+
     const handleCloseChildModal = () => setOpenChildModal(false);
+    const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
 
     // Display Results
     return(
@@ -74,15 +82,27 @@ const Marathon = () => {
         <UserModal open={openModal}
             modalObject={modalObject}
             handleCloseModal={handleCloseModal}
-            action={() => { handleOpenChildModal(modalObject.activities) }} />
+            action1={() => { handleOpenChildModal(modalObject.activities) }}
+            action2={() => { handleOpenChildMarathonModal(modalObject.marathons) }} />
 
         <RunningActivityModal open={openChildModal}
             modalObjects={childModalObjects}
             parent={modalObject}
             handleCloseModal={handleCloseChildModal} />
+        
+        <MarathonListInvitationModal open={openChildMarathonModal}
+            modalObjects={childModalObjects}
+            parent={modalObject}
+            handleCloseModal={handleCloseChildMarathonModal}/>
+
+         <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+        >
+            <CircularProgress color="inherit" />
+        </Backdrop>
 
         <Stack spacing={2}>
-                {loading && <p>Loading...</p>}
                 {error && <p>{error.message}</p>}
                 {data && data.map((item) => (
                     <Card key={item.id} onClick={() => { handleOpenModal(item) }}>

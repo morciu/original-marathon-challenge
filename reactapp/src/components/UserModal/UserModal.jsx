@@ -39,8 +39,8 @@ const UserModal = (props) => {
                 </Typography>
                 <div style={buttonDiv}>
                     {!!props.modalObject.activities?.length && 
-                        <Button variant="contained" onClick={props.action}>Check Runs</Button>}
-                    <Button variant="contained">Invite to challenge</Button>
+                        <Button variant="contained" onClick={props.action1}>Check Runs</Button>}
+                    <Button variant="contained" onClick={props.action2}>Invite to challenge</Button>
                 </div>
             </Box>
         </Modal>

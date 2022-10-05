@@ -23,9 +23,9 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("create-invitation")]
-        public async Task<IActionResult> CreateInvitation(int senderId, int receiverId, int marathonId)
+        public async Task<IActionResult> CreateInvitation([FromBody] InvitationPutPostDto body)
         {
-            var result = await _mediator.Send(new CreateInvitation { SenderId = senderId, ReceiverId = receiverId, MarathonId = marathonId });
+            var result = await _mediator.Send(new CreateInvitation { SenderId = body.SenderId, ReceiverId = body.ReceiverId, MarathonId = body.MarathonId });
             var mappedResult = _mapper.Map<InvitationGetDto>(result);
 
             return Ok(mappedResult);

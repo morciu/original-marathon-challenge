@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Alert, Button, Grid, TextField } from "@mui/material";
 import styles from "./Login.module.css";
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
-import { loginUser } from "../../utils/PostData";
+import { loginUser } from "../../utils/SendData";
 import useFetchData from "../../hooks/useFetchData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
