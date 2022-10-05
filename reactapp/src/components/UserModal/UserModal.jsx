@@ -7,12 +7,17 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 300,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
   };
+
+const buttonDiv = {
+    display: "flex",
+    gap: "4px"
+};
 
 const UserModal = (props) => {
     return(
@@ -32,8 +37,11 @@ const UserModal = (props) => {
                 <Typography sx={{ mt: 2 }}>
                     Average Pace: {props.modalObject.averagePace != null && props.modalObject.averagePace.substring(3)}
                 </Typography>
-                {!!props.modalObject.activities?.length && 
-                    <Button variant="contained" onClick={props.action}>Check Runs</Button>}
+                <div style={buttonDiv}>
+                    {!!props.modalObject.activities?.length && 
+                        <Button variant="contained" onClick={props.action}>Check Runs</Button>}
+                    <Button variant="contained">Invite to challenge</Button>
+                </div>
             </Box>
         </Modal>
     );

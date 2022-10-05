@@ -49,7 +49,6 @@ a {
   height: 100%;
   width: min(800px, 100vw);
   position: relative;
-
   display: grid;
   grid-template-rows: 2fr 7fr 1fr;
 }

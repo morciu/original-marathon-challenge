@@ -50,23 +50,6 @@ const PrivateMarathons = () => {
             ))}
         </Stack>
         </>
-        // <Stack spacing={2}>
-            
-        //     {loading && <p>Loading...</p>}
-        //     {error && <p>{error.message}</p>}
-        //     {data.marathons && data.marathons.map((item) => (
-        //         <>
-        //         {item.id > 1 ?
-        //         <Stack item key={item.id}>
-        //             <Card>
-        //                 <CardContent component={Link} to={`/marathon/${item.id}`}>
-        //                     <Typography color={"black"} variant="h5">Start Date: {item.startDate}</Typography>
-        //                 </CardContent>
-        //             </Card>             
-        //         </Stack> : null}
-        //         </>
-        //     ))}
-        // </Stack>
     );
 };
 

@@ -81,7 +81,7 @@ const Footer = () => {
             </AppBar>
 
             <div className="footer">
-                <PhotoCredits />
+                {/* <PhotoCredits /> */}
             </div>
         </>
     );
