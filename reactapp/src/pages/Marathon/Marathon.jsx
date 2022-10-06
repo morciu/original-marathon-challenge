@@ -49,6 +49,10 @@ const Marathon = () => {
         });
         return response.data;
     };
+    const [currentProgress, setCurrentProgress] = useState(0);
+    const progress = fetchProgress().then((result) => {
+        setCurrentProgress(result);
+    });
     
     // Main modal content
     const [modalObject, setmodalObject] = useState({
@@ -86,12 +90,10 @@ const Marathon = () => {
     const handleCloseChildModal = () => setOpenChildModal(false);
     const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
 
-    console.log(modalObject.marathons)
-
     // Display Results
     return(
         <>
-        <Typography variant="h5">Personal Progress: {}% </Typography>
+        <Typography variant="h5">Personal Progress: {currentProgress}% </Typography>
         
         <UserModal open={openModal}
             modalObject={modalObject}
