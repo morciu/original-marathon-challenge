@@ -11,6 +11,7 @@ import { Box } from "@mui/system";
 import UserModal from "../../components/UserModal/UserModal";
 import RunningActivityModal from "../../components/RunningActivityModal/RunningActivityModal";
 import MarathonListInvitationModal from "../../components/MarathonListInvitationModal/MarathonListInvitationModal";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const Marathon = () => {
     const {user} = useContext(UserContext);
@@ -85,6 +86,8 @@ const Marathon = () => {
     const handleCloseChildModal = () => setOpenChildModal(false);
     const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
 
+    console.log(modalObject.marathons)
+
     // Display Results
     return(
         <>
@@ -124,7 +127,7 @@ const Marathon = () => {
                                 </Avatar>
                             }
                             action={
-                                <IconButton aria-label="settings"><Favorite /></IconButton>
+                                <IconButton aria-label="settings"><GroupAddIcon /></IconButton>
                             }
                             title={item.userName}
                             subheader={item.totalDistance+" km"}

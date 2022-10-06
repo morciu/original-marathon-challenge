@@ -50,7 +50,7 @@ const sendInvitation = (invitation) => {
 const MarathonListInvitationModal = (props) => {
     const {user} = useContext(UserContext);
     const {data, loading, error} = useFetchData(requestConfig);
-    const marathons = data.marathons;
+    const marathons = data.data.marathons;
     return(
         <Modal open={props.open}
                 onClose={props.handleCloseModal}
