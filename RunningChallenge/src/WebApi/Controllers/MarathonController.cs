@@ -1,9 +1,11 @@
 ﻿using Application.Marathons.Commands;
 using Application.Marathons.Queries;
+using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.ControllersHelpers;
+using WebApi.Dto;
 using WebApi.Filter;
 using WebApi.Services;
 using WebApi.Wrappers;
@@ -199,6 +201,36 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(new CheckProgressQuery { MarathonId = marathonId, UserId = userId });
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("marathons-with-player/{userId}")]
+        public async Task<IActionResult> MarathonWithPlayer([FromQuery] PaginationFilter filter, int userId)
+        {
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var pagedData = await _mediator.Send(new MarathonsWithUser()
+            {
+                UserId = userId,
+                PageNr = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            });
+
+            var mappedPagedData = _mapper.Map<List<MarathonListGetDto>>(pagedData);
+
+            foreach (var marathon in mappedPagedData)
+            {
+                var mar = await _mediator.Send(new GetMarathonByIdCommand { Id = marathon.Id });
+                marathon.MemberCount = mar.Members.Count;
+            }
+
+            var user = await _mediator.Send(new GetUserByIdQueryCommand { Id = userId });
+            var totalRecords = user.Marathons.Count;
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<MarathonListGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            return Ok(pagedResponse);
         }
     }
 }

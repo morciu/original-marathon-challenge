@@ -1,20 +1,36 @@
-import { Backdrop, Button, Card, CardActionArea, CardContent, CardHeader, CircularProgress, Icon, Typography } from "@mui/material";
+import { Backdrop, Button, Card, CardActionArea, CardContent, CardHeader, CircularProgress, Icon, Pagination, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
 import { sendData } from "../../utils/SendData";
 import { Link } from "react-router-dom";
 import { OpenInFull } from "@mui/icons-material";
+import { useState } from "react";
 
 const PrivateMarathons = () => {
-    // Request config for axios
-    const requestConfig = {
-        url: `/users/${localStorage.id}`,
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
-        },
+    // Request config state for pagination
+    const [requestConfig, setRequestConfig] = useState(
+        {
+            url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=1&PageSize=5`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage["auth-token"]}`,
+            }
+        }
+    );
+
+    const selectPage = (event, value) => {
+        setRequestConfig(
+            {
+                url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=${value}&PageSize=5`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage["auth-token"]}`,
+                }
+            }
+        );
     };
+
     // Post config for axios
     const postConfig = {
         url: "/marathon/create-marathon",
@@ -37,7 +53,7 @@ const PrivateMarathons = () => {
         <Stack spacing={2}>
             <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
             {error && <p>{error.message}</p>}
-            {data.data?.marathons && data.data.marathons.map((item) => (
+            {data.data && data.data.map((item) => (
                 <>
                 {item.id > 1 ?
                 <Card key={item.id} component={Link} to={`/marathon/${item.id}`} >
@@ -49,6 +65,9 @@ const PrivateMarathons = () => {
                 </>
             ))}
         </Stack>
+        <Pagination 
+            count={data.totalPages}
+            onChange={selectPage}></Pagination>
         </>
     );
 };

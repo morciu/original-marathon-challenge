@@ -106,5 +106,17 @@ namespace Infrastructure.Repository
 
             return totalDistance;
         }
+
+        public async Task<List<Marathon>> GetAllMarathonsWithUser(int userId, int pageNr, int pageSize)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            var marathons = await _context.Marathons
+                .Where(m => m.Members.Contains(user))
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return marathons;
+        }
     }
 }
