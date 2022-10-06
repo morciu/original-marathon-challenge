@@ -4,7 +4,7 @@ import useFetchData from "../../hooks/useFetchData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 
-import { Stack, Card, CardContent, Link, Typography, makeStyles, CardHeader, Avatar, IconButton, Modal, Backdrop, CircularProgress } from "@mui/material";
+import { Stack, Card, CardContent, Link, Typography, makeStyles, CardHeader, Avatar, IconButton, Modal, Backdrop, CircularProgress, Pagination } from "@mui/material";
 import axios from "axios";
 import { Favorite } from "@mui/icons-material";
 import { Box } from "@mui/system";
@@ -15,15 +15,26 @@ import MarathonListInvitationModal from "../../components/MarathonListInvitation
 const Marathon = () => {
     const {user} = useContext(UserContext);
     const params = useParams();
+    
+    // Handle page selection - change request url
+    const selectPage = (event, value) => {
+        setRequestConfig({
+            url: `/marathon/members-by-distance?PageNumber=${value}&PageSize=5&marathonId=${params.marathonId}`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage["auth-token"]}`,
+            },
+        })
+    }
 
-    // Request config for axios
-    const requestConfig = {
-        url: `/marathon/members-by-distance?marathonId=${params.marathonId}`,
+    // Request Config state for changing page requests
+    const [requestConfig, setRequestConfig] = useState({
+        url: `/marathon/members-by-distance?PageNumber=1&PageSize=5&marathonId=${params.marathonId}`,
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage["auth-token"]}`,
         },
-    };
+    });
 
     const {data, loading, error} = useFetchData(requestConfig);
 
@@ -104,7 +115,7 @@ const Marathon = () => {
 
         <Stack spacing={2}>
                 {error && <p>{error.message}</p>}
-                {data && data.map((item) => (
+                {data.data && data.data.map((item) => (
                     <Card key={item.id} onClick={() => { handleOpenModal(item) }}>
                         <CardHeader
                             avatar={
@@ -121,6 +132,9 @@ const Marathon = () => {
                     </Card>
                 ))}
         </Stack>
+        <Pagination 
+            count={data.totalPages}
+            onChange={selectPage}></Pagination>
         </>
     );
 };

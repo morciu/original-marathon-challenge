@@ -22,7 +22,6 @@ namespace Application.Marathons.CommandHandlers
         {
             var user = await _unitOfWork.UserRepository.GetUser(request.UserId);
             var marathon = await _unitOfWork.MarathonRepository.GetMarathon(request.MarathonId);
-            marathon.Members = await _unitOfWork.MarathonRepository.GetAllUsers(marathon.Id);
 
             if (user == null || marathon == null) 
                 return null;

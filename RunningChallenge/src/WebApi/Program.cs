@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
+using WebApi.Services;
 using WebAPI;
 using WebAPI.Configuration;
 using WebAPI.ControllersHelpers;
@@ -27,6 +28,15 @@ builder.Services.AddSwagger();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IUriService>(o =>
+{
+    var accessor = o.GetRequiredService<IHttpContextAccessor>();
+    var request = accessor.HttpContext.Request;
+    var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+    return new UriService(uri);
+});
 
 builder.Services.AddMediatR(typeof(ApplicationAssemblyMarker));
 builder.Services.AddAutoMapper(typeof(PresentationAssemblyMarker));

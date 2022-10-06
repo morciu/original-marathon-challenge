@@ -33,7 +33,7 @@ const useFetchData = (requestConfig) => {
         };
 
         fetchData();
-    }, []);
+    }, [requestConfig]);
 
     return requestState
 };

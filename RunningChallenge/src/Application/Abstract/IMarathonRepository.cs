@@ -13,8 +13,8 @@ namespace Application.Abstract
         void Delete(Marathon marathon);
         Task<Marathon> GetMarathon(int id);
         Task<List<Marathon>> GetAllMarathons();
-        Task<List<User>> GetAllUsers(int id);
-        Task<List<User>> GetAllUsersByDistance(int id);
+        Task<List<User>> GetAllUsers(int id, int pageNr, int pageSize);
+        Task<List<User>> GetAllUsersByDistance(int id, int pageNr, int pageSize);
         Task<int> CountMembers(Marathon marathon);
         Task<decimal> AverageDistance(Marathon marathon);
         Task<decimal> TotalUserDistance(int marathonId, int userId);

@@ -21,7 +21,7 @@ namespace Application.Marathons.QueryHandlers
 
         public Task<List<User>> Handle(GetAllMembersQuery request, CancellationToken cancellationToken)
         {
-            var result = _unitOfWork.MarathonRepository.GetAllUsers(request.Id);
+            var result = _unitOfWork.MarathonRepository.GetAllUsers(request.Id, request.PageNumber, request.PageSize);
 
             return result;
         }

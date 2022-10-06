@@ -3,6 +3,10 @@ using Application.Marathons.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.ControllersHelpers;
+using WebApi.Filter;
+using WebApi.Services;
+using WebApi.Wrappers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
 
@@ -17,12 +21,19 @@ namespace WebAPI.Controllers
         private readonly ILogger<MarathonController> _logger;
         private readonly LoggerHelper _loggerHelper;
 
-        public MarathonController(IMediator mediator, IMapper mapper, ILogger<MarathonController> logger, LoggerHelper loggerHelper)
+        private readonly IUriService _uriService;
+
+        public MarathonController(IMediator mediator, 
+            IMapper mapper, 
+            ILogger<MarathonController> logger, 
+            LoggerHelper loggerHelper,
+            IUriService uriService)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
             _loggerHelper = loggerHelper;
+            _uriService = uriService;
         }
 
         [HttpGet]
@@ -127,31 +138,56 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("members")]
-        public async Task<IActionResult> GetMembers(int marathonId)
+        public async Task<IActionResult> GetMembers([FromQuery] PaginationFilter filter, int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
-            var result = await _mediator.Send(new GetAllMembersQuery { Id = marathonId });
-            return Ok(result);
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var pagedData = await _mediator.Send(new GetAllMembersQuery { 
+                Id = marathonId,
+                PageNumber = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            });
+
+            var mappedPagedData = _mapper.Map <List<UserGetDto>>(pagedData);
+
+            var totalRecords = await _mediator.Send(new CountMembersQuery { Id = marathonId });
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<UserGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            return Ok(pagedResponse);
         }
 
         [HttpGet]
         [Route("members-by-distance")]
-        public async Task<IActionResult> GetUsersByDistance(int marathonId)
+        public async Task<IActionResult> GetUsersByDistance([FromQuery] PaginationFilter filter, int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
-            var result = await _mediator.Send(new UsersByDistanceQuery { Id = marathonId });
-            var mappedResult = new List<UserGetDto>();
-            foreach (var user in result)
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var pagedData = await _mediator.Send(new UsersByDistanceQuery
+            {
+                Id = marathonId,
+                PageNr = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            });
+            var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);
+            foreach (var user in pagedData)
             {
                 user.TotalDistance = user.CalculateTotalDistance();
                 user.TotalTime = user.CalculateTotalTime();
                 user.AveragePace = user.CalculateAveragePace();
-                mappedResult.Add(_mapper.Map<UserGetDto>(user));
             }
 
-            return Ok(mappedResult);
+            var totalRecords = await _mediator.Send(new CountMembersQuery { Id = marathonId });
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<UserGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            return Ok(pagedResponse);
         }
 
         [HttpGet]

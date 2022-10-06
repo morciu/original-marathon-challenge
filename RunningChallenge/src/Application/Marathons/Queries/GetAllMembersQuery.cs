@@ -11,5 +11,7 @@ namespace Application.Marathons.Queries
     public class GetAllMembersQuery : IRequest<List<User>>
     {
         public int Id { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace Application.Marathons.Queries
     public class UsersByDistanceQuery : IRequest<List<User>>
     {
         public int Id { get; set; }
+        public int PageNr { get; set; }
+        public int PageSize { get; set; }
     }
 }

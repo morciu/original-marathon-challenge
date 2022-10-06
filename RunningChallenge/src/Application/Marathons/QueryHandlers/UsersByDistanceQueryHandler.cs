@@ -21,7 +21,7 @@ namespace Application.Marathons.QueryHandlers
 
         public async Task<List<User>> Handle(UsersByDistanceQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.MarathonRepository.GetAllUsersByDistance(request.Id);
+            var result = await _unitOfWork.MarathonRepository.GetAllUsersByDistance(request.Id, request.PageNr, request.PageSize);
 
             return result;
         }

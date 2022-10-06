@@ -28,7 +28,6 @@ namespace Application.Invitations.CommandHandlers
 
             if(request.Answer == true)
             {
-                marathon.Members = await _unitOfWork.MarathonRepository.GetAllUsers(marathon.Id);
                 marathon.Members.Add(user);
             }
             invitation.IsActive = false;

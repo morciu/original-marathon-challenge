@@ -79,7 +79,7 @@ namespace WebAPI.Controllers
             }
             _logger.LogInformation($"Found {result.Count} users");
 
-            return Ok(mappedResult);
+            return Ok(new Response<List<UserGetDto>>(mappedResult));
         }
 
         [HttpGet]
