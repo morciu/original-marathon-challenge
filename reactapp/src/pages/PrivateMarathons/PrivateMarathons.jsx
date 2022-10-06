@@ -37,7 +37,7 @@ const PrivateMarathons = () => {
         <Stack spacing={2}>
             <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
             {error && <p>{error.message}</p>}
-            {data.marathons && data.marathons.map((item) => (
+            {data.data?.marathons && data.data.marathons.map((item) => (
                 <>
                 {item.id > 1 ?
                 <Card key={item.id} component={Link} to={`/marathon/${item.id}`} >

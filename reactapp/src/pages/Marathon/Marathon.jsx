@@ -16,7 +16,7 @@ const Marathon = () => {
     const {user} = useContext(UserContext);
     const params = useParams();
     
-    // Handle page selection - change request url
+    // Handle page selection - change request
     const selectPage = (event, value) => {
         setRequestConfig({
             url: `/marathon/members-by-distance?PageNumber=${value}&PageSize=5&marathonId=${params.marathonId}`,

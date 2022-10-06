@@ -41,14 +41,14 @@ const Home = () => {
                 <CircularProgress color="inherit" />
             </Backdrop>
                 {error && <p>{error.message}</p>}
-                {data && 
+                {data.data && 
                 <Card>
                     <CardContent>
-                        <Typography variant="h5">Hello {data.userName}!</Typography>
+                        <Typography variant="h5">Hello {data.data.userName}!</Typography>
                     </CardContent>
                     <CardContent>
-                        <Typography variant="h5">You have run a total distance of {data.totalDistance}km and your total time spent running is {data.totalTime}.</Typography>
-                        <Typography variant="h5">Your average running pace is {data.averagePace} min/km.</Typography>
+                        <Typography variant="h5">You have run a total distance of {data.data.totalDistance}km and your total time spent running is {data.totalTime}.</Typography>
+                        <Typography variant="h5">Your average running pace is {data.data.averagePace} min/km.</Typography>
                     </CardContent>
                     <CardContent>
                         <Typography variant="h5">Pretty good! Keep going!</Typography>
