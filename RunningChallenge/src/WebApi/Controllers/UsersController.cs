@@ -7,6 +7,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebApi.Filter;
+using WebApi.Wrappers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
 
@@ -50,17 +52,20 @@ namespace WebAPI.Controllers
                 marathon.MemberCount = await _mediator.Send(new CountMembersQuery() { Id = marathon.Id });
             }
 
-            return Ok(mappedResult);
+            return Ok(new Response<UserGetDto>(mappedResult));
         }
 
         [HttpGet]
         [Route("all-users")]
-        [Authorize]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
-            var result = await _mediator.Send(new GetAllUsers());
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var result = await _mediator.Send(new GetAllUsers() { 
+                PageNumber = validFilter.PageNumber, 
+                PageSize = validFilter.PageSize });
             if (result == null)
             {
                 _logger.LogWarning("No users found");

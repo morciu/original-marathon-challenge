@@ -28,9 +28,12 @@ namespace Infrastructure.Repository
             _context.Users.Remove(user);
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<User>> GetAll(int pageNr, int pageSize)
         {
-            var result = await _context.Users.Include(u => u.Activities).ToListAsync();
+            var result = await _context.Users.Include(u => u.Activities)
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
             return result;
         }
 

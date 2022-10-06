@@ -21,7 +21,7 @@ namespace Application.Users.QueryHandlers
 
         public async Task<List<User>> Handle(GetAllUsers request, CancellationToken cancellationToken)
         {
-            var response = await _unitOfWork.UserRepository.GetAll();
+            var response = await _unitOfWork.UserRepository.GetAll(request.PageNumber, request.PageSize);
 
             return response;
         }
