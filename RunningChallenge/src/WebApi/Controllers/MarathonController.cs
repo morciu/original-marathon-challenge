@@ -177,13 +177,14 @@ namespace WebAPI.Controllers
                 PageNr = validFilter.PageNumber,
                 PageSize = validFilter.PageSize
             });
-            var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);
+            
             foreach (var user in pagedData)
             {
                 user.TotalDistance = user.CalculateTotalDistance();
                 user.TotalTime = user.CalculateTotalTime();
                 user.AveragePace = user.CalculateAveragePace();
             }
+            var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);
 
             var totalRecords = await _mediator.Send(new CountMembersQuery { Id = marathonId });
             var pagedResponse = PaginationHelpers.CreatePagedReponse<UserGetDto>(

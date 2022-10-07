@@ -7,8 +7,6 @@ import Login from "../Login/Login";
 
 import { Stack, Card, CardContent, Link, Typography, makeStyles, CardHeader, Avatar, IconButton, Modal, Backdrop, CircularProgress, Pagination } from "@mui/material";
 import axios from "axios";
-import { Favorite } from "@mui/icons-material";
-import { Box } from "@mui/system";
 import UserModal from "../../components/UserModal/UserModal";
 import RunningActivityModal from "../../components/RunningActivityModal/RunningActivityModal";
 import MarathonListInvitationModal from "../../components/MarathonListInvitationModal/MarathonListInvitationModal";
@@ -39,6 +37,7 @@ const Marathon = () => {
     });
 
     const {data, loading, error} = useFetchData(requestConfig);
+    console.log(data)
 
     const fetchProgress = async () => {
         const response = await axios({
@@ -96,7 +95,7 @@ const Marathon = () => {
         return(
             <>
             <Typography variant="h5">Personal Progress: {currentProgress}% </Typography>
-            <CircularProgress variant="determinate" value={currentProgress} thickness={"50"}/>
+            <Card><CardHeader title={"Finishers: "} /></Card>
             
             <UserModal open={openModal}
                 modalObject={modalObject}
