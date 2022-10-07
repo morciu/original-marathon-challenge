@@ -94,11 +94,13 @@ namespace Infrastructure.Repository
 
         public async Task<decimal> TotalUserDistance(int marathonId, int userId)
         {
+            var marathon = await _context.Marathons.FindAsync(marathonId);
+
             var totalDistance = await _context.Marathons
                 .Where(m => m.Id == marathonId)
                 .SelectMany(u => u.Members
                     .Where(m => m.Id == userId)
-                    .SelectMany(u => u.Activities
+                    .SelectMany(u => u.Activities.Where(a => a.Date >= marathon.StartDate)
                         .Select(a => a.Distance)
                         )
                     )
