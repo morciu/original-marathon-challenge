@@ -37,7 +37,6 @@ const Marathon = () => {
     });
 
     const {data, loading, error} = useFetchData(requestConfig);
-    console.log(data)
 
     const fetchProgress = async () => {
         const response = await axios({
@@ -80,12 +79,15 @@ const Marathon = () => {
         setChildObjects(item);
         setOpenChildModal(true)
     };
+
     // Child Modal State - marathon list for invitations
     const[openChildMarathonModal, setOpenChildMarathonModal] = useState(false);
     const handleOpenChildMarathonModal = (item) => {
         setChildObjects(item);
         setOpenChildMarathonModal(true)
     };
+
+    // User position state
 
     const handleCloseChildModal = () => setOpenChildModal(false);
     const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
@@ -127,7 +129,7 @@ const Marathon = () => {
                             <CardHeader
                                 avatar={
                                     <Avatar aria-label="recipe" >
-                                        {item.userName != null && item.userName.substring(0,1)}
+                                        {data.data.indexOf(item) + (data.pageNumber * data.pageSize) - 4}
                                     </Avatar>
                                 }
                                 action={
