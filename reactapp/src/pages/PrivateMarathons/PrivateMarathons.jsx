@@ -2,12 +2,15 @@ import { Backdrop, Button, Card, CardActionArea, CardContent, CardHeader, Circul
 import { Stack } from "@mui/system";
 import React from "react";
 import useFetchData from "../../hooks/useFetchData";
+import Login from "../Login/Login";
 import { sendData } from "../../utils/SendData";
 import { Link } from "react-router-dom";
-import { OpenInFull } from "@mui/icons-material";
 import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 const PrivateMarathons = () => {
+    const {user} = useContext(UserContext);
     // Request config state for pagination
     const [requestConfig, setRequestConfig] = useState(
         {
@@ -42,8 +45,9 @@ const PrivateMarathons = () => {
 
     const {data, loading, error} = useFetchData(requestConfig);
 
-    return(
-        <>
+    if (user.auth){
+        return(
+            <>
         <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={loading}
@@ -69,7 +73,11 @@ const PrivateMarathons = () => {
             count={data.totalPages}
             onChange={selectPage}></Pagination>
         </>
-    );
+        );
+            
+    } else {
+        return( <> <Login /> </>);
+    }
 };
 
 export default PrivateMarathons;

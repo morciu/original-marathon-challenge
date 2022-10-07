@@ -7,6 +7,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { sendData } from "../../utils/SendData";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
+import Login from "../Login/Login";
 
 const Invitations = () => {
     const {user} = useContext(UserContext);
@@ -45,25 +46,29 @@ const Invitations = () => {
 
     const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);
 
-    return(
-        <>
-        <Stack spacing={2}>
-        {invData.length == 0 &&
-        <Typography variant="h5">No Invitations</Typography>}
-        {invData.map((item) => (
-            <Card key={item.id}>
-                <CardHeader
-                    title="Invitation From: "
-                    subheader={item.sender.userName}
-                    />
-                <IconButton aria-label="settings" onClick={() => {acceptInvitation(item.id)}}><ThumbUpIcon /></IconButton>
-                <IconButton aria-label="settings" onClick={() => {refuseInvitation(item.id)}}><ThumbDownIcon /></IconButton>
-            </Card>
-        ))}
-        </Stack>
-        </>
-    );
-
+    if (user.auth){
+        return(
+            <>
+            <Stack spacing={2}>
+            {invData.length == 0 &&
+            <Typography variant="h5">No Invitations</Typography>}
+            {invData.map((item) => (
+                <Card key={item.id}>
+                    <CardHeader
+                        title="Invitation From: "
+                        subheader={item.sender.userName}
+                        />
+                    <IconButton aria-label="settings" onClick={() => {acceptInvitation(item.id)}}><ThumbUpIcon /></IconButton>
+                    <IconButton aria-label="settings" onClick={() => {refuseInvitation(item.id)}}><ThumbDownIcon /></IconButton>
+                </Card>
+            ))}
+            </Stack>
+            </>
+        )
+            
+    } else {
+        return( <> <Login /> </>)
+    }
 };
 
 export default Invitations;
