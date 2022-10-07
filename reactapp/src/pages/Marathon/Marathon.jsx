@@ -94,6 +94,7 @@ const Marathon = () => {
     return(
         <>
         <Typography variant="h5">Personal Progress: {currentProgress}% </Typography>
+        <CircularProgress variant="determinate" value={currentProgress} thickness={"50"}/>
         
         <UserModal open={openModal}
             modalObject={modalObject}
