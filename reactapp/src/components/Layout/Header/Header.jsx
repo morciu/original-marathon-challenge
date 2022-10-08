@@ -8,7 +8,7 @@ const Header = () => {
     return(
         <>
             <div className={styles.header}>
-                <Typography component={Link} to="/" variant="h2" style={{ textDecoration: 'none' }}>
+                <Typography textAlign={"center"} component={Link} to="/" variant="h2" style={{ textDecoration: 'none' }}>
                     Pheidippides' Run
                 </Typography>
             </div>
