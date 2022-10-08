@@ -11,6 +11,8 @@ import UserModal from "../../components/UserModal/UserModal";
 import RunningActivityModal from "../../components/RunningActivityModal/RunningActivityModal";
 import MarathonListInvitationModal from "../../components/MarathonListInvitationModal/MarathonListInvitationModal";
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import UserCard from "../../components/UserCard/UserCard";
 
 const Marathon = () => {
     const {user} = useContext(UserContext);
@@ -125,20 +127,8 @@ const Marathon = () => {
             <Stack spacing={2}>
                     {error && <p>{error.message}</p>}
                     {data.data && data.data.map((item) => (
-                        <Card key={item.id} onClick={() => { handleOpenModal(item) }}>
-                            <CardHeader
-                                avatar={
-                                    <Avatar aria-label="recipe" >
-                                        {data.data.indexOf(item) + (data.pageNumber * data.pageSize) - 4}
-                                    </Avatar>
-                                }
-                                action={
-                                    <IconButton aria-label="settings"><GroupAddIcon /></IconButton>
-                                }
-                                title={item.userName}
-                                subheader={item.totalDistance+" km"}
-                                />
-                        </Card>
+                        <UserCard item={item} list={data.data} pageNumber={data.pageNumber}
+                            pageSize={data.pageSize} action={handleOpenModal} />
                     ))}
             </Stack>
             <Pagination 
