@@ -47,7 +47,7 @@ const Home = () => {
                         <Typography variant="h5">Hello {data.data.userName}!</Typography>
                     </CardContent>
                     <CardContent>
-                        <Typography variant="h5">You have run a total distance of {data.data.totalDistance}km and your total time spent running is {data.totalTime}.</Typography>
+                        <Typography variant="h5">You have run a total distance of {data.data.totalDistance}km and your total time spent running is {data.data.totalTime}.</Typography>
                         <Typography variant="h5">Your average running pace is {data.data.averagePace} min/km.</Typography>
                     </CardContent>
                     <CardContent>
