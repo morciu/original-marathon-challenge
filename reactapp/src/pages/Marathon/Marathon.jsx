@@ -98,8 +98,7 @@ const Marathon = () => {
     if (user.auth){
         return(
             <>
-            <Typography variant="h5">Personal Progress: {currentProgress}% </Typography>
-            <Card><CardHeader title={"Finishers: "} /></Card>
+            <Card><CardHeader title={"Finishers"} /></Card>
             
             <UserModal open={openModal}
                 modalObject={modalObject}

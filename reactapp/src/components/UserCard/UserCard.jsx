@@ -17,7 +17,7 @@ const UserCard = (props) => {
             </div>
             <Box className={styles.cardInnerContainer}>
                 <div className={styles.heading}>
-                    <Typography align="center" variant="h3" className={styles.heading}>{props.item.userName}</Typography>
+                    <Typography align="center" variant="h5" className={styles.heading}>{props.item.userName}</Typography>
                 </div>
                 
                 <p className={styles.subHeader}>{props.item.totalDistance} km</p>
