@@ -31,8 +31,29 @@
     padding-right: 8px;
 }
 
+.avatar {
+    color: #cacfd6;
+    background-color: #381D2A;
+}
+
+.avatarGold {
+    color: #001524;
+    background-color: #ffe66d;
+}
+
+.avatarSilver {
+    color: #001524;
+    background-color: #cacfd6;
+}
+
+.avatarBronze {
+    color: #001524;
+    background-color: #b76d68;
+}
+
 .progressBar {
     width: 100%;
+    border-radius: 8px;
 }
 
 .cardInnerContainer {
