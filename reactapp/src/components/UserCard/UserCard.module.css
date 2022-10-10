@@ -54,10 +54,18 @@
 .progressBar {
     width: 100%;
     border-radius: 8px;
+    height: 8px;
 }
 
 .cardInnerContainer {
     width: 100%;
     padding-left: 8px;
     padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
 }

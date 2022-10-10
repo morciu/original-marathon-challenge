@@ -94,12 +94,12 @@ const Marathon = () => {
     const handleCloseChildModal = () => setOpenChildModal(false);
     const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
 
+    console.log(data)
+
     // Display Results
     if (user.auth){
         return(
             <>
-            <Card><CardHeader title={"Finishers"} /></Card>
-            
             <UserModal open={openModal}
                 modalObject={modalObject}
                 handleCloseModal={handleCloseModal}
