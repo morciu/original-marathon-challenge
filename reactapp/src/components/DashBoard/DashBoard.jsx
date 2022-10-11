@@ -1,4 +1,4 @@
-import { Avatar, Button, IconButton } from "@mui/material";
+import { Avatar, Button, IconButton, Typography } from "@mui/material";
 import React from "react";
 import styles from "./DashBoard.module.css";
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -6,30 +6,40 @@ import TimerIcon from '@mui/icons-material/Timer';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import SpeedIcon from '@mui/icons-material/Speed';
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
+
+import {logout} from "../../utils/Logout"
+
 
 const DashBoard = (props) => {
     return(
         <div className={styles.container}>
             <div className={styles.userHeader}>
                 <div className={styles.userCont}>
-                    <IconButton><Avatar><NotificationsIcon /></Avatar></IconButton>
-                    <div>UserName {props.userName}</div>
+                    {props.invitations == true ?
+                    <IconButton component={Link} to="/invitations"><Avatar className={styles.notify}><NotificationsIcon /></Avatar></IconButton> :
+                    <IconButton component={Link} to="/invitations"><Avatar><NotificationsIcon /></Avatar></IconButton>}
+                    
+                    <div>
+                        <Typography variant="h5">{props.userName}</Typography>
+                    </div>
                 </div>
-                <Button variant="outlined" size="small" color="secondary">Logout</Button>
+                <Button variant="contained" size="small" color="secondary"
+                onClick={logout}>Logout</Button>
             </div>
 
             <Box className={styles.summary}>
                 <div className={styles.time}>
                     <IconButton><Avatar><TimerIcon /></Avatar></IconButton>
-                    <div>Time {props.time}</div>
+                    <Typography variant="h5">Total Time: {props.time}</Typography>
                 </div>
                 <div className={styles.distance}>
                     <IconButton><Avatar><DirectionsRunIcon /></Avatar></IconButton>
-                    <div>Distance {props.distance}</div>
+                    <Typography variant="h5">Total Distance: {props.distance} km</Typography>
                 </div>
                 <div className={styles.pace}>
                     <IconButton><Avatar><SpeedIcon /></Avatar></IconButton>
-                    <div>Speed {props.speed}</div>
+                    <Typography variant="h5">Avg Pace: {props.pace} min/km</Typography>
                 </div>
             </Box>
 

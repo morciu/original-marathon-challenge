@@ -25,6 +25,8 @@
     background-color: #96BBBB;
     border-radius: 18px;
     box-shadow: 5px 5px 15px 5px #698282;
+    padding-left: 8px;
+    padding-right: 18px;
 }
 
 .time,
@@ -38,4 +40,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.notify {
+    background-color: #CA054D;
 }
