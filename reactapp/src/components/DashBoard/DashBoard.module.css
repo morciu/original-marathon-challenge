@@ -1,0 +1,41 @@
+.container {
+    display: grid;
+    min-width: 350px;
+    max-width: 500px;
+    height: 100%;
+
+    grid-template-rows: 1fr 2fr 1fr;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.userHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userCont {
+    display: flex;
+    align-items: center;
+}
+
+.summary {
+    display: grid;
+    background-color: #96BBBB;
+    border-radius: 18px;
+    box-shadow: 5px 5px 15px 5px #698282;
+}
+
+.time,
+.distance,
+.pace {
+    display: flex;
+    align-items: center;
+}
+
+.activitiesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
