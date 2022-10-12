@@ -1,6 +1,8 @@
+import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
+import ActivityCard from "../ActivityCard/ActivityCard";
 
 const Activities = () => {
     const {user} = useContext(UserContext);
@@ -16,10 +18,16 @@ const Activities = () => {
 
     const {data, loading, error} = useFetchData(fetchRequest);
 
-    console.log(data)
-
     return(
-        <>stuff</>
+        <>
+            <Stack spacing={2}>
+                {data && data.map((item) => (
+                        <ActivityCard distance={item.distance}
+                        time={item.duration}
+                        pace={item.pace} />
+                    ))}
+            </Stack>
+        </>
     );
 };
 
