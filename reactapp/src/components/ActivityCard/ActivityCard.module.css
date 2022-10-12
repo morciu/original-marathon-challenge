@@ -1,13 +1,17 @@
 .card {
     font-family: "Roboto";
-    display: flex;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
     padding: 8px 16px;
     min-width: 288px;
     border-radius: 12px;
     box-shadow: 0 2px 4px 0 rgba(138, 148, 159, 0.2);
-    height: 50px;
+    height: 94px;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
 }
 
 .distanceContainer,
@@ -15,4 +19,8 @@
 .paceContanter {
     display: grid;
     justify-items: center;
+}
+
+.header {
+    border-bottom: 1px solid black;
 }

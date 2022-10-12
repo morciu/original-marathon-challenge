@@ -24,7 +24,8 @@ const Activities = () => {
                 {data && data.map((item) => (
                         <ActivityCard distance={item.distance}
                         time={item.duration}
-                        pace={item.pace} />
+                        pace={item.pace}
+                        date={item.date} />
                     ))}
             </Stack>
         </>
