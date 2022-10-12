@@ -11,8 +11,9 @@ namespace Application.Abstract
     {
         Task CreateActivity(Activity activity);
         public void Delete(Activity activity);
-        Task<List<Activity>> GetUserActivities(int userId);
+        Task<List<Activity>> GetUserActivities(int userId, int pageNr, int pageSize);
         Task<List<Activity>> GetAllActivities();
         Task<Activity> GetActivityById(int id);
+        Task<int> CountUserActivities(int id);
     }
 }

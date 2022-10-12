@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Activities.Queries
 {
-    public class GetAllUserActivitiesQuery : IRequest<List<Activity>>
+    public class CountUserActivitiesQuery : IRequest<int>
     {
-        public int UserId { get; set; }
-        public int PageNr { get; set; }
-        public int PageSize { get; set; }
+        public int Id { get; set; }
     }
 }

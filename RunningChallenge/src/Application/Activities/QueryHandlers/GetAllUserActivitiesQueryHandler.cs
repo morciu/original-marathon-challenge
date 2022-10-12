@@ -19,7 +19,7 @@ namespace Application.Activities.QueryHandlers
         }
         public async Task<List<Activity>> Handle(GetAllUserActivitiesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.ActivityRepository.GetUserActivities(request.UserId);
+            var result = await _unitOfWork.ActivityRepository.GetUserActivities(request.UserId, request.PageNr, request.PageSize);
 
             return result;
         }

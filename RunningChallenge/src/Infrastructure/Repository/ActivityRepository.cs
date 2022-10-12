@@ -17,6 +17,13 @@ namespace Infrastructure.Repository
             _context = applicationDbContext;
         }
 
+        public async Task<int> CountUserActivities(int id)
+        {
+            var result = await _context.Activities.Where(a => a.UserId == id).CountAsync();
+
+            return result;
+        }
+
         public async Task CreateActivity(Activity activity)
         {
             await _context.Activities.AddAsync(activity);
@@ -39,9 +46,13 @@ namespace Infrastructure.Repository
             return activities;
         }
 
-        public async Task<List<Activity>> GetUserActivities(int userId)
+        public async Task<List<Activity>> GetUserActivities(int userId, int pageNr, int pageSize)
         {
-            var activities = await _context.Activities.Where(a => a.UserId == userId).ToListAsync();
+            var activities = await _context.Activities
+                .Where(a => a.UserId == userId)
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             return activities;
         }

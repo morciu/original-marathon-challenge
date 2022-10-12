@@ -4,6 +4,9 @@ using AutoMapper;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.ControllersHelpers;
+using WebApi.Filter;
+using WebApi.Services;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
 
@@ -18,12 +21,19 @@ namespace WebAPI.Controllers
         private readonly ILogger<ActivityController> _logger;
         private readonly LoggerHelper _loggerHelper;
 
-        public ActivityController(IMediator mediator, IMapper mapper, ILogger<ActivityController> logger, LoggerHelper loggerHelper)
+        private readonly IUriService _uriService;
+
+        public ActivityController(IMediator mediator, 
+            IMapper mapper, 
+            ILogger<ActivityController> logger, 
+            LoggerHelper loggerHelper,
+            IUriService uriService)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
             _loggerHelper = loggerHelper;
+            _uriService = uriService;
         }
 
         [HttpGet]
@@ -64,20 +74,34 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("user-activities/{id}")]
-        public async Task<IActionResult> GetAllUserActivities(int id)
+        public async Task<IActionResult> GetAllUserActivities([FromQuery] PaginationFilter filter, int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
-            var result = await _mediator.Send(new GetAllUserActivitiesQuery() { UserId = id });
-            if (result == null)
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var pagedData = await _mediator.Send(new GetAllUserActivitiesQuery() 
+            { 
+                UserId = id,
+                PageNr = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            });
+
+            if (pagedData == null)
             {
                 _logger.LogWarning($"No activity found for user with id: {id}");
                 return NotFound();
             }
 
-            var mappedResult = _mapper.Map<List<ActivityGetDto>>(result);
-            _logger.LogInformation($"Found {result.Count} activities for user with id: {id}");
-            return Ok(mappedResult);
+            var mappedPagedData = _mapper.Map<List<ActivityGetDto>>(pagedData);
+
+            var totalRecords = await _mediator.Send(new CountUserActivitiesQuery { Id = id });
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<ActivityGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            _logger.LogInformation($"Found {pagedData.Count} activities for user with id: {id}");
+            return Ok(pagedResponse);
         }
 
         [HttpPost]
