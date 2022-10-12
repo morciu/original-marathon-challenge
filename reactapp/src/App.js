@@ -17,6 +17,7 @@ import User from "./pages/User/User";
 import Marathon from "./pages/Marathon/Marathon";
 import Invitations from "./pages/Invitations/Invitations";
 import DashBoard from "./components/DashBoard/DashBoard";
+import Activities from "./components/Activities/Activities";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/marathon/:marathonId" element={<Marathon />}></Route>
             <Route path="/invitations" element={<Invitations />}></Route>
             <Route path="/dashboard" element={<DashBoard />}></Route>
+            <Route path="/:userId/activities" element={<Activities />}></Route>
         </Routes>
       </div>
       <Footer />

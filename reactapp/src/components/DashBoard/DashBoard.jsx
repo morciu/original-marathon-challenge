@@ -9,9 +9,12 @@ import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
 import {logout} from "../../utils/Logout"
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 
 const DashBoard = (props) => {
+    const {user} = useContext(UserContext);
     return(
         <div className={styles.container}>
             <div className={styles.userHeader}>
@@ -39,12 +42,12 @@ const DashBoard = (props) => {
                 </div>
                 <div className={styles.pace}>
                     <IconButton><Avatar><SpeedIcon /></Avatar></IconButton>
-                    <Typography variant="h5">Avg Pace: {props.pace} min/km</Typography>
+                    <Typography variant="h5">Avg Pace: {props.pace.slice(3)} min/km</Typography>
                 </div>
             </Box>
 
             <div className={styles.activitiesButton}>
-                <Button variant="contained">All Activities</Button>
+                <Button variant="contained" component={Link} to={`/${user.id}/activities`}>All Activities</Button>
             </div>
         </div>
     );
