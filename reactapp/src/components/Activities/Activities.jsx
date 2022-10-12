@@ -30,7 +30,6 @@ const Activities = () => {
     };
 
     const {data, loading, error} = useFetchData(fetchRequest);
-    console.log(data);
 
     return(
         <>

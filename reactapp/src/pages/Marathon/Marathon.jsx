@@ -94,8 +94,6 @@ const Marathon = () => {
     const handleCloseChildModal = () => setOpenChildModal(false);
     const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
 
-    console.log(data)
-
     // Display Results
     if (user.auth){
         return(
