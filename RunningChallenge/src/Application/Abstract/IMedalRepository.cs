@@ -11,5 +11,6 @@ namespace Application.Abstract
     {
         Task CreateMedal(Medal medal);
         Task<List<Medal>> GetAllMedals(int userId);
+        Task<List<Medal>> GetUserMedalsInMarathon(int userId, int marathonId);
     }
 }

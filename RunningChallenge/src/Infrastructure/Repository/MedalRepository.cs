@@ -29,5 +29,14 @@ namespace Infrastructure.Repository
 
             return result;
         }
+
+        public async Task<List<Medal>> GetUserMedalsInMarathon(int userId, int marathonId)
+        {
+            var result = await _context.Medals
+                 .Where(m => m.UserId == userId && m.MarathonId == marathonId)
+                 .ToListAsync();
+
+            return result;
+        }
     }
 }

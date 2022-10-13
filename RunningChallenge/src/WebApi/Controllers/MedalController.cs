@@ -54,5 +54,15 @@ namespace WebApi.Controllers
 
             return Ok(mappedResult);
         }
+
+        [HttpGet]
+        [Route("{userId}/marathons/{marathonId}/medals/")]
+        public async Task<IActionResult> GetUserMedalsInMarathon(int userId, int marathonId)
+        {
+            var result = await _mediator.Send(new GetUserMedalsInMarathonQuery { UserId = userId, MarathonId = marathonId });
+            var mappedResult = _mapper.Map<List<MedalGetDto>>(result);
+
+            return Ok(mappedResult);
+        }
     }
 }
