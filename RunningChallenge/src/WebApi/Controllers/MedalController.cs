@@ -64,5 +64,14 @@ namespace WebApi.Controllers
 
             return Ok(mappedResult);
         }
+
+        [HttpDelete]
+        [Route("delete/{medalId}")]
+        public async Task<IActionResult> DeletMedal(int medalId)
+        {
+            var result = await _mediator.Send(new DeleteMedalCommand { Id = medalId });
+
+            return NoContent();
+        }
     }
 }

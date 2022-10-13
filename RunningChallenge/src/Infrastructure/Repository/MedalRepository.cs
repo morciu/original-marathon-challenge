@@ -23,9 +23,21 @@ namespace Infrastructure.Repository
             await _context.Medals.AddAsync(medal);
         }
 
+        public void Delete(Medal medal)
+        {
+            _context.Medals.Remove(medal);
+        }
+
         public async Task<List<Medal>> GetAllMedals(int userId)
         {
             var result = await _context.Medals.Where(m => m.UserId == userId).ToListAsync();
+
+            return result;
+        }
+
+        public async Task<Medal> GetMedal(int id)
+        {
+            var result = await _context.Medals.FindAsync(id);
 
             return result;
         }
