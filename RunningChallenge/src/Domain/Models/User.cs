@@ -12,7 +12,6 @@ namespace Domain.Models
         public string LastName { get; set; } = null!;
 
         public decimal TotalDistance { get; set; }
-        public TimeSpan TotalTime { get; set; }
         public TimeSpan AveragePace { get; set; }
 
         public ICollection<Activity> Activities { get; set; } = null!;

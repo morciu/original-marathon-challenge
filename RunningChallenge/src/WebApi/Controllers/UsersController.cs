@@ -51,6 +51,7 @@ namespace WebAPI.Controllers
             {
                 marathon.MemberCount = await _mediator.Send(new CountMembersQuery() { Id = marathon.Id });
             }
+            mappedResult.TotalTime = await _mediator.Send(new GetTotalTime { Id = id });
 
             return Ok(new Response<UserGetDto>(mappedResult));
         }

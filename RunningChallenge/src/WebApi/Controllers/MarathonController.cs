@@ -181,7 +181,6 @@ namespace WebAPI.Controllers
             foreach (var user in pagedData)
             {
                 user.TotalDistance = user.CalculateTotalDistance();
-                user.TotalTime = user.CalculateTotalTime();
                 user.AveragePace = user.CalculateAveragePace();
             }
             var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);

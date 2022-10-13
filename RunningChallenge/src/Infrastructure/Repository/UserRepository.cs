@@ -37,6 +37,14 @@ namespace Infrastructure.Repository
             return result;
         }
 
+        public async Task<TimeSpan> GetTotalTime(int userId)
+        {
+            var activityTimes = await _context.Activities.Where(a => a.UserId == userId).Select(a => a.Duration).ToListAsync();
+            var result = new TimeSpan(activityTimes.Sum(t => t.Ticks));
+
+            return result;
+        }
+
         public async Task<User> GetUser(int userId)
         {
             var user = await _context.Users
@@ -45,7 +53,6 @@ namespace Infrastructure.Repository
                 .SingleAsync(u => u.Id == userId);
 
             user.TotalDistance = user.CalculateTotalDistance();
-            user.TotalTime = user.CalculateTotalTime();
             user.AveragePace = user.CalculateAveragePace();
 
             return user;
@@ -67,6 +74,33 @@ namespace Infrastructure.Repository
 
         public void UpdateUserActivity(int id, string field, string value)
         {
+            throw new NotImplementedException();
+        }
+
+        public async Task<User> UpdateUserMarathonStatus(int userId)
+        {
+            /*var user = await _context.Users
+                .Include(u => u.Activities)
+                .Include(u => u.Marathons)
+                .SingleAsync(u => u.Id == userId);
+
+            foreach(var marathon in user.Marathons)
+            {
+                decimal totalDist = 0;
+
+                foreach(var activity in user.Activities)
+                {
+                    if (activity.Date >= marathon.StartDate)
+                    {
+                        totalDist += activity.Distance;
+                    }
+                    if (totalDist >= 240m)
+                    {
+
+                    }
+                }
+            }*/
+
             throw new NotImplementedException();
         }
     }

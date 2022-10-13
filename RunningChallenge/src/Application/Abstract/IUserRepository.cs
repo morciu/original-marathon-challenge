@@ -16,5 +16,7 @@ namespace Application.Abstract
         void UpdateUserActivity(int id, string field, string value);
         Task<Dictionary<string, string>> GetUserActivityInfo(int Id);
         Task<List<User>> GetAll(int pageNr, int pageSize);
+        Task<TimeSpan> GetTotalTime(int userId);
+        Task<User> UpdateUserMarathonStatus(int userId);
     }
 }

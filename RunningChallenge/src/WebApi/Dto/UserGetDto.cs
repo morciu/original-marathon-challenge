@@ -11,5 +11,6 @@ namespace WebAPI.Dto
         public TimeSpan AveragePace { get; set; }
         public List<ActivityGetDto> Activities { get; set; }
         public List<MarathonListGetDto> Marathons { get; set; }
+        public List<MedalGetDto> Medals { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Application.Abstract
         Task<List<Medal>> GetAllMedals(int userId);
         Task<List<Medal>> GetUserMedalsInMarathon(int userId, int marathonId);
         Task<Medal> GetMedal(int id);
+        Task<bool> CheckIfMedalExistsForMarathon(int userId, int marathonId);
     }
 }

@@ -17,6 +17,14 @@ const UserCard = (props) => {
 
         return {currentPercentage: currentPercentage, finishes: finishes, currentDistance: currentDistance};
     }
+
+    const checkIfFinished = (totalDistance) => {
+        var percentage = totalDistance / goalDistance * 100;
+        if (percentage >= 100) {
+            return true;
+        }
+        return false;
+    }
     
     return(
         <Card className={styles.card} key={props.item.id} onClick={() => { props.action(props.item) }}>
@@ -48,21 +56,35 @@ const UserCard = (props) => {
                         </div>
                         
                         <div className={styles.subHeader}>
-                            <Typography variant="p" >{claculateDistance(props.item.totalDistance).currentDistance} km</Typography>
+                            {checkIfFinished(props.item.totalDistance) ? 
+                            <Typography variant="p" >{goalDistance} km</Typography> :
+                            <Typography variant="p" >{props.item.totalDistance} km</Typography>}
+                            
                         </div>
                     </Box>
                     <Box className={styles.rightContent}>
-                        <Icon><EmojiEvents /> </Icon>x {claculateDistance(props.item.totalDistance).finishes}
+                        {checkIfFinished(props.item.totalDistance) &&
+                        <Icon><EmojiEvents /> </Icon>}
+                        
                     </Box>
                     
                 </Box>
                 
                 <Box display={'flex'} alignItems={'center'}>
-                    <LinearProgress variant="determinate"
-                            value={claculateDistance(props.item.totalDistance).currentPercentage} className={styles.progressBar} />
+                    {checkIfFinished(props.item.totalDistance) ? 
+                    <>
+                        <LinearProgress variant="determinate"
+                            value={100} className={styles.progressBar} />
+                            <span className={styles.value}>
+                                100%
+                            </span> </> :
+                           <> <LinearProgress variant="determinate"
+                            value={props.item.totalDistance / goalDistance * 100} className={styles.progressBar} />
                         <span className={styles.value}>
-                            {claculateDistance(props.item.totalDistance).currentPercentage.toFixed(2)}%
-                        </span>
+                            {(props.item.totalDistance / goalDistance * 100).toFixed(2)}%
+                        </span> </>
+                    }
+                    
                 </Box>
             </Box>
         </Card>

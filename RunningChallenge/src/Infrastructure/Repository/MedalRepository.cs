@@ -18,6 +18,15 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
+        public async Task<bool> CheckIfMedalExistsForMarathon(int userId, int marathonId)
+        {
+            var medals = await _context.Medals.Where(m => m.UserId == userId && m.MarathonId == marathonId).ToListAsync();
+
+            if (medals.Any()) return true;
+
+            return false;
+        }
+
         public async Task CreateMedal(Medal medal)
         {
             await _context.Medals.AddAsync(medal);

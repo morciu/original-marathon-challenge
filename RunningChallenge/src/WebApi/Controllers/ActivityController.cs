@@ -1,5 +1,6 @@
 ﻿using Application.Activities.Commands;
 using Application.Activities.Queries;
+using Application.Users.Commands.UpdateUser;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
@@ -131,6 +132,9 @@ namespace WebAPI.Controllers
 
             var mappedResult = _mapper.Map<ActivityGetDto>(result);
             _logger.LogInformation($"Succesfully created activity with id: {mappedResult.Id}.");
+
+            // Update user Marathons and award medals
+            await _mediator.Send(new UpdateUserMarathonStatusCommand { Id = activity.UserId });
 
             return CreatedAtAction(nameof(GetActivityById), new { id = mappedResult.Id }, mappedResult);
         }
