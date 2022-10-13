@@ -1,6 +1,7 @@
 ﻿using Application.Activities.Commands;
 using Application.Activities.Queries;
 using Application.Medals.Commands;
+using Application.Medals.Queries;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
@@ -40,6 +41,16 @@ namespace WebApi.Controllers
         {
             var result = await _mediator.Send(new CreateMedalCommand { UserId = userId, MarathonId = marathonId });
             var mappedResult = _mapper.Map<MedalGetDto>(result);
+
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("{userId}/medals")]
+        public async Task<IActionResult> GetUserMedals(int userId)
+        {
+            var result = await _mediator.Send(new GetUserMedalsQuery { UserId = userId });
+            var mappedResult = _mapper.Map<List<MedalGetDto>>(result);
 
             return Ok(mappedResult);
         }

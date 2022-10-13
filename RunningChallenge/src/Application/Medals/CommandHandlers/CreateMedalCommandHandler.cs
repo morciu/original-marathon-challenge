@@ -26,7 +26,7 @@ namespace Application.Medals.CommandHandlers
             var activities = await _unitOfWork.ActivityRepository.GetUserActivitiesInMarathonRaw(request.UserId, request.MarathonId);
             var totalTime = new TimeSpan(activities.Sum(a => a.Duration.Ticks));
             var pace = TimeSpan.FromSeconds(
-                Math.Round(totalTime.TotalSeconds / Convert.ToDouble(240m))
+                Math.Round(totalTime.TotalSeconds / 240)
                 );
 
             var marathon = await _unitOfWork.MarathonRepository.GetMarathon(request.MarathonId);

@@ -10,5 +10,6 @@ namespace Application.Abstract
     public interface IMedalRepository
     {
         Task CreateMedal(Medal medal);
+        Task<List<Medal>> GetAllMedals(int userId);
     }
 }

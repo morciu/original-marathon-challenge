@@ -1,5 +1,6 @@
 ﻿using Application.Abstract;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace Infrastructure.Repository
         public async Task CreateMedal(Medal medal)
         {
             await _context.Medals.AddAsync(medal);
+        }
+
+        public async Task<List<Medal>> GetAllMedals(int userId)
+        {
+            var result = await _context.Medals.Where(m => m.UserId == userId).ToListAsync();
+
+            return result;
         }
     }
 }
