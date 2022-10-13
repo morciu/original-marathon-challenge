@@ -124,7 +124,7 @@ const Marathon = () => {
             <Stack spacing={2}>
                     {error && <p>{error.message}</p>}
                     {data.data && data.data.map((item) => (
-                        <UserCard item={item} list={data.data} pageNumber={data.pageNumber}
+                        <UserCard key={item.id} item={item} list={data.data} pageNumber={data.pageNumber}
                             pageSize={data.pageSize} action={handleOpenModal} />
                     ))}
             </Stack>

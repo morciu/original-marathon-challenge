@@ -60,7 +60,7 @@ const MarathonListInvitationModal = (props) => {
                 {marathons && marathons.map((item) => (
                     <>
                     {item.id > 1 ? 
-                        <Button variant="contained" 
+                        <Button key={item} variant="contained" 
                             onClick={() => {sendInvitation({receiverId: props.parent.id, senderId: user.id, marathonId: item.id})}}>
                                 Start Date: {(new Date(item.startDate)).toDateString()}
                         </Button>
