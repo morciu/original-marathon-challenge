@@ -13,5 +13,6 @@ namespace Domain.Models
         public DateTime StartDate { get; set; }
 
         public readonly decimal goalDistance = 240m;
+        public bool IsDone { get; set; } = false;
     }
 }
