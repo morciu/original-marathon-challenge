@@ -20,13 +20,15 @@ namespace Infrastructure
                             IUserRepository userRepo, 
                             IActivityRepository activityRepo, 
                             IMarathonRepository marathonRepo, 
-                            IInvitationRepository invitationRepository)
+                            IInvitationRepository invitationRepository,
+                            IMedalRepository medalRepo)
         {
             _applicationDbContext = applicationDbContext;
             UserRepository = userRepo;
             ActivityRepository = activityRepo;
             MarathonRepository = marathonRepo;
             InvitationRepository = invitationRepository;
+            MedalRepository = medalRepo;
         }
 
         public void Dispose()

@@ -15,5 +15,6 @@ namespace Application.Abstract
         Task<List<Activity>> GetAllActivities();
         Task<Activity> GetActivityById(int id);
         Task<int> CountUserActivities(int id);
+        Task<List<Activity>> GetUserActivitiesInMarathonRaw(int userId, int marathonId);
     }
 }

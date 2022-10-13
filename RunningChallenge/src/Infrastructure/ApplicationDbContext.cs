@@ -24,6 +24,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new ActivityConfiguration());
             modelBuilder.ApplyConfiguration(new MarathonConfiguration());
             modelBuilder.ApplyConfiguration(new InvitationConfiguration());
+            modelBuilder.ApplyConfiguration(new MedalConfiguration());
 
             /*modelBuilder.Entity<Marathon>()
                 .HasMany(x => x.Members);

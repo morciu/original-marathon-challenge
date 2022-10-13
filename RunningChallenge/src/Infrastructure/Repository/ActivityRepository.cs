@@ -56,5 +56,15 @@ namespace Infrastructure.Repository
 
             return activities;
         }
+
+        public async Task<List<Activity>> GetUserActivitiesInMarathonRaw(int userId, int marathonId)
+        {
+            var marathon = await _context.Marathons.FindAsync(marathonId);
+            var activities = await _context.Activities
+                .Where(a => a.UserId == userId && a.Date > marathon.StartDate)
+                .ToListAsync();
+
+            return activities;
+        }
     }
 }
