@@ -14,6 +14,7 @@ namespace Infrastructure
         public IActivityRepository ActivityRepository { get; private set; }
         public IMarathonRepository MarathonRepository { get; private set; }
         public IInvitationRepository InvitationRepository { get; private set; }
+        public IMedalRepository MedalRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext applicationDbContext, 
                             IUserRepository userRepo, 

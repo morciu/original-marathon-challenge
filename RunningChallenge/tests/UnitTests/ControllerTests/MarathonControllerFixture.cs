@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Filter;
+using WebApi.Services;
 using WebAPI.Controllers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
@@ -21,6 +23,8 @@ namespace Test.ControllerTests
         private readonly Mock<IMapper> _mockMapper = new();
         private readonly Mock<ILogger<MarathonController>> _mockLogger = new();
         private readonly Mock<LoggerHelper> _mockHelper = new();
+        private readonly Mock<IUriService> _mockUriService = new Mock<IUriService>();
+        private readonly Mock<PaginationFilter> _mockPagFilt = new();
 
         [Fact]
         public async Task GetMarathonById_CheckIfCalled()
@@ -31,7 +35,7 @@ namespace Test.ControllerTests
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("Mock logger message");
 
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.GetMarathonById(58);
@@ -49,7 +53,7 @@ namespace Test.ControllerTests
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("Mock logger message");
 
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             var dto = new MarathonPutPostDto() { FirstUserId = 1 };
 
@@ -68,7 +72,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<DeleteMarathonCommand>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.DeleteMarathon(58);
@@ -85,7 +89,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<GetAllMarathonsQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.GetAll();
@@ -102,7 +106,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<AddUserToMaratonCommand>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.AddUserToMarathon(58, 58);
@@ -119,7 +123,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<CountMembersQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.CountMembers(58);
@@ -136,7 +140,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<AverageDistanceQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.AverageDistance(58);
@@ -153,10 +157,10 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<GetAllMembersQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
-            await controller.GetMembers(58);
+            await controller.GetMembers(_mockPagFilt.Object, 58);
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetAllMembersQuery>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -170,10 +174,10 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<UsersByDistanceQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
-            await controller.GetUsersByDistance(58);
+            await controller.GetUsersByDistance(_mockPagFilt.Object, 58);
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<UsersByDistanceQuery>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -187,7 +191,7 @@ namespace Test.ControllerTests
                 .Setup(m => m.Send(It.IsAny<CheckProgressQuery>(), It.IsAny<CancellationToken>()))
                 .Verifiable();
             _mockHelper.Setup(h => h.LogControllerAndAction(It.IsAny<MarathonController>())).Returns("mock logger message");
-            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new MarathonController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.CheckProgress(58, 85);

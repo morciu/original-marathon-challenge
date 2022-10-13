@@ -19,7 +19,7 @@ namespace Test.ActivityHandlerTests
         {
             // Arrange
             var request = new GetAllUserActivitiesQuery { UserId = 58 };
-            _mockUnitOfWork.Setup(u => u.ActivityRepository.GetUserActivities(request.UserId)).Returns(Task.FromResult(new List<Activity>()));
+            _mockUnitOfWork.Setup(u => u.ActivityRepository.GetUserActivities(request.UserId, It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(new List<Activity>()));
             var handler = new GetAllUserActivitiesQueryHandler(_mockUnitOfWork.Object);
 
             // Act

@@ -17,6 +17,7 @@ namespace Domain.Models
 
         public ICollection<Activity> Activities { get; set; } = null!;
         public ICollection<Marathon> Marathons { get; set; } = null!;
+        public ICollection<Medal> Medals { get; set; } = null!;
 
         public decimal CalculateTotalDistance()
         {

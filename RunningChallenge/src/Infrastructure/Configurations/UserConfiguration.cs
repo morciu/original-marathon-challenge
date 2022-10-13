@@ -19,6 +19,9 @@ namespace Infrastructure.Configurations
 
             builder.HasMany(u => u.Marathons)
                 .WithMany(m => m.Members);
+
+            builder.HasMany(u => u.Medals)
+                .WithOne(m => m.User);
         }
     }
 }

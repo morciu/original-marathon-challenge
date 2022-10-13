@@ -15,6 +15,7 @@ namespace Infrastructure
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Marathon> Marathons { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<Medal> Medals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

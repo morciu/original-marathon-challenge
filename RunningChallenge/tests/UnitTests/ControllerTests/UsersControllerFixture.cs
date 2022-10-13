@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Moq;
+using WebApi.Filter;
 using WebAPI.Controllers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
@@ -18,6 +19,7 @@ namespace Test.ControllerTests
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<UsersController>> _mockLogger = new Mock<ILogger<UsersController>>();
         private readonly Mock<LoggerHelper> _mockHelper = new Mock<LoggerHelper>();
+        private readonly Mock<PaginationFilter> _mockPagFilt = new();
 
         [Fact]
         public async Task Get_User_By_Id_GetUserByIdIsCalled()
@@ -52,7 +54,7 @@ namespace Test.ControllerTests
             var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
 
             // Act
-            await controller.GetAll();
+            await controller.GetAll(_mockPagFilt.Object);
 
             // Assert
             _mockMediator.Verify(m => m.Send(It.IsAny<GetAllUsers>(), It.IsAny<CancellationToken>()), Times.Once());
