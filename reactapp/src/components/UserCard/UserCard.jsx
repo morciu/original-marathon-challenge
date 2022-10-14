@@ -65,7 +65,6 @@ const UserCard = (props) => {
                     <Box className={styles.rightContent}>
                         {checkIfFinished(props.item.totalDistance) &&
                         <Icon><EmojiEvents /> </Icon>}
-                        
                     </Box>
                     
                 </Box>

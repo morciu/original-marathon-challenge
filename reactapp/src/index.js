@@ -16,10 +16,13 @@ const theme = createTheme({
   typography: {
     h2: {
       fontFamily: ['Skranji', 'cursive'].join(',')
+    },
+    p: {
+      fontFamily: ['Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    'sans-serif'].join(",")
     }
-    // fontFamily: ['Roboto', 'Oxygen',
-    // 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    // 'sans-serif'].join(",")
+    
   },
   components: {
     MuiToolbar: {

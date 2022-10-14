@@ -11,7 +11,7 @@ const Medals = () => {
 
     // Request settings to fetch medals
     const [requestConfig, setRequestConfig] = useState({
-        url: `/medal/${user.id}/medals?PageNumber=1&PageSize=5`,
+        url: `/medal/${user.id}/medals?PageNumber=1&PageSize=3`,
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage["auth-token"]}`,
@@ -21,7 +21,7 @@ const Medals = () => {
     // Handle page selection - change request
     const selectPage = (event, value) => {
         setRequestConfig({
-            url: `/medal/${user.id}/medals?PageNumber=${value}&PageSize=5`,
+            url: `/medal/${user.id}/medals?PageNumber=${value}&PageSize=3`,
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage["auth-token"]}`,
@@ -31,7 +31,6 @@ const Medals = () => {
 
     // Fetch medals
     const {data, loading, error} = useFetchData(requestConfig);
-    
 
     return(
         <>
