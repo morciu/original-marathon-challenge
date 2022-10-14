@@ -5,6 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import TimerIcon from '@mui/icons-material/Timer';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import SpeedIcon from '@mui/icons-material/Speed';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
@@ -25,6 +26,10 @@ const DashBoard = (props) => {
                     
                     <div>
                         <Typography variant="h5">{props.userName}</Typography>
+                    </div>
+
+                    <div>
+                        <IconButton component={Link} to={`/${user.id}/medals`}><EmojiEventsIcon /></IconButton> X {props.medals.length}
                     </div>
                 </div>
                 <Button variant="contained" size="small" color="secondary"

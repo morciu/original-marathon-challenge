@@ -46,6 +46,7 @@ const Home = () => {
                 time={data.data.totalTime}
                 distance={data.data.totalDistance}
                 pace={data.data.averagePace}
+                medals={data.data.medals}
                 invitations={invData.length != 0} />
                 }
             </>

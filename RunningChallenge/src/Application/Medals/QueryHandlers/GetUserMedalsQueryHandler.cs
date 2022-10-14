@@ -21,7 +21,7 @@ namespace Application.Medals.QueryHandlers
 
         public async Task<List<Medal>> Handle(GetUserMedalsQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.MedalRepository.GetAllMedals(request.UserId);
+            return await _unitOfWork.MedalRepository.GetAllMedals(request.UserId, request.PageNr, request.PageSize);
         }
     }
 }

@@ -27,6 +27,11 @@ namespace Infrastructure.Repository
             return false;
         }
 
+        public async Task<int> CountAllUserMedals(int userId)
+        {
+            return await _context.Medals.Where(m => m.UserId == userId).CountAsync();
+        }
+
         public async Task CreateMedal(Medal medal)
         {
             await _context.Medals.AddAsync(medal);
@@ -37,9 +42,13 @@ namespace Infrastructure.Repository
             _context.Medals.Remove(medal);
         }
 
-        public async Task<List<Medal>> GetAllMedals(int userId)
+        public async Task<List<Medal>> GetAllMedals(int userId, int pageNr, int pageSize)
         {
-            var result = await _context.Medals.Where(m => m.UserId == userId).ToListAsync();
+            var result = await _context.Medals
+                .Where(m => m.UserId == userId)
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             return result;
         }

@@ -18,6 +18,7 @@ import Marathon from "./pages/Marathon/Marathon";
 import Invitations from "./pages/Invitations/Invitations";
 import DashBoard from "./components/DashBoard/DashBoard";
 import Activities from "./components/Activities/Activities";
+import Medals from "./pages/Medals/Medals";
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/invitations" element={<Invitations />}></Route>
             <Route path="/dashboard" element={<DashBoard />}></Route>
             <Route path="/:userId/activities" element={<Activities />}></Route>
+            <Route path="/:userId/medals" element={<Medals />}></Route>
         </Routes>
       </div>
       <Footer />

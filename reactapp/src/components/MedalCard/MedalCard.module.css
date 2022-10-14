@@ -1,0 +1,9 @@
+.card {
+    font-family: "Roboto";
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    min-width: 288px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px 0 rgba(138, 148, 159, 0.2);
+}

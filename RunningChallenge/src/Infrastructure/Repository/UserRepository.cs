@@ -50,6 +50,7 @@ namespace Infrastructure.Repository
             var user = await _context.Users
                 .Include(u => u.Activities)
                 .Include(u => u.Marathons)
+                .Include(u => u.Medals)
                 .SingleAsync(u => u.Id == userId);
 
             user.TotalDistance = user.CalculateTotalDistance();

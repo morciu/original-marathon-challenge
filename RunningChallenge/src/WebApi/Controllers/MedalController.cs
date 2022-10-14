@@ -47,12 +47,22 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("{userId}/medals")]
-        public async Task<IActionResult> GetUserMedals(int userId)
+        public async Task<IActionResult> GetUserMedals([FromQuery] PaginationFilter filter, int userId)
         {
-            var result = await _mediator.Send(new GetUserMedalsQuery { UserId = userId });
-            var mappedResult = _mapper.Map<List<MedalGetDto>>(result);
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
 
-            return Ok(mappedResult);
+            var pagedData = await _mediator.Send(new GetUserMedalsQuery { 
+                UserId = userId,
+                PageNr = validFilter.PageNumber,
+                PageSize = validFilter.PageSize
+            });
+            var mappedPagedData = _mapper.Map<List<MedalGetDto>>(pagedData);
+            var totalRecords = await _mediator.Send(new CountAllUserMedalsQuery { UserId = userId });
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<MedalGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            return Ok(pagedResponse);
         }
 
         [HttpGet]

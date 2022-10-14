@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Medals.Queries
 {
-    public class GetUserMedalsQuery : IRequest<List<Medal>>
+    public class CountAllUserMedalsQuery : IRequest<int>
     {
         public int UserId { get; set; }
-        public int PageNr { get; set; }
-        public int PageSize { get; set; }
     }
 }
