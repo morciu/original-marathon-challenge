@@ -13,5 +13,6 @@ namespace Application.Marathons.Queries
         public int UserId { get; set; }
         public int PageNr { get; set; }
         public int PageSize { get; set; }
+        public string FilterWord { get; set; }
     }
 }

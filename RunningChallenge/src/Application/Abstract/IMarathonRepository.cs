@@ -18,6 +18,7 @@ namespace Application.Abstract
         Task<int> CountMembers(Marathon marathon);
         Task<decimal> AverageDistance(Marathon marathon);
         Task<decimal> TotalUserDistance(int marathonId, int userId);
-        Task<List<Marathon>> GetAllMarathonsWithUser(int userId, int pageNr, int pageSize);
+        Task<List<Marathon>> GetAllMarathonsWithUser(int userId, int pageNr, int pageSize, string filter="all");
+        Task<List<Marathon>> GetAllMarathonsWithUserRaw(int userId);
     }
 }

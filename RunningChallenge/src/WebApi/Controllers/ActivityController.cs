@@ -1,5 +1,6 @@
 ﻿using Application.Activities.Commands;
 using Application.Activities.Queries;
+using Application.Marathons.Commands;
 using Application.Users.Commands.UpdateUser;
 using AutoMapper;
 using Domain.Models;
@@ -101,6 +102,9 @@ namespace WebAPI.Controllers
             var pagedResponse = PaginationHelpers.CreatePagedReponse<ActivityGetDto>(
                 mappedPagedData, validFilter, totalRecords, _uriService, route);
 
+            // Check if the marathon events have ended (iff all users have finished / earned a medal)
+            await _mediator.Send(new CloseCompletedMarahons { UserId = id });
+
             _logger.LogInformation($"Found {pagedData.Count} activities for user with id: {id}");
             return Ok(pagedResponse);
         }
@@ -135,6 +139,10 @@ namespace WebAPI.Controllers
 
             // Update user Marathons and award medals
             await _mediator.Send(new UpdateUserMarathonStatusCommand { Id = activity.UserId });
+
+            // Check if the marathon events the activity is registered in have ended (iff all users have finished / earned a medal)
+            await _mediator.Send(new CloseCompletedMarahons { UserId = activity.UserId });
+
 
             return CreatedAtAction(nameof(GetActivityById), new { id = mappedResult.Id }, mappedResult);
         }

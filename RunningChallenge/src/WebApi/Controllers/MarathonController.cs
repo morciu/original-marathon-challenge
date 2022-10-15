@@ -4,6 +4,7 @@ using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using WebApi.ControllersHelpers;
 using WebApi.Dto;
 using WebApi.Filter;
@@ -205,8 +206,12 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("marathons-with-player/{userId}")]
-        public async Task<IActionResult> MarathonWithPlayer([FromQuery] PaginationFilter filter, int userId)
+        public async Task<IActionResult> MarathonWithPlayer([FromQuery] PaginationFilter filter, int userId, string filterWord = "all")
         {
+            // ensure filterWord is valid
+            var validFilterWords = new List<string>() { "all", "active", "finished" };
+            if(!validFilterWords.Contains(filterWord)) { filterWord = "all"; }
+
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
 
@@ -214,7 +219,8 @@ namespace WebAPI.Controllers
             {
                 UserId = userId,
                 PageNr = validFilter.PageNumber,
-                PageSize = validFilter.PageSize
+                PageSize = validFilter.PageSize,
+                FilterWord = filterWord
             });
 
             var mappedPagedData = _mapper.Map<List<MarathonListGetDto>>(pagedData);
@@ -225,8 +231,22 @@ namespace WebAPI.Controllers
                 marathon.MemberCount = mar.Members.Count;
             }
 
+            int totalRecords = 0;
+
             var user = await _mediator.Send(new GetUserByIdQueryCommand { Id = userId });
-            var totalRecords = user.Marathons.Count;
+
+            switch (filterWord)
+            {
+                case "all":
+                    totalRecords = user.Marathons.Count;
+                    break;
+                case "active":
+                    totalRecords = user.Marathons.Where(m => m.IsDone == false).Count();
+                    break;
+                case "finished":
+                    totalRecords = user.Marathons.Where(m => m.IsDone == true).Count();
+                    break;
+            }
             var pagedResponse = PaginationHelpers.CreatePagedReponse<MarathonListGetDto>(
                 mappedPagedData, validFilter, totalRecords, _uriService, route);
 

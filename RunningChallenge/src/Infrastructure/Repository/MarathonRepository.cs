@@ -109,13 +109,43 @@ namespace Infrastructure.Repository
             return totalDistance;
         }
 
-        public async Task<List<Marathon>> GetAllMarathonsWithUser(int userId, int pageNr, int pageSize)
+        public async Task<List<Marathon>> GetAllMarathonsWithUser(int userId, int pageNr, int pageSize, string filter="all")
+        {
+            var user = await _context.Users.FindAsync(userId);
+            var result = new List<Marathon>();
+
+            if (filter == "all")
+            {
+                result = await _context.Marathons
+                .Where(m => m.Members.Contains(user))
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            } else if (filter == "active") {
+                result = await _context.Marathons
+                .Where(m => m.Members.Contains(user) && m.IsDone == false)
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            } else if (filter == "finished")
+            {
+                result = await _context.Marathons
+                .Where(m => m.Members.Contains(user) && m.IsDone == true)
+                .Skip((pageNr - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            }
+
+            return result;
+        }
+
+        public async Task<List<Marathon>> GetAllMarathonsWithUserRaw(int userId)
         {
             var user = await _context.Users.FindAsync(userId);
             var marathons = await _context.Marathons
                 .Where(m => m.Members.Contains(user))
-                .Skip((pageNr - 1) * pageSize)
-                .Take(pageSize)
+                .Include(m => m.Members)
+                .ThenInclude(u => u.Medals)
                 .ToListAsync();
 
             return marathons;
