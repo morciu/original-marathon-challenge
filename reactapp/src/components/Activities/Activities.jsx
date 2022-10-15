@@ -15,7 +15,7 @@ const Activities = () => {
         url: `/activity/user-activities/${user.id}?PageNumber=1&PageSize=4`, 
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     });
 
@@ -24,7 +24,7 @@ const Activities = () => {
             url: `/activity/user-activities/${user.id}?PageNumber=${value}&PageSize=4`, 
             method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage["auth-token"]}`,
+                Authorization: `Bearer ${localStorage.token}`,
         },
         });
     };

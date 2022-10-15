@@ -23,7 +23,7 @@ const requestConfig = {
     url: `/users/${localStorage.id}`,
     method: "GET",
     headers: {
-        Authorization: `Bearer ${localStorage["auth-token"]}`,
+        Authorization: `Bearer ${localStorage.token}`,
     },
 };
 
@@ -32,7 +32,7 @@ const invitationPostConfig = {
     method: "POST",
     payload: "",
     headers: {
-        Authorization: `Bearer ${localStorage["auth-token"]}`,
+        Authorization: `Bearer ${localStorage.token}`,
     },
 };
 

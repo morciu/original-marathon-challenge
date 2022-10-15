@@ -24,7 +24,7 @@ const Marathon = () => {
             url: `/marathon/members-by-distance?PageNumber=${value}&PageSize=5&marathonId=${params.marathonId}`,
             method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage["auth-token"]}`,
+                Authorization: `Bearer ${localStorage.token}`,
             },
         })
     }
@@ -34,7 +34,7 @@ const Marathon = () => {
         url: `/marathon/members-by-distance?PageNumber=1&PageSize=5&marathonId=${params.marathonId}`,
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     });
 
@@ -45,7 +45,7 @@ const Marathon = () => {
             url: `/marathon/${params.marathonId}/check-progress/${user.id}`,
             method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage["auth-token"]}`,
+                Authorization: `Bearer ${localStorage.token}`,
             },
         });
         return response.data;

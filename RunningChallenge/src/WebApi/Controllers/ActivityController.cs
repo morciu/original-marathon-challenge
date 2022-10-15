@@ -5,6 +5,7 @@ using Application.Users.Commands.UpdateUser;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.ControllersHelpers;
 using WebApi.Filter;
@@ -40,6 +41,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("all-activities")]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -58,6 +60,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetActivityById(int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -76,6 +79,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("user-activities/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAllUserActivities([FromQuery] PaginationFilter filter, int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -111,6 +115,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("create-activity")]
+        [Authorize]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityPutPostDto activity)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -149,6 +154,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("deleteActivity/{activityId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteActivity(int activityId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));

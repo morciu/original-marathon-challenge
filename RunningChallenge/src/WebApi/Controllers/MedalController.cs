@@ -5,6 +5,7 @@ using Application.Medals.Queries;
 using AutoMapper;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.ControllersHelpers;
 using WebApi.Dto;
@@ -37,6 +38,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("create-medal")]
+        [Authorize]
         public async Task<IActionResult> CreateMedal(int userId, int marathonId)
         {
             var result = await _mediator.Send(new CreateMedalCommand { UserId = userId, MarathonId = marathonId });
@@ -47,6 +49,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("{userId}/medals")]
+        [Authorize]
         public async Task<IActionResult> GetUserMedals([FromQuery] PaginationFilter filter, int userId)
         {
             var route = Request.Path.Value;
@@ -67,6 +70,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("{userId}/marathons/{marathonId}/medals/")]
+        [Authorize]
         public async Task<IActionResult> GetUserMedalsInMarathon(int userId, int marathonId)
         {
             var result = await _mediator.Send(new GetUserMedalsInMarathonQuery { UserId = userId, MarathonId = marathonId });
@@ -77,6 +81,7 @@ namespace WebApi.Controllers
 
         [HttpDelete]
         [Route("delete/{medalId}")]
+        [Authorize]
         public async Task<IActionResult> DeletMedal(int medalId)
         {
             var result = await _mediator.Send(new DeleteMedalCommand { Id = medalId });

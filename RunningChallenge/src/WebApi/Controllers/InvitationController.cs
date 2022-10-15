@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.ControllersHelpers;
 using WebApi.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -33,6 +34,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("unanswered/{receiverId}")]
+        [Authorize]
         public async Task<IActionResult> CheckUnansweredInvitations(int receiverId)
         {
             var result = await _mediator.Send(new CheckUnansweredInvitations { ReceiverId = receiverId });
@@ -43,6 +45,7 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("answer/{invitationId}")]
+        [Authorize]
         public async Task<IActionResult> AnswerInvitation(int invitationId, bool answer)
         {
             await _mediator.Send(new AnswerInvitation { InvitationId = invitationId, Answer = answer });

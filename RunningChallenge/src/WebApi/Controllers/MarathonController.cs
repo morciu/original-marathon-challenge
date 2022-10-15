@@ -3,6 +3,7 @@ using Application.Marathons.Queries;
 using Application.Users.Queries;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using WebApi.ControllersHelpers;
@@ -41,6 +42,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetMarathonById(int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -60,6 +62,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("create-marathon")]
+        [Authorize]
         public async Task<IActionResult> CreateMarathon([FromBody] MarathonPutPostDto body)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -79,6 +82,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("delete/{marathonId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteMarathon(int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -92,6 +96,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("get-all")]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -104,6 +109,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("{marathonId}/members/{userId}")]
+        [Authorize]
         public async Task<IActionResult> AddUserToMarathon(int marathonId, int userId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -119,6 +125,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("member-count")]
+        [Authorize]
         public async Task<IActionResult> CountMembers(int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -130,6 +137,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("average-distance")]
+        [Authorize]
         public async Task<IActionResult> AverageDistance(int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -141,6 +149,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("members")]
+        [Authorize]
         public async Task<IActionResult> GetMembers([FromQuery] PaginationFilter filter, int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -165,6 +174,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("members-by-distance")]
+        [Authorize]
         public async Task<IActionResult> GetUsersByDistance([FromQuery] PaginationFilter filter, int marathonId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -195,6 +205,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{marathonId}/check-progress/{userId}")]
+        [Authorize]
         public async Task<IActionResult> CheckProgress(int marathonId, int userId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -206,6 +217,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("marathons-with-player/{userId}")]
+        [Authorize]
         public async Task<IActionResult> MarathonWithPlayer([FromQuery] PaginationFilter filter, int userId, string filterWord = "all")
         {
             // ensure filterWord is valid

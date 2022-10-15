@@ -12,7 +12,7 @@ const Users = () => {
         url: "/marathon/members-by-distance?marathonId=1",
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     };
 

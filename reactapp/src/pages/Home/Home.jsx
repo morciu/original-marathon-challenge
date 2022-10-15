@@ -16,7 +16,7 @@ const Home = () => {
         url: `/users/${localStorage.id}`,
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     };
 
@@ -25,7 +25,7 @@ const Home = () => {
         url: `/invitation/unanswered/${user.id}`,
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     }
 

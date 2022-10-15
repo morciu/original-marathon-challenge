@@ -25,7 +25,7 @@ const PrivateMarathons = () => {
             url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=1&PageSize=5&filterWord=${filter}`,
             method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage["auth-token"]}`,
+                Authorization: `Bearer ${localStorage.token}`,
             }
         }
     );
@@ -38,7 +38,7 @@ const PrivateMarathons = () => {
                 url: updateFetchUrl(value, filter),
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${localStorage["auth-token"]}`,
+                    Authorization: `Bearer ${localStorage.token}`,
                 }
             }
         );
@@ -67,7 +67,7 @@ const PrivateMarathons = () => {
                 url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&filterWord=${filterWord}`,
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${localStorage["auth-token"]}`,
+                    Authorization: `Bearer ${localStorage.token}`,
                 }
             }
         );

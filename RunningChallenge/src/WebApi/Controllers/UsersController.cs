@@ -33,6 +33,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUsersById(int id)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -58,6 +59,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("all-users")]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -85,6 +87,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("login")]
+        [Authorize]
         public async Task<IActionResult> GetUserLogin(string userName, string password)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -104,6 +107,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("{userId}/activities/{activityId}")]
+        [Authorize]
         public async Task<IActionResult> AddActivityToUser(int userId, int activityId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
@@ -123,6 +127,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("deleteUser/{userId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));

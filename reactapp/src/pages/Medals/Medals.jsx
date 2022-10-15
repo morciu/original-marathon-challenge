@@ -14,7 +14,7 @@ const Medals = () => {
         url: `/medal/${user.id}/medals?PageNumber=1&PageSize=3`,
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     });
 
@@ -24,7 +24,7 @@ const Medals = () => {
             url: `/medal/${user.id}/medals?PageNumber=${value}&PageSize=3`,
             method: "GET",
             headers: {
-                Authorization: `Bearer ${localStorage["auth-token"]}`,
+                Authorization: `Bearer ${localStorage.token}`,
             },
         })
     }

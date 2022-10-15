@@ -16,7 +16,7 @@ const Invitations = () => {
         url: `/invitation/unanswered/${localStorage.id}`,
         method: "GET",
         headers: {
-            Authorization: `Bearer ${localStorage["auth-token"]}`,
+            Authorization: `Bearer ${localStorage.token}`,
         },
     }
 
