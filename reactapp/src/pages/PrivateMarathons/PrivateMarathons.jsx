@@ -14,7 +14,7 @@ const PrivateMarathons = () => {
     const {user} = useContext(UserContext);
 
     // Filter state
-    const [filter, setFilter] = useState("all");
+    const [filter, setFilter] = useState("active");
 
     // Page state
     const [page, setPage] = useState(1);
