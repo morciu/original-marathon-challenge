@@ -6,7 +6,7 @@ export const loginUser = async (requestConfig) => {
             method: requestConfig.method,
             url: requestConfig.url,
             data: requestConfig.payload,
-            headers: { "Content-Type": "application/json" }
+            headers: requestConfig.headers
         }
         );
         // Store response in local storage
@@ -26,7 +26,7 @@ export const sendData = async (requestConfig) => {
             method: requestConfig.method,
             url: requestConfig.url,
             data: requestConfig.payload,
-            headers: { "Content-Type": "application/json" }
+            headers: requestConfig.headers
         }
         );
         return true;

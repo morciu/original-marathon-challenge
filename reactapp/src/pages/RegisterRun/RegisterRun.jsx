@@ -12,6 +12,10 @@ const requestConfig = {
     url: "/activity/create-activity",
     payload: "",
     method: "POST",
+    headers: { 
+        Authorization: `Bearer ${localStorage.token}`,
+        "Content-Type": "application/json",
+    }
 };
 
 const requiredFieldRule = {
