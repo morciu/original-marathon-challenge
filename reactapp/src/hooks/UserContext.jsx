@@ -43,6 +43,7 @@ const login = async (requestConfig) => {
             }));
     } catch(error) {
         console.log(error)
+        localStorage.clear();
     }
 };
 
