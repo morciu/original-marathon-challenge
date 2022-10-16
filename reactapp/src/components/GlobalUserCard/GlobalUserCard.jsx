@@ -42,7 +42,7 @@ const GlobalUserCard = (props) => {
                         </div>
                     </Box>
                     <Box className={styles.rightContent}>
-                        <Icon><EmojiEvents /> </Icon>
+                        <Typography variant="p">{props.item.medals.length}X</Typography><Icon><EmojiEvents /> </Icon>
                     </Box>
                     
                 </Box>

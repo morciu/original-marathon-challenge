@@ -35,7 +35,9 @@ namespace Infrastructure.Repository
 
         public async Task<List<User>> GetAll(int pageNr, int pageSize)
         {
-            var result = await _context.Users.Include(u => u.Activities)
+            var result = await _context.Users
+                .Include(u => u.Activities)
+                .Include(u => u.Medals)
                 .OrderByDescending(u => u.TotalDistance)
                 .Skip((pageNr - 1) * pageSize)
                 .Take(pageSize)
