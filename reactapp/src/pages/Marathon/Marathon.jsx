@@ -101,7 +101,7 @@ const Marathon = () => {
             <UserModal open={openModal}
                 modalObject={modalObject}
                 handleCloseModal={handleCloseModal}
-                action1={() => { handleOpenChildModal(modalObject.activities) }}
+                userId={modalObject.id}
                 action2={() => { handleOpenChildMarathonModal(modalObject.marathons) }} />
 
             <RunningActivityModal open={openChildModal}

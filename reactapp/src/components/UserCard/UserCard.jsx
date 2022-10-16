@@ -5,6 +5,7 @@ import styles from "./UserCard.module.css"
 import { Avatar, Card, CardHeader, Icon, LinearProgress, Typography } from "@mui/material";
 import { EmojiEvents } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const UserCard = (props) => {
 

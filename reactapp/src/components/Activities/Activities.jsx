@@ -12,7 +12,7 @@ const Activities = () => {
     const params = useParams();
 
     const [fetchRequest, setFetchRequest] = useState({
-        url: `/activity/user-activities/${user.id}?PageNumber=1&PageSize=4`, 
+        url: `/activity/user-activities/${params.userId}?PageNumber=1&PageSize=4`, 
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage.token}`,
@@ -21,7 +21,7 @@ const Activities = () => {
 
     const selectPage = (event, value) => {
         setFetchRequest({
-            url: `/activity/user-activities/${user.id}?PageNumber=${value}&PageSize=4`, 
+            url: `/activity/user-activities/${params.userId}?PageNumber=${value}&PageSize=4`, 
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.token}`,

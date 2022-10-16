@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -39,7 +39,7 @@ const UserModal = (props) => {
                 </Typography>
                 <div style={buttonDiv}>
                     {!!props.modalObject.activities?.length && 
-                        <Button variant="contained" onClick={props.action1}>Check Runs</Button>}
+                        <Button variant="contained" component={Link} to={`/${props.userId}/activities`}>Check Runs</Button>}
                     <Button variant="contained" onClick={props.action2}>Invite to challenge</Button>
                 </div>
             </Box>
