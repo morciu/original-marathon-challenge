@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Moq;
 using WebApi.Filter;
+using WebApi.Services;
 using WebAPI.Controllers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
@@ -20,6 +21,7 @@ namespace Test.ControllerTests
         private readonly Mock<ILogger<UsersController>> _mockLogger = new Mock<ILogger<UsersController>>();
         private readonly Mock<LoggerHelper> _mockHelper = new Mock<LoggerHelper>();
         private readonly Mock<PaginationFilter> _mockPagFilt = new();
+        private readonly Mock<IUriService> _mockUriService = new();
 
         [Fact]
         public async Task Get_User_By_Id_GetUserByIdIsCalled()
@@ -31,7 +33,7 @@ namespace Test.ControllerTests
             _mockHelper
                 .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
 
@@ -51,7 +53,7 @@ namespace Test.ControllerTests
             _mockHelper
                 .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.GetAll(_mockPagFilt.Object);
@@ -70,7 +72,7 @@ namespace Test.ControllerTests
             _mockHelper
                 .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.GetUserLogin("userName", "password");
@@ -89,7 +91,7 @@ namespace Test.ControllerTests
             _mockHelper
                 .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.AddActivityToUser(5, 22);
@@ -108,7 +110,7 @@ namespace Test.ControllerTests
             _mockHelper
                 .Setup(h => h.LogControllerAndAction(It.IsAny<UsersController>())).Returns("Mock logger message");
 
-            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object);
+            var controller = new UsersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object, _mockHelper.Object, _mockUriService.Object);
 
             // Act
             await controller.DeleteUser(5);

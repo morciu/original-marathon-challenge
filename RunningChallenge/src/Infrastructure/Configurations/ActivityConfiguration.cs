@@ -17,6 +17,9 @@ namespace Infrastructure.Configurations
                 .WithMany(u => u.Activities)
                 .HasPrincipalKey(a => a.Id);
 
+            builder.HasMany(a => a.Likes)
+                .WithOne(l => l.Activity);
+
             builder.Property(x => x.Distance)
                 .HasPrecision(18, 6);
         }

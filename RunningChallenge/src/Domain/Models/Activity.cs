@@ -12,6 +12,7 @@ namespace Domain.Models
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public TimeSpan Pace { get; set; }
+        public ICollection<Like> Likes { get; set; } = null!;
 
         public TimeSpan CalculatePace(decimal distance, TimeSpan duration)
         {
