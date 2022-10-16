@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Domain.Models;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Application.Likes.Commands
 {
-    public class Like
+    public class CreateLikeCommand : IRequest<Like>
     {
-        public int Id { get; set; }
         public int SenderId { get; set; }
-        public User Sender { get; set; }
         public int ActivityId { get; set; }
-        public Activity Activity { get; set; }
-
     }
 }

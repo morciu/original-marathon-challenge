@@ -15,4 +15,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Likes\QueryHandlers\" />
+    <Folder Include="Likes\Queries\" />
+  </ItemGroup>
+
 </Project>

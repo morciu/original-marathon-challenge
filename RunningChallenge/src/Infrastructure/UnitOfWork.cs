@@ -15,13 +15,15 @@ namespace Infrastructure
         public IMarathonRepository MarathonRepository { get; private set; }
         public IInvitationRepository InvitationRepository { get; private set; }
         public IMedalRepository MedalRepository { get; private set; }
+        public ILikeRepository LikeRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext applicationDbContext, 
-                            IUserRepository userRepo, 
-                            IActivityRepository activityRepo, 
-                            IMarathonRepository marathonRepo, 
+                            IUserRepository userRepo,
+                            IActivityRepository activityRepo,
+                            IMarathonRepository marathonRepo,
                             IInvitationRepository invitationRepository,
-                            IMedalRepository medalRepo)
+                            IMedalRepository medalRepo,
+                            ILikeRepository likeRepository)
         {
             _applicationDbContext = applicationDbContext;
             UserRepository = userRepo;
@@ -29,6 +31,7 @@ namespace Infrastructure
             MarathonRepository = marathonRepo;
             InvitationRepository = invitationRepository;
             MedalRepository = medalRepo;
+            LikeRepository = likeRepository;
         }
 
         public void Dispose()

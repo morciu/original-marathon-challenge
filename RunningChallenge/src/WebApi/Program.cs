@@ -47,6 +47,8 @@ builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IMarathonRepository, MarathonRepository>();
 builder.Services.AddScoped<IInvitationRepository, InvitationRepository>();
 builder.Services.AddScoped<IMedalRepository, MedalRepository>();
+builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+
 builder.Services.AddScoped<LoggerHelper>();
 builder.Services.AddIdentityServices(builder.Configuration);
 

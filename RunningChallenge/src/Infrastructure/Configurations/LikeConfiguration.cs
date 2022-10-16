@@ -14,7 +14,6 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Like> builder)
         {
             builder.HasOne(i => i.Sender);
-            builder.HasOne(i => i.Receiver);
             builder.HasOne(i => i.Activity)
                 .WithMany(a => a.Likes);
         }
