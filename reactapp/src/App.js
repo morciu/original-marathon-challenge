@@ -19,6 +19,7 @@ import Invitations from "./pages/Invitations/Invitations";
 import DashBoard from "./components/DashBoard/DashBoard";
 import Activities from "./components/Activities/Activities";
 import Medals from "./pages/Medals/Medals";
+import GlobalRanking from "./components/GlobalRanking/GlobalRanking";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/dashboard" element={<DashBoard />}></Route>
             <Route path="/:userId/activities" element={<Activities />}></Route>
             <Route path="/:userId/medals" element={<Medals />}></Route>
+            <Route path="/global-ranking" element={<GlobalRanking />}></Route>
         </Routes>
       </div>
       <Footer />
