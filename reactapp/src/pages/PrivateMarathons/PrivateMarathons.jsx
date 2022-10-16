@@ -22,7 +22,7 @@ const PrivateMarathons = () => {
     // Request config state for pagination
     const [requestConfig, setRequestConfig] = useState(
         {
-            url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=1&PageSize=5&filterWord=${filter}`,
+            url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=1&PageSize=4&filterWord=${filter}`,
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.token}`,
@@ -56,7 +56,7 @@ const PrivateMarathons = () => {
     const {data, loading, error} = useFetchData(requestConfig);
 
     const updateFetchUrl = (page, filterWord) => {
-        return `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&filterWord=${filter}`;
+        return `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&PageSize=4&filterWord=${filter}`;
     };
 
     const filterMarathons = (filterWord) => { 
@@ -64,7 +64,7 @@ const PrivateMarathons = () => {
         setFilter(filterWord);
         setRequestConfig(
             {
-                url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&filterWord=${filterWord}`,
+                url: `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&PageSize=4&filterWord=${filterWord}`,
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${localStorage.token}`,
@@ -72,7 +72,6 @@ const PrivateMarathons = () => {
             }
         );
     };
-    console.log(`page: ${page}; filter: ${filter}`)
 
     if (user.auth){
         return(
@@ -93,13 +92,12 @@ const PrivateMarathons = () => {
                     <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
                     {data.data && data.data.map((item) => (
                         <>
-                        {item.id > 1 ?
                         <Card key={item} component={Link} to={`/marathon/${item.id}`} >
                             <CardHeader
                                 title={"Members: " + item.memberCount}
                                 subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }
                                 />
-                        </Card> : null}
+                        </Card>
                         </>
                     ))}
                 </Stack>

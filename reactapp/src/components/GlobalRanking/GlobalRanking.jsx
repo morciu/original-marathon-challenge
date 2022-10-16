@@ -33,7 +33,6 @@ const GlobalRanking = () => {
     }
 
     const {data, loading, error} = useFetchData(requestConfig);
-    console.log(data)
 
     return(
         <>
