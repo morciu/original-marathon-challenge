@@ -7,7 +7,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebApi.ControllersHelpers;
 using WebApi.Filter;
+using WebApi.Services;
 using WebApi.Wrappers;
 using WebAPI.ControllersHelpers;
 using WebAPI.Dto;
@@ -23,12 +25,19 @@ namespace WebAPI.Controllers
         private readonly ILogger<UsersController> _logger;
         private readonly LoggerHelper _loggerHelper;
 
-        public UsersController(IMediator mediator, IMapper mapper, ILogger<UsersController> logger, LoggerHelper loggerHelper)
+        private readonly IUriService _uriService;
+
+        public UsersController(IMediator mediator, 
+            IMapper mapper, 
+            ILogger<UsersController> logger, 
+            LoggerHelper loggerHelper,
+            IUriService uriService)
         {
             _mediator = mediator;
             _mapper = mapper;
             _logger = logger;
             _loggerHelper = loggerHelper;
+            _uriService = uriService;
         }
 
         [HttpGet]
@@ -64,25 +73,33 @@ namespace WebAPI.Controllers
         {
             _logger.LogInformation(_loggerHelper.LogControllerAndAction(this));
 
+            var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
 
-            var result = await _mediator.Send(new GetAllUsers() { 
-                PageNumber = validFilter.PageNumber, 
+            var pagedData = await _mediator.Send(new GetAllUsers() { 
+                PageNumber = validFilter.PageNumber,
                 PageSize = validFilter.PageSize });
-            if (result == null)
+            if (pagedData == null)
             {
                 _logger.LogWarning("No users found");
                 return NotFound();
             }
 
-            var mappedResult = _mapper.Map<List<UserGetDto>>(result);
-            for (var i = 0; i < mappedResult.Count; i++)
+            foreach (var user in pagedData)
             {
-                mappedResult[i].TotalDistance = mappedResult[i].Activities.Select(a => a.Distance).Sum();
+                user.TotalDistance = user.CalculateTotalDistance();
+                user.AveragePace = user.CalculateAveragePace();
             }
-            _logger.LogInformation($"Found {result.Count} users");
 
-            return Ok(new Response<List<UserGetDto>>(mappedResult));
+            var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);
+
+            var totalRecords = await _mediator.Send(new CountAllUsersQuery());
+            var pagedResponse = PaginationHelpers.CreatePagedReponse<UserGetDto>(
+                mappedPagedData, validFilter, totalRecords, _uriService, route);
+
+            _logger.LogInformation($"Found {mappedPagedData.Count} users");
+
+            return Ok(pagedResponse);
         }
 
         [HttpGet]

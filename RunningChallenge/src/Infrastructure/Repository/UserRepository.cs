@@ -18,6 +18,11 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
+        public async Task<int> CountAllUsers()
+        {
+            return await _context.Users.CountAsync();
+        }
+
         public async Task CreateUser(User user)
         {
             await _context.Users.AddAsync(user);

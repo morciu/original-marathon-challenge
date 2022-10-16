@@ -18,5 +18,6 @@ namespace Application.Abstract
         Task<List<User>> GetAll(int pageNr, int pageSize);
         Task<TimeSpan> GetTotalTime(int userId);
         Task<User> UpdateUserMarathonStatus(int userId);
+        Task<int> CountAllUsers();
     }
 }
