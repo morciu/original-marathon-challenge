@@ -50,6 +50,7 @@ namespace Infrastructure.Repository
         {
             var activities = await _context.Activities
                 .Where(a => a.UserId == userId)
+                .Include(a => a.Likes)
                 .OrderByDescending(a => a.Date)
                 .Skip((pageNr - 1) * pageSize)
                 .Take(pageSize)
@@ -63,6 +64,7 @@ namespace Infrastructure.Repository
             var marathon = await _context.Marathons.FindAsync(marathonId);
             var activities = await _context.Activities
                 .Where(a => a.UserId == userId && a.Date > marathon.StartDate)
+                .Include(a => a.Likes)
                 .OrderByDescending(a => a.Date)
                 .ToListAsync();
 

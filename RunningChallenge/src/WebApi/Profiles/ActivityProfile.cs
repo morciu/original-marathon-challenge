@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models;
+using WebApi.Dto;
 using WebAPI.Dto;
 
 namespace WebAPI.Profiles
@@ -8,7 +9,8 @@ namespace WebAPI.Profiles
     {
         public ActivityProfile()
         {
-            CreateMap<Activity, ActivityGetDto>();
+            CreateMap<Activity, ActivityGetDto>()
+                .ForMember(a => a.LikeCount, opt => opt.MapFrom(a => a.Likes.Count()));
         }
     }
 }

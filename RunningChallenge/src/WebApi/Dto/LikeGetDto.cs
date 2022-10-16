@@ -2,7 +2,6 @@
 {
     public class LikeGetDto
     {
-        public int SenderId { get; set; }
-        public int ActivityId { get; set; }
+        public int Id { get; set; }
     }
 }

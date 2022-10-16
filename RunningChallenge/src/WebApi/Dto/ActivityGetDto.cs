@@ -1,4 +1,6 @@
-﻿namespace WebAPI.Dto
+﻿using Domain.Models;
+
+namespace WebAPI.Dto
 {
     public class ActivityGetDto
     {
@@ -8,5 +10,6 @@
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public TimeSpan Pace { get; set; }
+        public int LikeCount { get; set; }
     }
 }
