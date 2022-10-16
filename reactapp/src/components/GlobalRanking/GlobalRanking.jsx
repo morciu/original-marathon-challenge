@@ -6,6 +6,8 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
+import GlobalUserCard from "../GlobalUserCard/GlobalUserCard";
+import UserCard from "../UserCard/UserCard";
 
 const GlobalRanking = () => {
     const {user} = useContext(UserContext);
@@ -44,7 +46,8 @@ const GlobalRanking = () => {
             <Stack spacing={2}>
                     {error && console.log(error.message)}
                     {data.data && data.data.map((item) => (
-                        <div>{item.userName}: {item.averagePace}</div>
+                        <GlobalUserCard key={item.id} item={item} list={data.data} pageNumber={data.pageNumber}
+                        pageSize={data.pageSize} />
                     ))}
             </Stack>
             <Pagination 

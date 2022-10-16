@@ -1,0 +1,71 @@
+.card {
+    font-family: "Roboto";
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    min-width: 288px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px 0 rgba(138, 148, 159, 0.2);
+}
+
+.heading {
+    font-size: 16px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.subHeader {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.value {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.avatarContainer {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.avatar {
+    color: #cacfd6;
+    background-color: #381D2A;
+}
+
+.avatarGold {
+    color: #001524;
+    background-color: #ffe66d;
+}
+
+.avatarSilver {
+    color: #001524;
+    background-color: #cacfd6;
+}
+
+.avatarBronze {
+    color: #001524;
+    background-color: #b76d68;
+}
+
+.progressBar {
+    width: 100%;
+    border-radius: 8px;
+    height: 8px;
+}
+
+.cardInnerContainer {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
