@@ -60,6 +60,24 @@ const ActivityCard = (props) => {
         }
     }
 
+    const deleteLike = async () => {
+        requestConfigRemoveLike.payload = { "senderId":  user.id, "activityId": props.activityId};
+        console.log(requestConfigRemoveLike);
+
+        if (await sendData(requestConfigRemoveLike)){
+            console.log("All Good!");
+            setRequestConfig({
+                url: `/like/${user.id}/liked-activities`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`,
+                },
+            });
+        } else {
+            console.log("something went wrong!");
+        }
+    };
+
     const {data, loading, error} = useFetchData(requestConfig);
     return(
         <>
@@ -69,7 +87,7 @@ const ActivityCard = (props) => {
                         {new Date(props.date).toDateString()}, {new Date(props.date).toLocaleTimeString()}
                     </Typography>
                     {data.includes(props.activityId) ? 
-                        <><IconButton color="red" aria-label="add to favorites">
+                        <><IconButton color="red" aria-label="add to favorites" onClick={deleteLike}>
                             <FavoriteIcon />
                         </IconButton> <Typography variant="p">{props.likes}</Typography></> : 
                         <><IconButton aria-label="add to favorites" onClick={createLike}>

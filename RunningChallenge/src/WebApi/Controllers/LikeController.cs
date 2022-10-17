@@ -40,9 +40,9 @@ namespace WebApi.Controllers
 
         [HttpDelete]
         [Route("delete-like")]
-        public async Task<IActionResult> DeleteLike(int activityId, int senderId)
+        public async Task<IActionResult> DeleteLike([FromBody] LikePutPostDto body)
         {
-            var result = await _mediator.Send(new DeleteLikeCommand { ActivityId = activityId, SenderId = senderId });
+            var result = await _mediator.Send(new DeleteLikeCommand { ActivityId = body.ActivityId, SenderId = body.SenderId });
 
             return Ok(result);
         }
