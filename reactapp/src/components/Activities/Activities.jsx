@@ -41,9 +41,11 @@ const Activities = () => {
             <Stack spacing={2}>
                 {data.data && data.data.map((item) => (
                         <ActivityCard distance={item.distance}
+                        activityId={item.id}
                         time={item.duration}
                         pace={item.pace}
-                        date={item.date} />
+                        date={item.date}
+                        likes={item.likeCount} />
                     ))}
             </Stack>
             <Pagination count={data.totalPages}
