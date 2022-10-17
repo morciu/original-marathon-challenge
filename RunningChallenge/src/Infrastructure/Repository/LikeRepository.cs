@@ -23,6 +23,18 @@ namespace Infrastructure.Repository
             await _context.Likes.AddAsync(like);
         }
 
+        public async Task<Like> DeleteLike(int activityId, int senderId)
+        {
+            var like = await _context.Likes.Where(l => l.ActivityId == activityId && l.SenderId == senderId).FirstOrDefaultAsync();
+            _context.Remove(like);
+            return like;
+        }
+
+        public async Task<Like> GetLikeById(int likeId)
+        {
+            return await _context.Likes.FindAsync(likeId);
+        }
+
         public async Task<List<int>> GetLikedActivities(int userId)
         {
             var user = await _context.Users.FindAsync(userId);

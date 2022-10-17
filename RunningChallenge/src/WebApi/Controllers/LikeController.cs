@@ -37,5 +37,14 @@ namespace WebApi.Controllers
             var result = await _mediator.Send(new GetLikedActivitiesQuery { UserId = userId });
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("delete-like")]
+        public async Task<IActionResult> DeleteLike(int activityId, int senderId)
+        {
+            var result = await _mediator.Send(new DeleteLikeCommand { ActivityId = activityId, SenderId = senderId });
+
+            return Ok(result);
+        }
     }
 }

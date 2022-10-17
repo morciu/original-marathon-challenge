@@ -11,5 +11,7 @@ namespace Application.Abstract
     {
         Task CreateLike(Like like);
         Task<List<int>> GetLikedActivities(int userId);
+        Task<Like> GetLikeById(int likeId);
+        Task<Like> DeleteLike(int activityId, int senderId);
     }
 }
