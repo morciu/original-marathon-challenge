@@ -79,6 +79,7 @@ const ActivityCard = (props) => {
     };
 
     const {data, loading, error} = useFetchData(requestConfig);
+    
     return(
         <>
             <Card className={styles.card}>

@@ -72,7 +72,6 @@ const Footer = () => {
                             <IconButton component={Link} to="/global-ranking"><PublicTwoToneIcon style={buttonSize}/></IconButton>
                             :
                             <IconButton disabled={true} component={Link} to="/global-ranking"><PublicTwoToneIcon style={buttonSize}/></IconButton>}
-                        
                     </Tooltip>
                     
                     {user.auth ?

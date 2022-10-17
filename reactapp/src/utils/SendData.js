@@ -1,8 +1,10 @@
-import axios from "axios";
+
+import Axios from "./axios";
+
 
 export const loginUser = async (requestConfig) => {
     try {
-        const response = await axios({
+        const response = await Axios({
             method: requestConfig.method,
             url: requestConfig.url,
             data: requestConfig.payload,
@@ -22,7 +24,7 @@ export const loginUser = async (requestConfig) => {
 
 export const sendData = async (requestConfig) => {
     try {
-        const response = await axios({
+        const response = await Axios({
             method: requestConfig.method,
             url: requestConfig.url,
             data: requestConfig.payload,

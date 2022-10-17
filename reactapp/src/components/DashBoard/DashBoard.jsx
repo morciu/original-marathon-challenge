@@ -21,7 +21,7 @@ const DashBoard = (props) => {
             <div className={styles.userHeader}>
                 <div className={styles.userCont}>
                     {props.invitations == true ?
-                    <IconButton component={Link} to="/invitations"><Avatar className={styles.notify}><NotificationsIcon /></Avatar></IconButton> :
+                    <IconButton component={Link} to="/invitations"><Avatar color={"red"}><NotificationsIcon color="red" /></Avatar></IconButton> :
                     <IconButton component={Link} to="/invitations"><Avatar><NotificationsIcon /></Avatar></IconButton>}
                     
                     <div>

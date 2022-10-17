@@ -8,7 +8,9 @@ import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
 import Login from "../../pages/Login/Login";
 import GlobalUserCard from "../GlobalUserCard/GlobalUserCard";
+import MarathonListInvitationModal from "../MarathonListInvitationModal/MarathonListInvitationModal";
 import UserCard from "../UserCard/UserCard";
+import UserModal from "../UserModal/UserModal";
 
 const GlobalRanking = () => {
     const {user} = useContext(UserContext);
@@ -33,11 +35,51 @@ const GlobalRanking = () => {
         })
     }
 
+    // Child Modal (Running activity) Content
+    const [childModalObjects, setChildObjects] = useState([]);
+
+    // Child Modal State - marathon list for invitations
+    const[openChildMarathonModal, setOpenChildMarathonModal] = useState(false);
+    const handleOpenChildMarathonModal = (item) => {
+        setChildObjects(item);
+        setOpenChildMarathonModal(true)
+    };
+
+    const handleCloseModal = () => setOpenModal(false);
+
+    // Main modal content
+    const [modalObject, setmodalObject] = useState({
+        id: null,
+        userName: null,
+        totalDistance: null,
+        totalTime: null,
+        averagePace: null
+    });
+
+    const[openModal, setOpenModal] = useState(false);
+    const handleOpenModal = (item) => {
+        setmodalObject(item);
+        setOpenModal(true);
+    };
+
+    const handleCloseChildMarathonModal = () => setOpenChildMarathonModal(false);
+
     const {data, loading, error} = useFetchData(requestConfig);
 
     if(user.auth){
         return(
             <>
+                <UserModal open={openModal}
+                modalObject={modalObject}
+                handleCloseModal={handleCloseModal}
+                userId={modalObject.id}
+                action2={() => { handleOpenChildMarathonModal(modalObject.marathons) }} />
+
+                <MarathonListInvitationModal open={openChildMarathonModal}
+                modalObjects={childModalObjects}
+                parent={modalObject}
+                handleCloseModal={handleCloseChildMarathonModal}/>
+
                 <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={loading}>
@@ -48,7 +90,7 @@ const GlobalRanking = () => {
                         {error && console.log(error.message)}
                         {data.data && data.data.map((item) => (
                             <GlobalUserCard key={item.id} item={item} list={data.data} pageNumber={data.pageNumber}
-                            pageSize={data.pageSize} />
+                            pageSize={data.pageSize} action={handleOpenModal} />
                         ))}
                 </Stack>
                 <Pagination 
