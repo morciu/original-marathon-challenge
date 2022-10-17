@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "../utils/axios";
 
 const useFetchData = (requestConfig) => {
     const [requestState, setRequestState] = useState({
@@ -16,7 +16,7 @@ const useFetchData = (requestConfig) => {
                     loading: true,
                 });
 
-                const response = await axios(requestConfig);
+                const response = await Axios(requestConfig);
 
                 setRequestState({
                     ...requestState,
