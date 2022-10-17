@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
+import Login from "../../pages/Login/Login";
 import GlobalUserCard from "../GlobalUserCard/GlobalUserCard";
 import UserCard from "../UserCard/UserCard";
 
@@ -34,26 +35,32 @@ const GlobalRanking = () => {
 
     const {data, loading, error} = useFetchData(requestConfig);
 
-    return(
-        <>
-            <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={loading}>
-            <CircularProgress color="inherit" />
-            </Backdrop>
-
-            <Stack spacing={2}>
-                    {error && console.log(error.message)}
-                    {data.data && data.data.map((item) => (
-                        <GlobalUserCard key={item.id} item={item} list={data.data} pageNumber={data.pageNumber}
-                        pageSize={data.pageSize} />
-                    ))}
-            </Stack>
-            <Pagination 
-                count={data.totalPages}
-                onChange={selectPage}></Pagination>
+    if(user.auth){
+        return(
+            <>
+                <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}>
+                <CircularProgress color="inherit" />
+                </Backdrop>
+    
+                <Stack spacing={2}>
+                        {error && console.log(error.message)}
+                        {data.data && data.data.map((item) => (
+                            <GlobalUserCard key={item.id} item={item} list={data.data} pageNumber={data.pageNumber}
+                            pageSize={data.pageSize} />
+                        ))}
+                </Stack>
+                <Pagination 
+                    count={data.totalPages}
+                    onChange={selectPage}></Pagination>
             </>
-    );
+        );
+    }
+    else {
+        return(<Login />)
+    }
+    
 };
 
 export default GlobalRanking;

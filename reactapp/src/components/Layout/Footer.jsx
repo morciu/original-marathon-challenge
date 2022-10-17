@@ -14,8 +14,11 @@ import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
 import { styled } from '@mui/material/styles';
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 const Footer = () => {
+    const {user} = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (e) => {
@@ -65,18 +68,34 @@ const Footer = () => {
                             <MenuItem component={Link} to="/login">Change User</MenuItem>
                     </Menu>
                     <Tooltip title={<Typography variant="h5">Global Ranking</Typography>}>
-                        <IconButton component={Link} to="/global-ranking"><PublicTwoToneIcon style={buttonSize}/></IconButton>
+                        {user.auth ? 
+                            <IconButton component={Link} to="/global-ranking"><PublicTwoToneIcon style={buttonSize}/></IconButton>
+                            :
+                            <IconButton disabled={true} component={Link} to="/global-ranking"><PublicTwoToneIcon style={buttonSize}/></IconButton>}
+                        
                     </Tooltip>
-
+                    
+                    {user.auth ?
                     <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
                         <DirectionsRunRoundedIcon style={buttonSize} />
-                    </StyledFab>
+                    </StyledFab> 
+                    :
+                    <StyledFab color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
+                        <DirectionsRunRoundedIcon style={buttonSize} />
+                    </StyledFab>}
 
                     <Box sx={{ flexGrow: 1 }} />
                     <Tooltip title={<Typography variant="h5">Private Marathons</Typography>}>
+                        {user.auth ? 
                         <IconButton component={Link} to="/private-marathons"><Groups2TwoToneIcon style={buttonSize}/></IconButton>
+                        :
+                        <IconButton disabled={true} component={Link} to="/private-marathons"><Groups2TwoToneIcon style={buttonSize}/></IconButton>}
                     </Tooltip>
+                    {user.auth ? 
                     <IconButton color="inherit" onClick={ logout }><Logout style={buttonSize} /></IconButton>
+                    : 
+                    <IconButton disabled={true} color="inherit" onClick={ logout }><Logout style={buttonSize} /></IconButton>}
+                    
                 </Toolbar>
             </AppBar>
 
