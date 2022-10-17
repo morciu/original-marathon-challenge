@@ -5,34 +5,77 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 import useFetchData from "../../hooks/useFetchData";
+import { sendData } from "../../utils/SendData";
+import { useState } from "react";
 
 
 const ActivityCard = (props) => {
     const {user} = useContext(UserContext);
 
     // Request config for user
-    const requestConfig = {
-        url: `/like/${user.id}/liked-activities`,
-        method: "GET",
+    const [requestConfig, setRequestConfig] = useState(
+        {
+            url: `/like/${user.id}/liked-activities`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.token}`,
+            },
+        }
+    );
+
+    // Request config for creating like
+    const requestConfigCreateLike = {
+        url: `/like/create-like`,
+        payload: "",
+        method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.token}`,
         },
     };
+
+    // Request config for removing like
+    const requestConfigRemoveLike = {
+        url: `/like/delete-like`,
+        payload: "",
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${localStorage.token}`,
+        },
+    };
+
+    const createLike = async () => {
+        requestConfigCreateLike.payload = { "senderId":  user.id, "activityId": props.activityId};
+
+        if (await sendData(requestConfigCreateLike)){
+            console.log("All Good!");
+            setRequestConfig({
+                url: `/like/${user.id}/liked-activities`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`,
+                },
+            });
+        } else {
+            console.log("something went wrong!");
+        }
+    }
 
     const {data, loading, error} = useFetchData(requestConfig);
     return(
         <>
             <Card className={styles.card}>
                 <div className={styles.header}>
-                    <Typography variant="h6">{new Date(props.date).toDateString()}, {new Date(props.date).toLocaleTimeString()}</Typography>
+                    <Typography variant="h6">
+                        {new Date(props.date).toDateString()}, {new Date(props.date).toLocaleTimeString()}
+                    </Typography>
                     {data.includes(props.activityId) ? 
-                        <IconButton color="red" aria-label="add to favorites">
+                        <><IconButton color="red" aria-label="add to favorites">
                             <FavoriteIcon />
-                        </IconButton> : 
-                        <IconButton aria-label="add to favorites">
+                        </IconButton> <Typography variant="p">{props.likes}</Typography></> : 
+                        <><IconButton aria-label="add to favorites" onClick={createLike}>
                             <FavoriteIcon />
-                        </IconButton>}
-                    <Typography variant="p">{props.likes}</Typography>
+                        </IconButton> <Typography variant="p">{props.likes}</Typography></>}
+                    
                 </div>
 
                 <div className={styles.summary}>
