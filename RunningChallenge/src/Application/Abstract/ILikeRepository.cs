@@ -10,5 +10,6 @@ namespace Application.Abstract
     public interface ILikeRepository
     {
         Task CreateLike(Like like);
+        Task<List<int>> GetLikedActivities(int userId);
     }
 }

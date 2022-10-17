@@ -1,4 +1,5 @@
 ﻿using Application.Likes.Commands;
+using Application.Likes.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,14 @@ namespace WebApi.Controllers
             var mappedResult = _mapper.Map<LikeGetDto>(result);
 
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("{userId}/liked-activities")] 
+        public async Task<IActionResult> GetLikedActivities(int userId)
+        {
+            var result = await _mediator.Send(new GetLikedActivitiesQuery { UserId = userId });
+            return Ok(result);
         }
     }
 }
