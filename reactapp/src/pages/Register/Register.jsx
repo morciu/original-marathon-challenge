@@ -5,6 +5,7 @@ import { Alert, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { sendData } from "../../utils/SendData";
+import Login from "../Login/Login";
 
 // Post config for axios
 const requestConfig = {
@@ -25,6 +26,8 @@ const Register = () =>{
     const [showAlert, setShowAlert] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const [registered, setRegistered] = useState(false);
+
     // Navigate Hook
     const navigate = useNavigate();
     
@@ -34,12 +37,13 @@ const Register = () =>{
         localStorage.clear();
 
         if (await sendData(requestConfig)){
-            navigate("/");
+            setRegistered(true)
         } else {
             console.log("something went wrong!");
         }
     };
 
+    if(registered) { return(<Login />); }
     return(
         <>
         {showAlert && (

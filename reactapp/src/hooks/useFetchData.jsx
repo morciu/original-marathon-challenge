@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Axios from "../utils/axios";
+import { UserContext } from "./UserContext";
 
 const useFetchData = (requestConfig) => {
+    const {user} = useContext(UserContext);
+    
     const [requestState, setRequestState] = useState({
         data: [],
         loading: false,
@@ -9,6 +12,9 @@ const useFetchData = (requestConfig) => {
     });
 
     useEffect(() => {
+        
+
+        
         const fetchData = async () => {
             try {
                 setRequestState({
@@ -32,7 +38,10 @@ const useFetchData = (requestConfig) => {
             } 
         };
 
-        fetchData();
+        if(user.auth){
+            fetchData();
+        }
+        
     }, [requestConfig.url]);
 
     return requestState

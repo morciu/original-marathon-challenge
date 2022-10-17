@@ -28,7 +28,7 @@ const Home = () => {
             Authorization: `Bearer ${localStorage.token}`,
         },
     }
-
+    
     const {data, loading, error} = useFetchData(requestConfig);
     const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);    
 

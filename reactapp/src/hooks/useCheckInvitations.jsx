@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "./UserContext";
 
 const useCheckInvitations = (requestConfig) => {
+    const {user} = useContext(UserContext);
+
     const [requestState, setRequestState] = useState({
         invData: [],
         invLoading: false,
@@ -32,7 +35,10 @@ const useCheckInvitations = (requestConfig) => {
             } 
         };
 
-        fetchData();
+        if(user.auth){
+            fetchData();
+        }
+        
     }, []);
 
     return requestState
