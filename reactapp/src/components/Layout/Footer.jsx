@@ -16,6 +16,8 @@ import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
+import RegisterRunModal from "../RegisterRunModal/RegisterRunModal";
+
 
 const Footer = () => {
     const {user} = useContext(UserContext);
@@ -39,8 +41,18 @@ const Footer = () => {
     
     const buttonSize = { width: 50, height: 50 };
 
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    }
+    const handleCloseModal = () => setOpenModal(false);
+
     return(
         <>
+        <RegisterRunModal open={openModal}
+        close={handleCloseModal} />
+
             <AppBar position="relative" color="primary"
           sx={{top: 'auto', bottom: 0}}>
                 <Toolbar>
@@ -75,7 +87,7 @@ const Footer = () => {
                     </Tooltip>
                     
                     {user.auth ?
-                    <StyledFab href="/register-run" color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
+                    <StyledFab onClick={handleOpenModal} color="secondary" aria-label="add" style={{ width: 80, height: 80 }}>
                         <DirectionsRunRoundedIcon style={buttonSize} />
                     </StyledFab> 
                     :

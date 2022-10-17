@@ -1,10 +1,8 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Modal, Stack, TextField } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../hooks/UserContext";
-import Login from "../Login/Login";
-
 import { sendData } from "../../utils/SendData";
 
 // Post config for axios
@@ -25,7 +23,24 @@ const requiredFieldRule = {
     }
 };
 
-const RegisterRun = () => {
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+const buttonDiv = {
+    display: "flex",
+    gap: "4px"
+};
+
+const RegisterRunModal = (props) => {
     const {user} = useContext(UserContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -41,11 +56,12 @@ const RegisterRun = () => {
             console.log("something went wrong!");
         }
     };
-
-    if (user.auth){
-        return(
-            <>
-            <Box>
+    return(
+        <>
+        <Modal open={props.open}
+        onClose={props.close}>
+        <>
+            <Box sx={style}>
             <form onSubmit={handleSubmit(handleFormSubmission)}
             action={requestConfig.url} method={requestConfig.method}>
             <Stack>
@@ -63,11 +79,9 @@ const RegisterRun = () => {
             </form>
             </Box>
             </>
-        );
-            
-    } else {
-        return( <> <Login /> </>);
-    };
+        </Modal>
+        </>
+    );
 };
 
-export default RegisterRun;
+export default RegisterRunModal;
