@@ -11,6 +11,9 @@ import GlobalUserCard from "../GlobalUserCard/GlobalUserCard";
 import MarathonListInvitationModal from "../MarathonListInvitationModal/MarathonListInvitationModal";
 import UserCard from "../UserCard/UserCard";
 import UserModal from "../UserModal/UserModal";
+import styles from "./GlobalRanking.module.css"
+
+
 
 const GlobalRanking = () => {
     const {user} = useContext(UserContext);

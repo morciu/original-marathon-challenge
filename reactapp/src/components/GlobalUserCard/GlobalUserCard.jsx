@@ -6,10 +6,21 @@ import { Avatar, Card, CardHeader, Icon, LinearProgress, Typography } from "@mui
 import { EmojiEvents } from "@mui/icons-material";
 import { Box } from "@mui/system";
 
+const cardStyle = {
+    fontFamily: "Roboto",
+    display: "flex",
+    alignItems: "center",
+    padding: "2px",
+    minWidth: "298px",
+    height: "68px",
+    borderRadius: "18px",
+    boxShadow: "0 2px 4px 0 rgba(138, 148, 159, 0.2)",
+};
+
 const GlobalUserCard = (props) => {
     
     return(
-        <Card className={styles.card} key={props.item.id} onClick={() => { props.action(props.item) }}>
+        <Card sx={cardStyle} key={props.item.id} onClick={() => { props.action(props.item) }}>
             <div className={styles.avatarContainer}>
                 {
                 (props.list.indexOf(props.item) + (props.pageNumber * props.pageSize) - 4) == 1 ?
@@ -28,7 +39,6 @@ const GlobalUserCard = (props) => {
                         {props.list.indexOf(props.item) + (props.pageNumber * props.pageSize) - 4}
                     </Avatar>
                 }
-                
             </div>
             <Box className={styles.cardInnerContainer}>
                 <Box className={styles.content}>
@@ -42,13 +52,8 @@ const GlobalUserCard = (props) => {
                         </div>
                     </Box>
                     <Box className={styles.rightContent}>
-                        <Typography variant="p">{props.item.medals.length}X</Typography><Icon><EmojiEvents /> </Icon>
+                        <Typography variant="h6">{props.item.medals.length}X</Typography><Icon><EmojiEvents /> </Icon>
                     </Box>
-                    
-                </Box>
-                
-                <Box display={'flex'} alignItems={'center'}>
-                    
                 </Box>
             </Box>
         </Card>
