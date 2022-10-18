@@ -150,5 +150,12 @@ namespace Infrastructure.Repository
 
             return marathons;
         }
+
+        public async Task<List<int>> GetMemberIdList(int marathonId)
+        {
+            var marathon = await _context.Marathons.FindAsync(marathonId);
+            var result = marathon?.Members.Select(m => m.Id).ToList();
+            return result;
+        }
     }
 }

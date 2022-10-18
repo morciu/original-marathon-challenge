@@ -58,15 +58,18 @@ const MarathonListInvitationModal = (props) => {
             <Box sx={style}>
             <Stack spacing={2}>
                 {marathons && marathons.map((item) => (
-                    <>
-                    {item.id > 1 ? 
-                        <Button key={item} variant="contained" 
+                    <div key={item.id}>
+                    {item.memberIdList.includes(props.parent.id) ? 
+                        <Button disabled={true} variant="contained" 
                             onClick={() => {sendInvitation({receiverId: props.parent.id, senderId: user.id, marathonId: item.id})}}>
                                 Start Date: {(new Date(item.startDate)).toDateString()}
                         </Button>
-                         : null
+                         : <Button variant="contained" 
+                         onClick={() => {sendInvitation({receiverId: props.parent.id, senderId: user.id, marathonId: item.id})}}>
+                             Start Date: {(new Date(item.startDate)).toDateString()}
+                     </Button>
                     }
-                    </>
+                    </div>
                     
                 ))}
             </Stack>

@@ -60,6 +60,7 @@ namespace WebAPI.Controllers
             foreach(var marathon in mappedResult.Marathons)
             {
                 marathon.MemberCount = await _mediator.Send(new CountMembersQuery() { Id = marathon.Id });
+                marathon.MemberIdList = await _mediator.Send(new MemberIdListQuery() { Id = marathon.Id });
             }
             mappedResult.TotalTime = await _mediator.Send(new GetTotalTime { Id = id });
 

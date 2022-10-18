@@ -22,6 +22,9 @@ Axios.interceptors.response.use(
             localStorage.clear();
             window.location.reload();
         }
+        if (error.response.status === 400) {
+            window.location.reload();
+        }
         Promise.reject(error);
     }
   )
