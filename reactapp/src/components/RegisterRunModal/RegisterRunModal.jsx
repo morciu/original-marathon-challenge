@@ -75,7 +75,10 @@ const RegisterRunModal = (props) => {
     return(
         <>
         <Modal open={props.open}
-        onClose={props.close}> 
+        onClose={() => {
+            props.close();
+            reset();
+            }}> 
             <Box sx={style}>
             <form onSubmit={handleSubmit(handleFormSubmission)}
             action={requestConfig.url} method={requestConfig.method}>
