@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 import useFetchData from "../../hooks/useFetchData";
 import { sendData } from "../../utils/SendData";
+import PersonIcon from '@mui/icons-material/Person';
 
 const style = {
     position: 'absolute',
@@ -60,17 +61,18 @@ const MarathonListInvitationModal = (props) => {
             <Box sx={style}>
             <Stack spacing={2}>
                 {marathons && marathons.map((item) => (
-                    <div key={item.id}>
+                    <div key={item.id} style={{display: "flex", justifyContent: "space-between"}}>
                     {item.memberIdList.includes(props.parent.id) ? 
                         <Button disabled={true} variant="contained" 
                             onClick={() => {sendInvitation({receiverId: props.parent.id, senderId: user.id, marathonId: item.id})}}>
-                                Start Date: {(new Date(item.startDate)).toDateString()}
+                                Started: {(new Date(item.startDate)).toDateString()}
                         </Button>
                          : <Button variant="contained" 
                          onClick={() => {sendInvitation({receiverId: props.parent.id, senderId: user.id, marathonId: item.id})}}>
-                             Start Date: {(new Date(item.startDate)).toDateString()}
+                             Started: {(new Date(item.startDate)).toDateString()}
                      </Button>
                     }
+                    <Typography variant="p">{item.memberCount}X<PersonIcon /></Typography>
                     </div>
                     
                 ))}

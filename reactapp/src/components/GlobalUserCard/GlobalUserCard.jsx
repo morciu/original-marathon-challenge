@@ -17,6 +17,20 @@ const cardStyle = {
     boxShadow: "0 2px 4px 0 rgba(138, 148, 159, 0.2)",
 };
 
+const headingStyle = {
+    fontSize: "26px",
+    marginBottom: "0",
+    display: "flex",
+    alignItems: "center",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+};
+
+const leftContent = {
+    maxWidth: "75%"
+};
+
 const GlobalUserCard = (props) => {
     
     return(
@@ -42,9 +56,9 @@ const GlobalUserCard = (props) => {
             </div>
             <Box className={styles.cardInnerContainer}>
                 <Box className={styles.content}>
-                    <Box className={styles.leftContent}>
+                    <Box sx={leftContent}>
                         <div className={styles.heading}>
-                            <Typography align="center" variant="h5" className={styles.heading}>{props.item.userName}</Typography>
+                            <Typography noWrap align="center" variant="h5" sx={headingStyle}>{props.item.userName}</Typography>
                         </div>
                         
                         <div className={styles.subHeader}>
