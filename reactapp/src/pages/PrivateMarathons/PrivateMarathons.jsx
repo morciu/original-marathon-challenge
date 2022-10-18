@@ -10,6 +10,17 @@ import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 import MarathonFilters from "../../components/MarathonFilters/MarathonFilters";
 
+const cardStyle = {
+    fontFamily: "Roboto",
+    display: "flex",
+    alignItems: "center",
+    padding: "2px",
+    minWidth: "298px",
+    height: "68px",
+    borderRadius: "18px",
+    boxShadow: "0 2px 4px 0 rgba(138, 148, 159, 0.2)",
+};
+
 const PrivateMarathons = () => {
     const {user} = useContext(UserContext);
 
@@ -91,7 +102,7 @@ const PrivateMarathons = () => {
                 <Stack spacing={2}>
                     <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
                     {data.data && data.data.map((item) => (
-                        <Card key={item.id} component={Link} to={`/marathon/${item.id}`} >
+                        <Card sx={cardStyle} key={item.id} component={Link} to={`/marathon/${item.id}`} >
                             <CardHeader
                                 title={"Members: " + item.memberCount}
                                 subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }

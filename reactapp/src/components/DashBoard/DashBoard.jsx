@@ -29,7 +29,7 @@ const DashBoard = (props) => {
                     </div>
 
                     <div>
-                        <IconButton component={Link} to={`/${user.id}/medals`}><EmojiEventsIcon /></IconButton> X {props.medals.length}
+                        <IconButton component={Link} to={`/${user.id}/medals`}><EmojiEventsIcon /></IconButton><Typography variant="p">{props.medals.length}</Typography> 
                     </div>
                 </div>
                 <Button variant="contained" size="small" color="secondary"
