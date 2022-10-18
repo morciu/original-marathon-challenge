@@ -25,27 +25,27 @@ function App() {
 
   const user = useContext(UserContext);
 
+  const [needsUpdate, setNeedsUpdate] = useState(false);
+
   return (
     <div className="container">
       <Header />
       <div className="main">
         <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home needsUpdate={needsUpdate} setNeedsUpdate={setNeedsUpdate} />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/register-run" element={<RegisterRun />}></Route>
             <Route path="/check-progress" element={<CheckProgress />}></Route>
             <Route path="/private-marathons" element={<PrivateMarathons />}></Route>
             <Route path="/user/:userId" element={<User />}></Route>
             <Route path="/marathon/:marathonId" element={<Marathon />}></Route>
             <Route path="/invitations" element={<Invitations />}></Route>
-            <Route path="/dashboard" element={<DashBoard />}></Route>
             <Route path="/:userId/activities" element={<Activities />}></Route>
             <Route path="/:userId/medals" element={<Medals />}></Route>
             <Route path="/global-ranking" element={<GlobalRanking />}></Route>
         </Routes>
       </div>
-      <Footer />
+      <Footer needsUpdate={needsUpdate} setNeedsUpdate={setNeedsUpdate} />
     </div>
   );
 }

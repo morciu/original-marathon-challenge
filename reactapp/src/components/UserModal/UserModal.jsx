@@ -12,6 +12,7 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    borderRadius: "16px"
   };
 
 const buttonDiv = {
@@ -20,6 +21,8 @@ const buttonDiv = {
 };
 
 const UserModal = (props) => {
+    console.log(props)
+
     return(
         <Modal open={props.open}
                 onClose={props.handleCloseModal}

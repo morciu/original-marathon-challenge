@@ -19,7 +19,7 @@ import { UserContext } from "../../hooks/UserContext";
 import RegisterRunModal from "../RegisterRunModal/RegisterRunModal";
 
 
-const Footer = () => {
+const Footer = (props) => {
     const {user} = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -51,7 +51,7 @@ const Footer = () => {
     return(
         <>
         <RegisterRunModal open={openModal}
-        close={handleCloseModal} />
+        close={handleCloseModal} {...props} />
 
             <AppBar position="relative" color="primary"
           sx={{top: 'auto', bottom: 0}}>

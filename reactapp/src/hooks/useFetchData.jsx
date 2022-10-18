@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Axios from "../utils/axios";
 import { UserContext } from "./UserContext";
 
-const useFetchData = (requestConfig) => {
+const useFetchData = (requestConfig, needsUpdate) => {
     const {user} = useContext(UserContext);
     
     const [requestState, setRequestState] = useState({
@@ -39,7 +39,7 @@ const useFetchData = (requestConfig) => {
             fetchData();
         }
         
-    }, [requestConfig.url]);
+    }, [needsUpdate]);
 
     return requestState
 };

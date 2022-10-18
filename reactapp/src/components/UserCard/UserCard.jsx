@@ -7,6 +7,17 @@ import { EmojiEvents } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
+const cardStyle = {
+    fontFamily: "Roboto",
+    display: "flex",
+    alignItems: "center",
+    padding: "2px",
+    minWidth: "298px",
+    height: "68px",
+    borderRadius: "18px",
+    boxShadow: "0 2px 4px 0 rgba(138, 148, 159, 0.2)",
+};
+
 const UserCard = (props) => {
 
     const goalDistance = 240;
@@ -28,7 +39,7 @@ const UserCard = (props) => {
     }
     
     return(
-        <Card className={styles.card} key={props.item.id} onClick={() => { props.action(props.item) }}>
+        <Card sx={cardStyle} key={props.item.id} onClick={() => { props.action(props.item) }}>
             <div className={styles.avatarContainer}>
                 {
                 (props.list.indexOf(props.item) + (props.pageNumber * props.pageSize) - 4) == 1 ?

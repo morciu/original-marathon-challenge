@@ -196,6 +196,11 @@ namespace WebAPI.Controllers
             }
             var mappedPagedData = _mapper.Map<List<UserGetDto>>(pagedData);
 
+            foreach (var user in mappedPagedData)
+            {
+                user.TotalTime = await _mediator.Send(new GetTotalTime { Id = user.Id });
+            }
+
             var totalRecords = await _mediator.Send(new CountMembersQuery { Id = marathonId });
             var pagedResponse = PaginationHelpers.CreatePagedReponse<UserGetDto>(
                 mappedPagedData, validFilter, totalRecords, _uriService, route);

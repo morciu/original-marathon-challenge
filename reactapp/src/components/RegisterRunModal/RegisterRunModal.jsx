@@ -48,6 +48,7 @@ const buttonDiv = {
 };
 
 const RegisterRunModal = (props) => {
+    console.log(props)
     const {user} = useContext(UserContext);
     const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
 
@@ -69,6 +70,7 @@ const RegisterRunModal = (props) => {
     useEffect(() => {
         if(isSubmitSuccessful){
             reset();
+            props.setNeedsUpdate(!props.needsUpdate)
         }
     });
 
