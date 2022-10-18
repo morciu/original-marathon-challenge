@@ -40,7 +40,7 @@ const Activities = () => {
             </Backdrop>
             <Stack spacing={2}>
                 {data.data && data.data.map((item) => (
-                        <ActivityCard distance={item.distance}
+                        <ActivityCard key={item.id} distance={item.distance}
                         activityId={item.id}
                         time={item.duration}
                         pace={item.pace}

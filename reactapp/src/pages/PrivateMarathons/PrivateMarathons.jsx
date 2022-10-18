@@ -91,14 +91,12 @@ const PrivateMarathons = () => {
                 <Stack spacing={2}>
                     <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
                     {data.data && data.data.map((item) => (
-                        <>
-                        <Card key={item} component={Link} to={`/marathon/${item.id}`} >
+                        <Card key={item.id} component={Link} to={`/marathon/${item.id}`} >
                             <CardHeader
                                 title={"Members: " + item.memberCount}
                                 subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }
                                 />
                         </Card>
-                        </>
                     ))}
                 </Stack>
 
