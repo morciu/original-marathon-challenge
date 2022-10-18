@@ -1,5 +1,6 @@
-import { Box, Button, Modal, Stack, TextField } from "@mui/material";
+import { Box, Button, InputAdornment, Modal, Stack, TextField } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../hooks/UserContext";
@@ -29,10 +30,16 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 300,
+    height: 300,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    borderRadius: "16px"
   };
 
 const buttonDiv = {
@@ -42,13 +49,14 @@ const buttonDiv = {
 
 const RegisterRunModal = (props) => {
     const {user} = useContext(UserContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
 
     const handleFormSubmission = async (submission) => {
         submission.userId = localStorage.id;
         submission.date = new Date();
         requestConfig.payload = submission;
         console.log(requestConfig.payload);
+        console.log(submission)
 
         if (await sendData(requestConfig)){
             console.log("All Good!");
@@ -56,18 +64,26 @@ const RegisterRunModal = (props) => {
             console.log("something went wrong!");
         }
     };
+
+    // Reset form after successful submission
+    useEffect(() => {
+        if(isSubmitSuccessful){
+            reset();
+        }
+    });
+
     return(
         <>
         <Modal open={props.open}
-        onClose={props.close}>
-        <>
+        onClose={props.close}> 
             <Box sx={style}>
             <form onSubmit={handleSubmit(handleFormSubmission)}
             action={requestConfig.url} method={requestConfig.method}>
-            <Stack>
+            <Stack spacing={3}>
                 <TextField type={"number"}
-                    inputProps={{maxLength: 4, step: ".01"}}
-                    variant="filled" label="Distance"
+                    InputProps={{startAdornment: <InputAdornment position="start">km</InputAdornment>}}
+                    inputProps={{ maxLength: 4, step: ".01",  }}
+                    variant="outlined" label="Distance"
                     error={!!errors['distance']}
                     {...register("distance", {...requiredFieldRule})}/>
                 <TextField type={"text"} variant="outlined" label="Time"
@@ -75,10 +91,8 @@ const RegisterRunModal = (props) => {
                     {...register("duration", {...requiredFieldRule})}/>
                 <Button type="submit" variant="contained">Submit</Button>
             </Stack>
-                <Button href="/" variant="contained">Back</Button>
             </form>
-            </Box>
-            </>
+            </Box> 
         </Modal>
         </>
     );

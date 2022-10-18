@@ -12,9 +12,6 @@ const useFetchData = (requestConfig) => {
     });
 
     useEffect(() => {
-        
-
-        
         const fetchData = async () => {
             try {
                 setRequestState({
