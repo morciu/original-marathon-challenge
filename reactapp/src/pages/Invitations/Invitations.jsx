@@ -27,6 +27,7 @@ const Invitations = () => {
             method: "PUT",
         })){
             console.log("all good - invitation accepted")
+            window.location.reload();
         } else {
             console.log("not good")
         }
@@ -39,6 +40,7 @@ const Invitations = () => {
             method: "PUT",
         })){
             console.log("all good - invitation rejected")
+            window.location.reload();
         } else {
             console.log("not good")
         }

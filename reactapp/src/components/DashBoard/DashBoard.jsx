@@ -1,7 +1,7 @@
 import { Avatar, Button, IconButton, Typography } from "@mui/material";
 import React from "react";
 import styles from "./DashBoard.module.css";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import EmailIcon from '@mui/icons-material/Email';
 import TimerIcon from '@mui/icons-material/Timer';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -21,15 +21,15 @@ const DashBoard = (props) => {
             <div className={styles.userHeader}>
                 <div className={styles.userCont}>
                     {props.invitations == true ?
-                    <IconButton component={Link} to="/invitations"><Avatar color={"red"}><NotificationsIcon color="red" /></Avatar></IconButton> :
-                    <IconButton component={Link} to="/invitations"><Avatar><NotificationsIcon /></Avatar></IconButton>}
+                    <IconButton component={Link} to="/invitations"><Avatar color={"red"}><EmailIcon color="red" /></Avatar></IconButton> :
+                    <IconButton component={Link} to="/invitations"><Avatar><EmailIcon /></Avatar></IconButton>}
                     
                     <div>
                         <Typography variant="h5">{props.userName}</Typography>
                     </div>
 
                     <div>
-                        <IconButton component={Link} to={`/${user.id}/medals`}><EmojiEventsIcon /></IconButton><Typography variant="p">{props.medals.length}</Typography> 
+                        <IconButton component={Link} to={`/${user.id}/medals`}><Avatar><EmojiEventsIcon /></Avatar></IconButton><Typography variant="p">{props.medals.length}</Typography> 
                     </div>
                 </div>
                 <Button variant="contained" size="small" color="secondary"

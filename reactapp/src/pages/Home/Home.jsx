@@ -51,7 +51,7 @@ const Home = (props) => {
                     distance={data.data.totalDistance}
                     pace={data.data.averagePace}
                     medals={data.data.medals}
-                    invitations={invData.length != 0} />
+                    invitations={invData.length != 0} {...props}/>
                 }
             </>
         );

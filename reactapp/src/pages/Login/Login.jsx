@@ -25,11 +25,11 @@ const requiredFieldRule = {
     }
 };
 
-const Login = () => {
+const Login = (props) => {
     const {user} = useContext(UserContext)
     // Prepare hooks
     const [showAlert, setShowAlert] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm();
     const { login } = useContext(UserContext);
     const [ userName, setUserName ] = useState();
 
@@ -39,8 +39,14 @@ const Login = () => {
         requestConfig.payload = submission;
         
         await login(requestConfig);
-        setShowAlert(true);
     };
+
+    useEffect(() => {
+        if(isSubmitSuccessful){
+            console.log("logged in")
+            props.setNeedsUpdate(!props.needsUpdate)
+        }
+    });
 
     if(user.auth) { <Navigate to="/home" /> }
     else {

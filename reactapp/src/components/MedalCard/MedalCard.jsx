@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 
 const MedalCard = (props) => {
-    console.log(props.item)
     return(
         <Card className={styles.card}>
             <div className={styles.header}>

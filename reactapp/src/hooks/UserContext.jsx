@@ -41,6 +41,7 @@ const login = async (requestConfig) => {
             token: response.data.token,
             auth: true,
             }));
+        window.location.reload();
     } catch(error) {
         console.log(error)
         localStorage.clear();
