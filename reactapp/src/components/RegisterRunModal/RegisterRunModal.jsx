@@ -48,7 +48,6 @@ const buttonDiv = {
 };
 
 const RegisterRunModal = (props) => {
-    console.log(props)
     const {user} = useContext(UserContext);
     const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
 
@@ -56,8 +55,6 @@ const RegisterRunModal = (props) => {
         submission.userId = localStorage.id;
         submission.date = new Date();
         requestConfig.payload = submission;
-        console.log(requestConfig.payload);
-        console.log(submission)
 
         if (await sendData(requestConfig)){
             console.log("All Good!");

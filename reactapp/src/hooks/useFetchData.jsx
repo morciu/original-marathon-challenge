@@ -39,7 +39,7 @@ const useFetchData = (requestConfig, needsUpdate) => {
             fetchData();
         }
         
-    }, [needsUpdate]);
+    }, [requestConfig.url, needsUpdate]);
 
     return requestState
 };

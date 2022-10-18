@@ -21,7 +21,6 @@ const buttonDiv = {
 };
 
 const UserModal = (props) => {
-    console.log(props)
 
     return(
         <Modal open={props.open}

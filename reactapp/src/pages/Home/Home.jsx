@@ -33,8 +33,6 @@ const Home = (props) => {
     const {data, loading, error} = useFetchData(requestConfig, props.needsUpdate);
     const {invData, invLoading, invError} = useCheckInvitations(requestConfigInvitations);   
 
-    console.log(data)
-
     const [summary, setSummary] = useState({});
 
     if (user.auth){

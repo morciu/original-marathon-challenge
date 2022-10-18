@@ -55,6 +55,7 @@ const ActivityCard = (props) => {
                     Authorization: `Bearer ${localStorage.token}`,
                 },
             });
+            props.setNeedsUpdate(!props.needsUpdate);
         } else {
             console.log("something went wrong!");
         }
@@ -62,7 +63,6 @@ const ActivityCard = (props) => {
 
     const deleteLike = async () => {
         requestConfigRemoveLike.payload = { "senderId":  user.id, "activityId": props.activityId};
-        console.log(requestConfigRemoveLike);
 
         if (await sendData(requestConfigRemoveLike)){
             console.log("All Good!");
@@ -73,12 +73,13 @@ const ActivityCard = (props) => {
                     Authorization: `Bearer ${localStorage.token}`,
                 },
             });
+            props.setNeedsUpdate(!props.needsUpdate);
         } else {
             console.log("something went wrong!");
         }
     };
 
-    const {data, loading, error} = useFetchData(requestConfig);
+    const {data, loading, error} = useFetchData(requestConfig, props.needsUpdate);
     
     return(
         <>

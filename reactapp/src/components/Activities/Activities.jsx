@@ -7,7 +7,7 @@ import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
 import ActivityCard from "../ActivityCard/ActivityCard";
 
-const Activities = () => {
+const Activities = (props) => {
     const {user} = useContext(UserContext);
     const params = useParams();
 
@@ -29,7 +29,7 @@ const Activities = () => {
         });
     };
 
-    const {data, loading, error} = useFetchData(fetchRequest);
+    const {data, loading, error} = useFetchData(fetchRequest, props.needsUpdate);
 
     return(
         <>
@@ -45,7 +45,7 @@ const Activities = () => {
                         time={item.duration}
                         pace={item.pace}
                         date={item.date}
-                        likes={item.likeCount} />
+                        likes={item.likeCount} {...props} />
                     ))}
             </Stack>
             <Pagination count={data.totalPages}

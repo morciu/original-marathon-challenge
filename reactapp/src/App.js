@@ -40,7 +40,7 @@ function App() {
             <Route path="/user/:userId" element={<User />}></Route>
             <Route path="/marathon/:marathonId" element={<Marathon />}></Route>
             <Route path="/invitations" element={<Invitations />}></Route>
-            <Route path="/:userId/activities" element={<Activities />}></Route>
+            <Route path="/:userId/activities" element={<Activities needsUpdate={needsUpdate} setNeedsUpdate={setNeedsUpdate} />}></Route>
             <Route path="/:userId/medals" element={<Medals />}></Route>
             <Route path="/global-ranking" element={<GlobalRanking />}></Route>
         </Routes>
