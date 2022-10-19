@@ -26,6 +26,7 @@ const requiredFieldRule = {
 };
 
 const Login = (props) => {
+    const navigate = useNavigate();
     const {user} = useContext(UserContext)
     // Prepare hooks
     const [showAlert, setShowAlert] = useState(false);
@@ -38,50 +39,44 @@ const Login = (props) => {
         localStorage.clear();
         requestConfig.payload = submission;
         
-        await login(requestConfig);
-    };
-
-    useEffect(() => {
-        if(isSubmitSuccessful){
-            console.log("logged in")
-            props.setNeedsUpdate(!props.needsUpdate)
+        if(await login(requestConfig)){
+            navigate("/");
+            console.log("all good")
+        } else {
+            console.log("something went wrong")
         }
-    });
+    };
+    return(
+        <>
+        {showAlert && (
+            <div style={{position: "absolute", top: 0}}>
+                <Alert>Submission Successfull!</Alert>
+            </div>
+        )}
+        <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}
+            action={requestConfig.url} method={requestConfig.method}>
+            <TextField 
+                type="text"
+                error={!!errors['userName']}
+                helperText={errors["userName"]?.message}
+                {...register("userName", {...requiredFieldRule})}
+                label="User Name" variant="outlined" />
+            
+            <TextField
+                type="password"
+                error={!!errors['password']}
+                helperText={errors["password"]?.message}
+                {...register("password", {...requiredFieldRule})}
+                label="Password" variant="outlined" />            
+            
 
-    if(user.auth) { <Navigate to="/home" /> }
-    else {
-        return(
-            <>
-            {showAlert && (
-                <div style={{position: "absolute", top: 0}}>
-                    <Alert>Submission Successfull!</Alert>
-                </div>
-            )}
-            <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}
-                action={requestConfig.url} method={requestConfig.method}>
-                <TextField 
-                    type="text"
-                    error={!!errors['userName']}
-                    helperText={errors["userName"]?.message}
-                    {...register("userName", {...requiredFieldRule})}
-                    label="User Name" variant="outlined" />
-                
-                <TextField
-                    type="password"
-                    error={!!errors['password']}
-                    helperText={errors["password"]?.message}
-                    {...register("password", {...requiredFieldRule})}
-                    label="Password" variant="outlined" />            
-                
-    
-                <Button type="submit" variant="contained">Log In</Button>
-                <Button variant="contained" href="/register" 
-                startIcon={<AppRegistrationRoundedIcon />}>
-                    Register</Button>
-            </form>
-            </>
-        )
-    }
+            <Button type="submit" variant="contained">Log In</Button>
+            <Button variant="contained" href="/register" 
+            startIcon={<AppRegistrationRoundedIcon />}>
+                Register</Button>
+        </form>
+        </>
+    )
 };
 
 export default Login;

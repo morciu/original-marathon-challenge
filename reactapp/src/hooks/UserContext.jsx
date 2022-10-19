@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, useState } from "react";
-import axios from "axios";
+import Axios from "../utils/axios";
 
 // Initiate Context
 export const UserContext = createContext({
@@ -22,7 +22,7 @@ const [user, setUser] = useState({
 // Login function
 const login = async (requestConfig) => {
     try {
-        const response = await axios({
+        const response = await Axios({
             method: requestConfig.method,
             url: requestConfig.url,
             data: requestConfig.payload,
@@ -41,10 +41,11 @@ const login = async (requestConfig) => {
             token: response.data.token,
             auth: true,
             }));
-        window.location.reload();
+        return true;
     } catch(error) {
         console.log(error)
         localStorage.clear();
+        return false;
     }
 };
 

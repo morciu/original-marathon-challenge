@@ -38,12 +38,12 @@ const Register = () =>{
 
         if (await sendData(requestConfig)){
             setRegistered(true)
+            navigate("/login");
         } else {
             console.log("something went wrong!");
         }
     };
 
-    if(registered) { return(<Login />); }
     return(
         <>
         {showAlert && (
