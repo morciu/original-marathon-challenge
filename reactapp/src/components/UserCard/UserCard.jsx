@@ -19,7 +19,6 @@ const cardStyle = {
 };
 
 const UserCard = (props) => {
-
     const goalDistance = 240;
 
     const claculateDistance = (totalDistance) => {

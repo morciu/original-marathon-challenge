@@ -124,7 +124,7 @@ namespace WebAPI.Controllers
             {
                 RunnerId = activity.UserId,
                 Distance = activity.Distance,
-                Date = activity.Date,
+                Date = DateTime.Now,
                 Duration = activity.Duration,
             });
 

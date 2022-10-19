@@ -21,7 +21,7 @@ namespace Application.Activities.CommandHandlers
         public async Task<Activity> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.UserRepository.GetUser(request.RunnerId);
-            var activity = new Activity { UserId = request.RunnerId, Distance = request.Distance, Date = request.Date, Duration = request.Duration, User = user };
+            var activity = new Activity { UserId = request.RunnerId, Distance = request.Distance, Date = DateTime.Now, Duration = request.Duration, User = user };
             activity.Pace = activity.CalculatePace(activity.Distance, activity.Duration);
 
             await _unitOfWork.ActivityRepository.CreateActivity(activity);

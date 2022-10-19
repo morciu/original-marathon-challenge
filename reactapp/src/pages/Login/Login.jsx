@@ -42,16 +42,16 @@ const Login = (props) => {
         if(await login(requestConfig)){
             navigate("/");
             console.log("all good")
+            setShowAlert(false)
         } else {
             console.log("something went wrong")
+            setShowAlert(true)
         }
     };
     return(
         <>
         {showAlert && (
-            <div style={{position: "absolute", top: 0}}>
-                <Alert>Submission Successfull!</Alert>
-            </div>
+            <Alert sx={{position: "absolute", top: 0}} severity="error">Invalid Login!</Alert>
         )}
         <form className={styles.loginContainer} onSubmit={handleSubmit(handleFormSubmission)}
             action={requestConfig.url} method={requestConfig.method}>

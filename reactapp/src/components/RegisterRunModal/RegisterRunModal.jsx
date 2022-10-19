@@ -53,7 +53,6 @@ const RegisterRunModal = (props) => {
 
     const handleFormSubmission = async (submission) => {
         submission.userId = localStorage.id;
-        submission.date = new Date();
         requestConfig.payload = submission;
 
         if (await sendData(requestConfig)){
