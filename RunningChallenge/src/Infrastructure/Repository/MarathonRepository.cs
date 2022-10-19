@@ -56,7 +56,7 @@ namespace Infrastructure.Repository
                 .Include(m => m.Members)
                 .ThenInclude(m => m.Marathons)
                 .SelectMany(m => m.Members)
-                .OrderByDescending(m => m.Activities
+                .OrderByDescending(m => m.Activities.Where(a => a.Date >= marathon.StartDate)
                     .Select(a => a.Distance)
                     .Sum())
                 .Skip((pageNr - 1) * pageSize)
