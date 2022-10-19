@@ -29,7 +29,7 @@ const DashBoard = (props) => {
                     </div>
 
                     <div>
-                        <IconButton component={Link} to={`/${user.id}/medals`}><Avatar><EmojiEventsIcon /></Avatar></IconButton><Typography variant="p">{props.medals.length}</Typography> 
+                        <IconButton component={Link} to={`/${user.id}/medals`}><Avatar sx={{backgroundColor: "#f2af29"}}><EmojiEventsIcon /></Avatar></IconButton><Typography variant="p">{props.medals.length}</Typography> 
                     </div>
                 </div>
                 <Button variant="contained" size="small" color="secondary"
@@ -38,7 +38,7 @@ const DashBoard = (props) => {
 
             <Box className={styles.summary}>
                 <div className={styles.time}>
-                    <IconButton><Avatar><TimerIcon /></Avatar></IconButton>
+                    <IconButton><Avatar sx={{backgroundColor: "#92140c"}}><TimerIcon /></Avatar></IconButton>
                     <>
                     {props.time.length > 8 ? 
                     <>
@@ -51,11 +51,11 @@ const DashBoard = (props) => {
                     
                 </div>
                 <div className={styles.distance}>
-                    <IconButton><Avatar><DirectionsRunIcon /></Avatar></IconButton>
+                    <IconButton><Avatar sx={{backgroundColor: "#111D4A"}}><DirectionsRunIcon /></Avatar></IconButton>
                     <Typography variant="h6">Total Distance: {props.distance} km</Typography>
                 </div>
                 <div className={styles.pace}>
-                    <IconButton><Avatar><SpeedIcon /></Avatar></IconButton>
+                    <IconButton><Avatar sx={{backgroundColor: "#4B624B"}}><SpeedIcon /></Avatar></IconButton>
                     <Typography variant="h6">Avg Pace: {props.pace.slice(3)} min/km</Typography>
                 </div>
             </Box>
