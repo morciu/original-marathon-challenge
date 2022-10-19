@@ -92,7 +92,15 @@ const PrivateMarathons = () => {
     if (user.auth){
         if(data.data?.length < 1) {
             return(
+                <>
+                <MarathonFilters
+                        currentFilter={filter}
+                        all={() => {filterMarathons("all")}}
+                        active={() => {filterMarathons("active")}}
+                        finished={() => {filterMarathons("finished")}} />
+
                 <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
+                </>
             );
         }
         else {
