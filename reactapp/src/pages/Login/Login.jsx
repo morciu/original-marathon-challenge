@@ -50,13 +50,6 @@ const Login = (props) => {
         }
     };
 
-    // Reset form after successful submission
-    useEffect(() => {
-        if(isSubmitSuccessful){
-            props.setNeedsUpdate(!props.needsUpdate)
-        }
-    });
-
     return(
         <>
         {showAlert && (

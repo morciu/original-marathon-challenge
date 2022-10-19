@@ -39,7 +39,7 @@ const useCheckInvitations = (requestConfig) => {
             fetchData();
         }
         
-    }, []);
+    }, [user]);
 
     return requestState
 };
