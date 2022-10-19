@@ -24,6 +24,8 @@ const cardStyle = {
 const PrivateMarathons = () => {
     const {user} = useContext(UserContext);
 
+    const [needsUpdate, setNeedsUpdate] = useState(false);
+
     // Filter state
     const [filter, setFilter] = useState("active");
 
@@ -62,9 +64,12 @@ const PrivateMarathons = () => {
         method: "POST",
     };
 
-    const newPrivateMarathon = () => { sendData(postConfig) }
+    const newPrivateMarathon = () => { 
+        sendData(postConfig);
+        setNeedsUpdate(!needsUpdate);
+    };
 
-    const {data, loading, error} = useFetchData(requestConfig);
+    const {data, loading, error} = useFetchData(requestConfig, needsUpdate);
 
     const updateFetchUrl = (page, filterWord) => {
         return `marathon/marathons-with-player/${localStorage.id}?PageNumber=${page}&PageSize=4&filterWord=${filter}`;
@@ -85,38 +90,44 @@ const PrivateMarathons = () => {
     };
 
     if (user.auth){
-        return(
-            <>
-                <MarathonFilters
-                    currentFilter={filter}
-                    all={() => {filterMarathons("all")}}
-                    active={() => {filterMarathons("active")}}
-                    finished={() => {filterMarathons("finished")}} />
-
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open={loading}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-
-                <Stack spacing={2}>
-                    <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
-                    {data.data && data.data.map((item) => (
-                        <Card sx={cardStyle} key={item.id} component={Link} to={`/marathon/${item.id}`} >
-                            <CardHeader
-                                title={"Members: " + item.memberCount}
-                                subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }
-                                />
-                        </Card>
-                    ))}
-                </Stack>
-
-                <Pagination 
-                    count={data.totalPages}
-                    onChange={selectPage}></Pagination>
-            </>
-        );
-            
+        if(data.data?.length < 1) {
+            return(
+                <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
+            );
+        }
+        else {
+            return(
+                <>
+                    <MarathonFilters
+                        currentFilter={filter}
+                        all={() => {filterMarathons("all")}}
+                        active={() => {filterMarathons("active")}}
+                        finished={() => {filterMarathons("finished")}} />
+    
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={loading}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+    
+                    <Stack spacing={2}>
+                        <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
+                        {data.data && data.data.map((item) => (
+                            <Card sx={cardStyle} key={item.id} component={Link} to={`/marathon/${item.id}`} >
+                                <CardHeader
+                                    title={"Members: " + item.memberCount}
+                                    subheader={"Started on: "+ (new Date(item.startDate)).toDateString() }
+                                    />
+                            </Card>
+                        ))}
+                    </Stack>
+    
+                    <Pagination 
+                        count={data.totalPages}
+                        onChange={selectPage}></Pagination>
+                </>
+            );
+        }
     } else {
         return( <> <Login /> </>);
     }
