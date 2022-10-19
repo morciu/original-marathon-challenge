@@ -9,31 +9,40 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
-import {logout} from "../../utils/Logout"
 import { useContext } from "react";
 import { UserContext } from "../../hooks/UserContext";
 
+const userHeaderStyle = {
+    display: "grid",
+    gridTemplateRows: "1fr 1fr",
+    alignItems: "center",
+    width: "80%",
+};
+
+const userContStyle = {
+    display: "flex",
+    alignItems: "center",
+};
 
 const DashBoard = (props) => {
     const {user} = useContext(UserContext);
     return(
         <div className={styles.container}>
-            <div className={styles.userHeader}>
-                <div className={styles.userCont}>
+            <div>
+                <div style={userHeaderStyle}>
+                    <div style={{display: "flex", alignItems: "center"}}>
                     {props.invitations == true ?
                     <IconButton component={Link} to="/invitations"><Avatar color={"red"}><EmailIcon color="red" /></Avatar></IconButton> :
                     <IconButton component={Link} to="/invitations"><Avatar><EmailIcon /></Avatar></IconButton>}
                     
-                    <div>
+                    
                         <Typography variant="h5">{props.userName}</Typography>
                     </div>
 
-                    <div>
-                        <IconButton component={Link} to={`/${user.id}/medals`}><Avatar sx={{backgroundColor: "#f2af29"}}><EmojiEventsIcon /></Avatar></IconButton><Typography variant="p">{props.medals.length}</Typography> 
+                    <div style={{display: "flex", alignItems: "center"}}>
+                        <IconButton component={Link} to={`/${user.id}/medals`}><Avatar sx={{backgroundColor: "#f2af29"}}><EmojiEventsIcon /></Avatar></IconButton><Typography variant="h6">{props.medals.length}</Typography> 
                     </div>
                 </div>
-                <Button variant="contained" size="small" color="secondary"
-                onClick={logout}>Logout</Button>
             </div>
 
             <Box className={styles.summary}>
