@@ -39,15 +39,24 @@ const DashBoard = (props) => {
             <Box className={styles.summary}>
                 <div className={styles.time}>
                     <IconButton><Avatar><TimerIcon /></Avatar></IconButton>
-                    <Typography variant="h5">Total Time: {props.time}</Typography>
+                    <>
+                    {props.time.length > 8 ? 
+                    <>
+                            {props.time[1] == "." ?
+                                <Typography variant="h6">Total Time: {props.time[0]} days {props.time.slice(-8)}</Typography>
+                                : 
+                                <Typography variant="h6">Total Time: {props.time.slice(0, 2)} days {props.time.slice(-8)}</Typography>}</>
+                        : 
+                        <Typography variant="h6">Total Time: {props.time} {props.time.length}</Typography>}</>
+                    
                 </div>
                 <div className={styles.distance}>
                     <IconButton><Avatar><DirectionsRunIcon /></Avatar></IconButton>
-                    <Typography variant="h5">Total Distance: {props.distance} km</Typography>
+                    <Typography variant="h6">Total Distance: {props.distance} km</Typography>
                 </div>
                 <div className={styles.pace}>
                     <IconButton><Avatar><SpeedIcon /></Avatar></IconButton>
-                    <Typography variant="h5">Avg Pace: {props.pace.slice(3)} min/km</Typography>
+                    <Typography variant="h6">Avg Pace: {props.pace.slice(3)} min/km</Typography>
                 </div>
             </Box>
 

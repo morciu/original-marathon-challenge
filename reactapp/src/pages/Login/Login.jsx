@@ -26,7 +26,6 @@ const requiredFieldRule = {
 };
 
 const Login = (props) => {
-    console.log(props)
     const navigate = useNavigate();
     const {user} = useContext(UserContext)
     // Prepare hooks

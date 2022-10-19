@@ -39,7 +39,6 @@ const Marathon = () => {
     });
 
     const {data, loading, error} = useFetchData(requestConfig);
-    console.log(data)
 
     const fetchProgress = async () => {
         const response = await axios({
