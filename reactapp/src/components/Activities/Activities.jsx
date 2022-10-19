@@ -7,6 +7,8 @@ import useFetchData from "../../hooks/useFetchData";
 import { UserContext } from "../../hooks/UserContext";
 import ActivityCard from "../ActivityCard/ActivityCard";
 
+
+
 const Activities = (props) => {
     const {user} = useContext(UserContext);
     const params = useParams();

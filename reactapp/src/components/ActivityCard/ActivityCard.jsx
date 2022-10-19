@@ -8,6 +8,10 @@ import useFetchData from "../../hooks/useFetchData";
 import { sendData } from "../../utils/SendData";
 import { useState } from "react";
 
+const summaryItem = {
+    display: "grid",
+    alignItems: "center"
+};
 
 const ActivityCard = (props) => {
     const {user} = useContext(UserContext);
@@ -99,15 +103,15 @@ const ActivityCard = (props) => {
                 </div>
 
                 <div className={styles.summary}>
-                    <div className={styles.distanceContainer}>
+                    <div style={summaryItem}>
                         <Typography variant="p">Distance</Typography>
                         <Typography variant="p">{props.distance}km</Typography>
                     </div>
-                    <div className={styles.timeContainer}>
+                    <div style={summaryItem}>
                         <Typography variant="p">Time</Typography>
                         <Typography variant="p">{props.time}</Typography>
                     </div>
-                    <div className={styles.paceContainer}>
+                    <div style={summaryItem}>
                         <Typography variant="p">Pace</Typography>
                         <Typography variant="p">{props.pace.slice(3)}</Typography>
                     </div>
