@@ -82,3 +82,12 @@ a:-webkit-any-link {
   text-decoration: none;
   color: inherit;
 }
+
+@media (max-width:629px) {
+  img#aboutPhoto {
+    display: none;
+  }
+  #aboutText {
+    font-size: 15px;
+  }
+}

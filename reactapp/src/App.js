@@ -20,6 +20,7 @@ import DashBoard from "./components/DashBoard/DashBoard";
 import Activities from "./components/Activities/Activities";
 import Medals from "./pages/Medals/Medals";
 import GlobalRanking from "./components/GlobalRanking/GlobalRanking";
+import About from "./pages/About/About";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             <Route path="/:userId/activities" element={<Activities needsUpdate={needsUpdate} setNeedsUpdate={setNeedsUpdate} />}></Route>
             <Route path="/:userId/medals" element={<Medals />}></Route>
             <Route path="/global-ranking" element={<GlobalRanking />}></Route>
+            <Route path="/about" element={<About />}></Route>
         </Routes>
       </div>
       <Footer needsUpdate={needsUpdate} setNeedsUpdate={setNeedsUpdate} />

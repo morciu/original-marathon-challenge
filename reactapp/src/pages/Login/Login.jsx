@@ -26,6 +26,7 @@ const requiredFieldRule = {
 };
 
 const Login = (props) => {
+    console.log(props)
     const navigate = useNavigate();
     const {user} = useContext(UserContext)
     // Prepare hooks
@@ -48,6 +49,14 @@ const Login = (props) => {
             setShowAlert(true)
         }
     };
+
+    // Reset form after successful submission
+    useEffect(() => {
+        if(isSubmitSuccessful){
+            props.setNeedsUpdate(!props.needsUpdate)
+        }
+    });
+
     return(
         <>
         {showAlert && (

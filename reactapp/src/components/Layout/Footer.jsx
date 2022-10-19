@@ -78,6 +78,7 @@ const Footer = (props) => {
                         }}>
                             <MenuItem component={Link} to="/register">Register</MenuItem>
                             <MenuItem component={Link} to="/login">Change User</MenuItem>
+                            <MenuItem component={Link} to="/about">About</MenuItem>
                     </Menu>
                     <Tooltip title={<Typography variant="h5">Global Ranking</Typography>}>
                         {user.auth ? 
