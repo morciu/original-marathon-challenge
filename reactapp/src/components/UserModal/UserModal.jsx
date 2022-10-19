@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../hooks/UserContext";
 
 const style = {
     position: 'absolute',
@@ -21,6 +23,7 @@ const buttonDiv = {
 };
 
 const UserModal = (props) => {
+    const {user} = useContext(UserContext);
 
     return(
         <Modal open={props.open}
@@ -42,7 +45,8 @@ const UserModal = (props) => {
                 <div style={buttonDiv}>
                     {!!props.modalObject.activities?.length && 
                         <Button variant="contained" component={Link} to={`/${props.userId}/activities`}>Check Runs</Button>}
-                    <Button variant="contained" onClick={props.action2}>Invite to challenge</Button>
+                    {props.modalObject.id != user.id && 
+                    <Button variant="contained" onClick={props.action2}>Invite to challenge</Button>}
                 </div>
             </Box>
         </Modal>
