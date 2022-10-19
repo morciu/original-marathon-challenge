@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress, Pagination } from "@mui/material";
+import { Backdrop, CircularProgress, Pagination, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import { useState } from "react";
@@ -30,6 +30,14 @@ const Activities = (props) => {
     };
 
     const {data, loading, error} = useFetchData(fetchRequest, props.needsUpdate);
+    if(data.data?.length < 1) {
+        return(
+            <div>
+                <Typography variant="h6">No running activities registered yet.</Typography>
+                <Typography align="center" variant="h6">Go for a run!</Typography>
+            </div>
+        );
+    }
 
     return(
         <>
