@@ -99,7 +99,7 @@ const PrivateMarathons = () => {
                         active={() => {filterMarathons("active")}}
                         finished={() => {filterMarathons("finished")}} />
 
-                <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
+                <Button variant="contained" onClick={newPrivateMarathon}>Start a Running Challenge</Button>
                 </>
             );
         }
@@ -119,7 +119,7 @@ const PrivateMarathons = () => {
                     </Backdrop>
     
                     <Stack spacing={2}>
-                        <Button variant="contained" onClick={newPrivateMarathon}>Start a Private Marathon</Button>
+                        <Button variant="contained" onClick={newPrivateMarathon}>Start a Running Challenge</Button>
                         {data.data && data.data.map((item) => (
                             <Card sx={cardStyle} key={item.id} component={Link} to={`/marathon/${item.id}`} >
                                 <CardHeader

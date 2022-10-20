@@ -87,7 +87,7 @@ const RegisterRunModal = (props) => {
                     variant="outlined" label="Distance"
                     error={!!errors['distance']}
                     {...register("distance", {...requiredFieldRule})}/>
-                <TextField type={"text"} variant="outlined" label="Time"
+                <TextField type={"text"} variant="outlined" label="Time hh:mm:ss"
                     error={!!errors['duration']}
                     {...register("duration", {...requiredFieldRule})}/>
                 <Button type="submit" variant="contained">Submit</Button>

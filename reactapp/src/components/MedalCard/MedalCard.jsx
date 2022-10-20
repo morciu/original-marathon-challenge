@@ -4,8 +4,7 @@ import styles from "./MedalCard.module.css";
 import TimerIcon from '@mui/icons-material/Timer';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import { Link } from "react-router-dom";
-
-
+import SpeedIcon from '@mui/icons-material/Speed';
 
 
 const MedalCard = (props) => {
@@ -17,15 +16,15 @@ const MedalCard = (props) => {
             
             <div className={styles.summary}>
                 <div>
-                    <Avatar><TimerIcon /></Avatar>
+                    <Avatar sx={{backgroundColor: "#92140c"}}><TimerIcon /></Avatar>
                     <Typography variant="p">{props.item.time}</Typography></div>
                 <div>
-                    <Avatar><DirectionsRunIcon /></Avatar>
+                    <Avatar Avatar sx={{backgroundColor: "#4B624B"}}><SpeedIcon /></Avatar>
                     <Typography variant="p">{(props.item.pace).slice(3)}</Typography>
                 </div>
             </div>
             <CardActionArea className={styles.button}>
-                <Button component={Link} to={`/marathon/${props.item.marathonId}`}>
+                <Button sx={{display: "flex", justifyContent: "center"}} component={Link} to={`/marathon/${props.item.marathonId}`}>
                     <Typography variant="p">Check Event</Typography>
                 </Button>
             </CardActionArea>

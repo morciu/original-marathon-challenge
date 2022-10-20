@@ -56,7 +56,7 @@ const DashBoard = (props) => {
                                 : 
                                 <Typography variant="h6">Total Time: {props.time.slice(0, 2)} days {props.time.slice(-8)}</Typography>}</>
                         : 
-                        <Typography variant="h6">Total Time: {props.time} {props.time.length}</Typography>}</>
+                        <Typography variant="h6">Total Time: {props.time}</Typography>}</>
                     
                 </div>
                 <div className={styles.distance}>
@@ -70,7 +70,7 @@ const DashBoard = (props) => {
             </Box>
 
             <div className={styles.activitiesButton}>
-                <Button variant="contained" component={Link} to={`/${user.id}/activities`}>All Activities</Button>
+                <Button variant="contained" component={Link} to={`/${user.id}/activities`}>See all your runs</Button>
             </div>
         </div>
     );

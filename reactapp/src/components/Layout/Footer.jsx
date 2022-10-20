@@ -77,7 +77,6 @@ const Footer = (props) => {
                             horizontal: 'left'
                         }}>
                             <MenuItem component={Link} to="/register">Register</MenuItem>
-                            <MenuItem component={Link} to="/login">Change User</MenuItem>
                             <MenuItem component={Link} to="/about">About</MenuItem>
                     </Menu>
                     <Tooltip title={<Typography variant="h5">Global Ranking</Typography>}>
@@ -97,7 +96,7 @@ const Footer = (props) => {
                     </StyledFab>}
 
                     <Box sx={{ flexGrow: 1 }} />
-                    <Tooltip title={<Typography variant="h5">Private Marathons</Typography>}>
+                    <Tooltip title={<Typography variant="h5">Running Challenges</Typography>}>
                         {user.auth ? 
                         <IconButton component={Link} to="/private-marathons"><Groups2TwoToneIcon style={buttonSize}/></IconButton>
                         :
